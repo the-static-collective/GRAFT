@@ -10,10 +10,10 @@ GRAFT receives **reviewed, clean-history source cuts** from independent projects
 
 | Donor project | GRAFT branch | State | Source |
 |---|---|---|---|
-| Jubilee Campfire | [`graft/circle`](../../tree/graft/circle) | STAGING / HOLD | [circle (private origin)](https://github.com/the-static-collective/circle) |
-| Household participation | [`graft/gramfork`](../../tree/graft/gramfork) | STAGING / HOLD | [gramfork (private origin)](https://github.com/the-static-collective/gramfork) |
-| Collaborative music | [`graft/groove-rooms`](../../tree/graft/groove-rooms) | STAGING / HOLD | [groove-rooms (private origin)](https://github.com/the-static-collective/groove-rooms) |
-| Living creative workspace | [`graft/idea-grove`](../../tree/graft/idea-grove) | STAGING / HOLD | [idea-grove (private origin)](https://github.com/the-static-collective/idea-grove) |
+| Jubilee Campfire | [`graft/circle`](https://github.com/the-static-collective/GRAFT/tree/graft/circle) | STAGING / HOLD | [circle (private origin)](https://github.com/the-static-collective/circle) |
+| Household participation | [`graft/gramfork`](https://github.com/the-static-collective/GRAFT/tree/graft/gramfork) | STAGING / HOLD | [gramfork (private origin)](https://github.com/the-static-collective/gramfork) |
+| Collaborative music | [`graft/groove-rooms`](https://github.com/the-static-collective/GRAFT/tree/graft/groove-rooms) | STAGING / HOLD | [groove-rooms (private origin)](https://github.com/the-static-collective/groove-rooms) |
+| Living creative workspace | [`graft/idea-grove`](https://github.com/the-static-collective/GRAFT/tree/graft/idea-grove) | STAGING / HOLD | [idea-grove (private origin)](https://github.com/the-static-collective/idea-grove) |
 
 ## All 17 private-donor intake slots registered (2026-10-22)
 
