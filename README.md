@@ -6,7 +6,7 @@
 
 GRAFT receives **reviewed, clean-history source cuts** from independent projects. Each source gets its **own branch**, where its executable code can remain independent. The `main` branch is only the public directory, rules, and return paths.
 
-## The first four branches
+## First-wave publication candidates (4 of 17)
 
 | Donor project | GRAFT branch | State | Source |
 |---|---|---|---|
@@ -14,6 +14,28 @@ GRAFT receives **reviewed, clean-history source cuts** from independent projects
 | Household participation | [`graft/gramfork`](../../tree/graft/gramfork) | STAGING / HOLD | [gramfork (private origin)](https://github.com/the-static-collective/gramfork) |
 | Collaborative music | [`graft/groove-rooms`](../../tree/graft/groove-rooms) | STAGING / HOLD | [groove-rooms (private origin)](https://github.com/the-static-collective/groove-rooms) |
 | Living creative workspace | [`graft/idea-grove`](../../tree/graft/idea-grove) | STAGING / HOLD | [idea-grove (private origin)](https://github.com/the-static-collective/idea-grove) |
+
+## All 17 private-donor intake slots registered (2026-10-22)
+
+The original private inventory has **17 entries**. Four are first-wave reviews above, and **the other 13 now have their own public GRAFT branch manifest**:
+
+| Donor | Branch | Status | Origin |
+|---|---|---|---|
+| garden-whisperer | [`graft/garden-whisperer`](https://github.com/the-static-collective/GRAFT/tree/graft/garden-whisperer) | REGISTERED / HOLD | [original (private)](https://github.com/the-static-collective/garden-whisperer) |
+| JubileeV.1 | [`graft/JubileeV.1`](https://github.com/the-static-collective/GRAFT/tree/graft/JubileeV.1) | REGISTERED / HOLD | [original (private)](https://github.com/the-static-collective/JubileeV.1) |
+| autodisco-video-receipt | [`graft/autodisco-video-receipt`](https://github.com/the-static-collective/GRAFT/tree/graft/autodisco-video-receipt) | REGISTERED / HOLD | [original (private)](https://github.com/the-static-collective/autodisco-video-receipt) |
+| RRS | [`graft/RRS`](https://github.com/the-static-collective/GRAFT/tree/graft/RRS) | REGISTERED / HOLD | [original (private)](https://github.com/the-static-collective/RRS) |
+| RRS-1- | [`graft/RRS-1-`](https://github.com/the-static-collective/GRAFT/tree/graft/RRS-1-) | REGISTERED / HOLD | [original (private)](https://github.com/the-static-collective/RRS-1-) |
+| formation-trace | [`graft/formation-trace`](https://github.com/the-static-collective/GRAFT/tree/graft/formation-trace) | REGISTERED / HOLD | [original (private)](https://github.com/the-static-collective/formation-trace) |
+| Corpus-OS-Local-Intake-Implementation | [`graft/Corpus-OS-Local-Intake-Implementation`](https://github.com/the-static-collective/GRAFT/tree/graft/Corpus-OS-Local-Intake-Implementation) | REGISTERED / HOLD | [original (private)](https://github.com/the-static-collective/Corpus-OS-Local-Intake-Implementation) |
+| fork-EXCLAIM | [`graft/fork-EXCLAIM`](https://github.com/the-static-collective/GRAFT/tree/graft/fork-EXCLAIM) | REGISTERED / HOLD | [original (private)](https://github.com/the-static-collective/fork-EXCLAIM) |
+| jubilee-workspace | [`graft/jubilee-workspace`](https://github.com/the-static-collective/GRAFT/tree/graft/jubilee-workspace) | REGISTERED / HOLD | [original (private)](https://github.com/the-static-collective/jubilee-workspace) |
+| DerekDerrikDark | [`graft/DerekDerrikDark`](https://github.com/the-static-collective/GRAFT/tree/graft/DerekDerrikDark) | REGISTERED / HOLD | [original (private)](https://github.com/the-static-collective/DerekDerrikDark) |
+| MEMENTO | [`graft/MEMENTO`](https://github.com/the-static-collective/GRAFT/tree/graft/MEMENTO) | REGISTERED / HOLD | [original (private)](https://github.com/the-static-collective/MEMENTO) |
+| King-sCup | [`graft/King-sCup`](https://github.com/the-static-collective/GRAFT/tree/graft/King-sCup) | REGISTERED / HOLD | [original (private)](https://github.com/the-static-collective/King-sCup) |
+| black-star | [`graft/black-star`](https://github.com/the-static-collective/GRAFT/tree/graft/black-star) | REGISTERED / HOLD | [original (private)](https://github.com/the-static-collective/black-star) |
+
+**A registered branch currently contains a donor manifest, not the original application's code or private history.** This distinction is intentional: source import into GRAFT is instantly public. Every public-source transplant is separately checked. One observed donor (`autodisco-video-receipt`) had an empty original Git repository during intake.
 
 **These branches are not published-source releases yet.** They initially carry only safety/status manifests; no private application source is imported automatically.
 
