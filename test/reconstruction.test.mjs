@@ -9,14 +9,13 @@ const mementoRoot = process.env.GRAFT_MEMENTO_ROOT;
 if (!blackstarRoot || !mementoRoot) throw Error(
   "Native integration tests require GRAFT_BLACKSTAR_ROOT and GRAFT_MEMENTO_ROOT pinned donor checkouts."
 );
-function call(name, options = []) {
+function call(name, overrides = {}) {
   return spawnSync(process.execPath, [
     join(root, "src", "reconstruct.mjs"),
     "--cut", join(root, "fixtures", name),
-    "--world", "same-room-a0",
-    "--blackstar-root", blackstarRoot,
-    "--memento-root", mementoRoot,
-    ...options,
+    "--world", overrides.world || "same-room-a0",
+    "--blackstar-root", overrides.blackstarRoot || blackstarRoot,
+    "--memento-root", overrides.mementoRoot || mementoRoot,
   ], {encoding:"utf8", timeout:40000});
 }
 test("native Black Star -> native MEMENTO -> GRAFT proposal, with no admission", () => {
@@ -44,13 +43,13 @@ test("future discovery cannot pass an earlier Black Star cut", () => {
   assert.match(r.stderr, /BLACK_STAR_VALIDATION_REFUSED/);
 });
 test("unknown historical world refuses instead of fabricating context", () => {
-  const r = call("early-cut.json", ["--world", "unknown-imaginary-world"]);
+  const r = call("early-cut.json", { world: "unknown-imaginary-world" });
   assert.notEqual(r.status, 0);
   assert.equal(r.stdout, "");
   assert.match(r.stderr, /MEMENTO_CONTEXT_REFUSED/);
 });
 test("cannot claim the adapter checkout is a native source", () => {
-  const r = call("early-cut.json", ["--blackstar-root", root]);
+  const r = call("early-cut.json", { blackstarRoot: root });
   assert.notEqual(r.status, 0);
   assert.equal(r.stdout, "");
   assert.match(r.stderr, /BLACK_STAR_SOURCE_REF_MISMATCH/);
