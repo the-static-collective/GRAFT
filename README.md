@@ -6,6 +6,14 @@
 
 GRAFT receives **reviewed, clean-history source cuts** from independent projects. Each source gets its **own branch**, where its executable code can remain independent. The `main` branch is only the public directory, rules, and return paths.
 
+## LIVE-WORK-002 — Fresh public-source research and actual printable output (2026-10-25)
+
+**[Open source implementation](https://github.com/the-static-collective/GRAFT/tree/graft/jarvis-live-research-work-002)** · **[Successful CI and downloadable grocery packet](https://github.com/the-static-collective/GRAFT/actions/runs/40196851943)**
+
+The six pinned original runtimes are joined by an on-demand **GitHub public-source scout** that rereads current branch heads, fetches Markdown at exact source SHAs, records byte hashes and changed refs, and discovers additional topic-relevant branches. The local executor creates a **printable NEED / OFFER / BUILD / RETURN kit**, a work-plan JSON and a machine-readable hash receipt in an explicitly chosen new directory. A CI run completed a real authenticated GitHub public-read scout (11 tracked source documents and 3 previously unregistered branch leads), assembled the sample grocery kit, and uploaded it as a workflow artifact.
+
+**Verified:** 8 research/work-unit tests + 10 original ATTEND tests + 12 reconstruction/graph tests + 45 upstream Free Graph tests, all passed. No field contact, real project execution, website deployment, live partner confirmation, credential release, or CANNON admission occurred. Current source *observations* are not universal current project state or owner canon. See [LIVE-WORK-002 notes](https://github.com/the-static-collective/GRAFT/blob/graft/jarvis-live-research-work-002/docs/LIVE-WORK-002.md).
+
 ## ATTEND-001 · JAR;VIS × Free Graph × planZ × CANNON (2026-10-25)
 
 The [source-attendant integration](https://github.com/the-static-collective/GRAFT/tree/graft/jarvis-cannon-planz-001) now composes **six pinned native code sources**: Black Star, MEMENTO, Free Graph, original JAR;VIS, planZ PhaseLift, and CANNON Canon Field. A local question receives an attributable graph cut, matching **historical** plan-board candidates, and an independently pin-verifiable (or explicitly UNKNOWN) CANNON selection view. No branch tip is treated as canon. JAR;VIS's fictional need/offer fixtures are **not** imported as community facts.
