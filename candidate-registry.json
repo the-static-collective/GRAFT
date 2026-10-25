@@ -117,7 +117,7 @@
       "id": "jarvis-cannon-planz-001",
       "branch": "graft/jarvis-cannon-planz-001",
       "status": "NATIVE_SOURCE_ATTENDANT_TESTED_READ_ONLY",
-      "graft_commit": "08dc172245bb5684bc44d2f7e208e0f5ae0812b0",
+      "graft_commit": "73944d911e8fabb600533eb4e6b848b61ca49508",
       "native_source_refs": {
         "blackstar": "08f42f769f9590d78b85c8d84358e1791d5bd318",
         "memento": "22a5714f25c7be59bac37b3ab691c28c1f036845",
@@ -130,16 +130,38 @@
       "entrypoint": "src/attend.mjs",
       "plan_snapshot": "phaselift/board.json",
       "canon_selection": "unknown_without_external_owner_key_pins",
-      "ci_url": "https://github.com/the-static-collective/GRAFT/actions/runs/40194870355",
+      "ci_url": "https://github.com/the-static-collective/GRAFT/actions/runs/40195384213",
       "tests": {
-        "new_attendant": 8,
+        "new_attendant": 10,
         "earlier_reconstruction_and_graph": 12,
-        "native_free_graph": 45
+        "native_free_graph": 45,
+        "offline_viewer_js_syntax": "pass"
       },
       "authorizes_effects": false,
       "network": false,
-      "source_currentness": "pinned_historical_synthetic_graph_and_2026_10_19_planz_board",
-      "deployment": false
+      "source_currentness": "pinned synthetic MEMENTO specimen, PhaseLift snapshot 2026-10-19 and draft/held planZ proposals 2026-10-21",
+      "deployment": false,
+      "pinned_proposal_shards": [
+        {
+          "repo": "the-static-collective/planZ",
+          "sha": "d0bcdf7d9fc40eef59deed560057c8579a69cb2a",
+          "state": "DRAFT_HELD_NOT_CANON",
+          "topic": "Garden"
+        },
+        {
+          "repo": "the-static-collective/planZ",
+          "sha": "e57b227242d64d4e485540f6406ec63d21407e3c",
+          "state": "PROPOSAL_NOT_CANON",
+          "topic": "Common Table Waseca"
+        },
+        {
+          "repo": "the-static-collective/planZ",
+          "sha": "1ec9a4043b150296e0d90796fae5e5cc02ba3dcc",
+          "state": "PROPOSED_HELD",
+          "topic": "Abundent Field"
+        }
+      ],
+      "offline_attendant_viewer": "attendant/index.html"
     }
   ]
 }
