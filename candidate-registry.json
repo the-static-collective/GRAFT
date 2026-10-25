@@ -167,7 +167,7 @@
       "id": "jarvis-live-work-002",
       "branch": "graft/jarvis-live-research-work-002",
       "status": "PUBLIC_GITHUB_RESEARCH_AND_LOCAL_ARTIFACT_EXECUTION_VERIFIED",
-      "graft_commit": "812edfcd8c8e545d7af38f53a5fefe59c431a321",
+      "graft_commit": "aa3984d2dbdf949996639b029ca0d95ab6c290e5",
       "historical_parent": "graft/jarvis-cannon-planz-001",
       "modules": [
         "src/live-scout.mjs",
@@ -187,10 +187,11 @@
         "work-plan.json",
         "work-receipt.json"
       ],
-      "ci_url": "https://github.com/the-static-collective/GRAFT/actions/runs/40196851943",
+      "ci_url": "https://github.com/the-static-collective/GRAFT/actions/runs/40197376332",
       "ci_artifact_name": "graft-live-work-002-grocery-kit",
-      "ci_artifact_id": 12600108060,
+      "ci_artifact_id": 12600477796,
       "tests": {
+        "local_desk": 4,
         "research_and_local_work": 8,
         "attend_regression": 10,
         "graph_reconstruction_regression": 12,
@@ -201,7 +202,10 @@
       "external_effects": false,
       "automatic_publication": false,
       "keys_in_repo": false,
-      "website_deployed": false
+      "website_deployed": false,
+      "local_question_desk": "live/index.html",
+      "local_server": "src/serve-live.mjs",
+      "tested_gate": "host_and_origin_and_payload_and_single_use_receipt"
     }
   ]
 }
