@@ -1,3 +1,19 @@
+# GRAFT · ATTEND-001 — JAR;VIS × Free Graph × CANNON × planZ
+
+**Source-grounded, read-only local JAR;VIS routing** built on the already verified Black Star → MEMENTO → GRAFT → Free Graph bridge. This is an experimental **six-native-head** composition, not a deployed Ask JAR;VIS site.
+
+Run the [source-attendant CLI](src/attend.mjs) with a question and pinned checkouts. It:
+
+1. Gets a native Free Graph reconstruction packet.
+2. Imports the **original JAR;VIS** Jar and doors, but does not treat its fictional fixtures as real users.
+3. Imports **original planZ** PhaseLift board checks and returns only attributable, time-bounded *review candidates*.
+4. Imports **original CANNON** Canon Field verifier. Without externally selected trust pins, canon state stays UNKNOWN, not falsely EMPTY.
+5. Reports a bounded next step with **HOLD**, no authorization, no network calls, and no side effects.
+
+See [ATTEND-001 contract](docs/ATTEND-001.md) for exact pins, commands, native boundaries and next work.
+
+---
+
 # GRAFT × RECONSTRUCTION × FREE GRAPH · 001
 
 The working historical reconstruction now has a **navigable, content-addressed Free Graph projection** built from **three pinned original runtimes**.

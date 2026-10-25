@@ -1,0 +1,80 @@
+name: GRAFT JARVIS PlanZ CANNON source-attendant
+on:
+  push:
+    branches:
+      - graft/jarvis-cannon-planz-001
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  pinned-native-integrations:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Checkout Black Star original-code graft
+        uses: actions/checkout@v4
+        with:
+          repository: the-static-collective/GRAFT
+          ref: 08f42f769f9590d78b85c8d84358e1791d5bd318
+          path: donors/black-star
+          persist-credentials: false
+      - name: Checkout MEMENTO original-code graft
+        uses: actions/checkout@v4
+        with:
+          repository: the-static-collective/GRAFT
+          ref: 22a5714f25c7be59bac37b3ab691c28c1f036845
+          path: donors/memento
+          persist-credentials: false
+      - name: Checkout Free Graph source
+        uses: actions/checkout@v4
+        with:
+          repository: the-static-collective/free-graph
+          ref: ec0ad8743c5faac3f3675760bbafcbcb1df846c1
+          path: donors/free-graph
+          persist-credentials: false
+      - name: Checkout JAR;VIS source
+        uses: actions/checkout@v4
+        with:
+          repository: the-static-collective/JAR-VIS
+          ref: 35b3843c13ab1994efc913724b1db08ce79bdeed
+          path: donors/jarvis
+          persist-credentials: false
+      - name: Checkout CANNON original Canon Field 001
+        uses: actions/checkout@v4
+        with:
+          repository: the-static-collective/CANNON
+          ref: 453cf70c820a114423811cecdc70b4ec06f2675b
+          path: donors/cannon
+          persist-credentials: false
+      - name: Checkout planZ PhaseLift snapshot
+        uses: actions/checkout@v4
+        with:
+          repository: the-static-collective/planZ
+          ref: 52183eafe0daf311582c6016b37805ae24ef4ec6
+          path: donors/planz
+          persist-credentials: false
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Native JARVIS PlanZ CANNON source-grounded routing
+        run: node --test test/attend.test.mjs
+        env:
+          GRAFT_BLACKSTAR_ROOT: ${{ github.workspace }}/donors/black-star
+          GRAFT_MEMENTO_ROOT: ${{ github.workspace }}/donors/memento
+          GRAFT_FREEGRAPH_ROOT: ${{ github.workspace }}/donors/free-graph
+          GRAFT_JARVIS_ROOT: ${{ github.workspace }}/donors/jarvis
+          GRAFT_CANNON_ROOT: ${{ github.workspace }}/donors/cannon
+          GRAFT_PLANZ_ROOT: ${{ github.workspace }}/donors/planz
+      - name: Original graph and reconstruction regression tests
+        run: node --test test/reconstruction.test.mjs test/free-graph.test.mjs
+        env:
+          GRAFT_BLACKSTAR_ROOT: ${{ github.workspace }}/donors/black-star
+          GRAFT_MEMENTO_ROOT: ${{ github.workspace }}/donors/memento
+          GRAFT_FREEGRAPH_ROOT: ${{ github.workspace }}/donors/free-graph
+      - name: Native Free Graph and browser source checks
+        run: |
+          python3 -m unittest discover -s donors/free-graph/tests -v
+          node --check explorer/app.js
