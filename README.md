@@ -1,95 +1,47 @@
-# GRAFT
-**The Static Collective — public-source nursery and graft station**
+# GRAFT / RECONSTRUCTION-001
 
-> A source can donate an organ without surrendering its history.
-> A branch is a place to examine it, not a declaration that it is ready to ship.
+**Runnable, source-pinned adapter: original Black Star → original MEMENTO → GRAFT proposal receipt.**
 
-GRAFT receives **reviewed, clean-history source cuts** from independent projects. Each source gets its **own branch**, where its executable code can remain independent. The `main` branch is only the public directory, rules, and return paths.
+This is a **third independent application branch**. It does not merge donor application branches into GRAFT `main`; it checks out two original-code branches as read-only separate tools and runs their **native code**. No network service, database, private archive or account is needed.
 
-## Two native donor-source imports (2026-10-25)
+## What actually happens
 
-With owner authorization, GRAFT now contains **selected original runnable code** from both private donors, under **new clean GRAFT commits**. Neither original repository's visibility or Git history was changed. Keys and source-evidence collections were not imported.
+1. **Black Star**: original Python `blackstar validate-cut` checks that a candidate observer cut obeys its knowledge horizon, required explicit fields, and source-contact boundaries. A failure stops the chain.
+2. **MEMENTO**: original Node `compile-context-pack.mjs` retrieves world context. This can include **proposed**, explicitly unadmitted relations; GRAFT does not silently upgrade them.
+3. **GRAFT**: wraps the two native receipts into an attributable, content-hash-addressed **PROPOSE_ONLY** handoff. No original source text, personal narrative, keys, file paths, or raw carrier bytes are included in the receipt.
 
-| Public branch | Original source files | CI | State |
-| --- | ---: | --- | --- |
-| [`graft/MEMENTO`](https://github.com/the-static-collective/GRAFT/tree/graft/MEMENTO) | **21 files** — native Node/UNDERSTORY/Historical Imaginations modules, native tests and specimens | [Node 22: passed](https://github.com/the-static-collective/GRAFT/actions/runs/40190057330) | **ORIGINAL CODE IMPORTED / VERIFIED SUBSET** |
-| [`graft/black-star`](https://github.com/the-static-collective/GRAFT/tree/graft/black-star) | **53 files** — full native `blackstar` Python package, synthetic fixtures, selected native tests/docs/packaging | [Python 3.11 & 3.12: passed](https://github.com/the-static-collective/GRAFT/actions/runs/40190328514) | **ORIGINAL CODE IMPORTED / VERIFIED SUBSET** |
+`VALID CUT != VERIFIED EVENT`  
+`RETRIEVED RELATION != ADMITTED RELATION`  
+`PROPOSED HANDOFF != MEMENTO LEDGER WRITE`
 
-Previous independent *GRAFT synthetic demos* remain in each branch for comparison but are **not** the actual source imports. These are public code branches, not private data mirrors, deployments or cross-project authority grants. See [native-source import receipts](docs/NATIVE-SOURCE-IMPORTS.md) and [earlier synthetic-candidate stage](docs/SYNTHETIC-CANDIDATES.md).
+## Reproduce locally
 
-## First-wave publication candidates (4 of 17)
+Requires Node.js 20+, Python 3.11+, and Git. Check out two sibling branches of **the same public GRAFT repo** to separate directories, **at the fixed commits below**:
 
-| Donor project | GRAFT branch | State | Source |
-|---|---|---|---|
-| Jubilee Campfire | [`graft/circle`](https://github.com/the-static-collective/GRAFT/tree/graft/circle) | STAGING / HOLD | [circle (private origin)](https://github.com/the-static-collective/circle) |
-| Household participation | [`graft/gramfork`](https://github.com/the-static-collective/GRAFT/tree/graft/gramfork) | STAGING / HOLD | [gramfork (private origin)](https://github.com/the-static-collective/gramfork) |
-| Collaborative music | [`graft/groove-rooms`](https://github.com/the-static-collective/GRAFT/tree/graft/groove-rooms) | STAGING / HOLD | [groove-rooms (private origin)](https://github.com/the-static-collective/groove-rooms) |
-| Living creative workspace | [`graft/idea-grove`](https://github.com/the-static-collective/GRAFT/tree/graft/idea-grove) | STAGING / HOLD | [idea-grove (private origin)](https://github.com/the-static-collective/idea-grove) |
+- `graft/black-star` at `08f42f769f9590d78b85c8d84358e1791d5bd318`
+- `graft/MEMENTO` at `22a5714f25c7be59bac37b3ab691c28c1f036845`
 
-## All 17 private-donor intake slots registered (2026-10-22)
+Example, from this branch root (assuming those two checkouts are under `donors/`):
 
-The original private inventory has **17 entries**. Four are first-wave reviews above, and **the other 13 now have their own public GRAFT branch manifest**:
+```bash
+node src/reconstruct.mjs \
+  --cut fixtures/early-cut.json \
+  --world same-room-a0 --depth 1 \
+  --blackstar-root donors/black-star \
+  --memento-root donors/memento \
+  --python python3
 
-| Donor | Branch | Status | Origin |
-|---|---|---|---|
-| garden-whisperer | [`graft/garden-whisperer`](https://github.com/the-static-collective/GRAFT/tree/graft/garden-whisperer) | REGISTERED / HOLD | [original (private)](https://github.com/the-static-collective/garden-whisperer) |
-| JubileeV.1 | [`graft/JubileeV.1`](https://github.com/the-static-collective/GRAFT/tree/graft/JubileeV.1) | REGISTERED / HOLD | [original (private)](https://github.com/the-static-collective/JubileeV.1) |
-| autodisco-video-receipt | [`graft/autodisco-video-receipt`](https://github.com/the-static-collective/GRAFT/tree/graft/autodisco-video-receipt) | REGISTERED / HOLD | [original (private)](https://github.com/the-static-collective/autodisco-video-receipt) |
-| RRS | [`graft/RRS`](https://github.com/the-static-collective/GRAFT/tree/graft/RRS) | REGISTERED / HOLD | [original (private)](https://github.com/the-static-collective/RRS) |
-| RRS-1- | [`graft/RRS-1-`](https://github.com/the-static-collective/GRAFT/tree/graft/RRS-1-) | REGISTERED / HOLD | [original (private)](https://github.com/the-static-collective/RRS-1-) |
-| formation-trace | [`graft/formation-trace`](https://github.com/the-static-collective/GRAFT/tree/graft/formation-trace) | REGISTERED / HOLD | [original (private)](https://github.com/the-static-collective/formation-trace) |
-| Corpus-OS-Local-Intake-Implementation | [`graft/Corpus-OS-Local-Intake-Implementation`](https://github.com/the-static-collective/GRAFT/tree/graft/Corpus-OS-Local-Intake-Implementation) | REGISTERED / HOLD | [original (private)](https://github.com/the-static-collective/Corpus-OS-Local-Intake-Implementation) |
-| fork-EXCLAIM | [`graft/fork-EXCLAIM`](https://github.com/the-static-collective/GRAFT/tree/graft/fork-EXCLAIM) | REGISTERED / HOLD | [original (private)](https://github.com/the-static-collective/fork-EXCLAIM) |
-| jubilee-workspace | [`graft/jubilee-workspace`](https://github.com/the-static-collective/GRAFT/tree/graft/jubilee-workspace) | REGISTERED / HOLD | [original (private)](https://github.com/the-static-collective/jubilee-workspace) |
-| DerekDerrikDark | [`graft/DerekDerrikDark`](https://github.com/the-static-collective/GRAFT/tree/graft/DerekDerrikDark) | REGISTERED / HOLD | [original (private)](https://github.com/the-static-collective/DerekDerrikDark) |
-| MEMENTO | [`graft/MEMENTO`](https://github.com/the-static-collective/GRAFT/tree/graft/MEMENTO) | NATIVE CODE / VERIFIED SUBSET | [original (private)](https://github.com/the-static-collective/MEMENTO) |
-| King-sCup | [`graft/King-sCup`](https://github.com/the-static-collective/GRAFT/tree/graft/King-sCup) | REGISTERED / HOLD | [original (private)](https://github.com/the-static-collective/King-sCup) |
-| black-star | [`graft/black-star`](https://github.com/the-static-collective/GRAFT/tree/graft/black-star) | NATIVE CODE / VERIFIED SUBSET | [original (private)](https://github.com/the-static-collective/black-star) |
-
-**Intake-only branches contain safety manifests and no imported original application code.** MEMENTO and black-star are the exceptions: they now contain **selected original source files** with clean GRAFT history, plus the earlier synthetic demos. Remaining originals are unchanged. GRAFT is public in all branches; secrets and raw evidentiary records must not cross by default. One observed donor (`autodisco-video-receipt`) had an empty original Git repository at intake.
-
-**Native-code imported != complete original application != deployed service.** Any future original source transplant gets a separate file-selection and credential review. Work requiring private external data stays in its owning context.
-
-## A branch is an independent application
-
-At `graft/<donor>`, a reviewed import can place the donor's **standalone project files at the branch root**. Its build/test/deploy path stays its own. **Do not merge application branches into `main`**; that would combine unrelated project files. Main remains the index and review contracts.
-
-This design differs from a monorepo: most source on nondefault branches is less discoverable, GitHub branch visibility is public, and a branch has **no confidentiality boundary**. Anyone may read commits on this public repository. Only safe materials may cross.
-
-## Import ceremony
-
-1. **Identify** origin repo, exact source ref and SHA, intended scope, source owner, license and provenance.
-2. **Select** an exact clean source tree. Do not import original private Git history, credentials, stored records, or unconsented third-party materials.
-3. **Check** history, environment/config, private/test fixtures, scripts, licenses, dependency risk, backend privilege boundaries, built assets and real-person references. Rotate any active leaked credentials **before** open release.
-4. **Verify** source build/tests and independent authorization/denial paths in a disposable environment. Record exact evidence and unknowns; do not substitute documentation for execution.
-5. **Import** reviewed files from the selected source cut into a donor branch as **new clean GRAFT commits**, without copying private source history. A donor branch need not share a build with another.
-6. **Mark** the import as CANDIDATE / VERIFIED / PUBLIC-SOURCE-RELEASE with an attributable human publication decision. `COMMITTED != TESTED != LICENSED != DEPLOYED`.
-7. **Return** a source receipt to its original project and link the branch from this index.
-
-Do not conflate source public visibility with live backend permission, data export, consent, licensing or deployment.
-
-## GRAFT laws
-
-```text
-DONOR != CONSUMED
-IMPORT != MERGE
-BRANCH != SECURITY BOUNDARY
-SOURCE REVIEW != RUNTIME PROOF
-PUBLIC SOURCE != PUBLIC DATA
-PROPOSAL != ADMISSION
-ORIGINAL HISTORY != CLEAN PUBLIC IMPORT
+GRAFT_BLACKSTAR_ROOT=donors/black-star \
+GRAFT_MEMENTO_ROOT=donors/memento \
+node --test test/*.test.mjs
 ```
 
-The original private projects remain their own sources of truth. GRAFT makes an independently inspectable, publishable **descendant**, not a covert transfer of personal history or authority. 
+CI automatically checks out the exact donor commits and tests a successful native integration, an invalid future-dated cut, an absent world, wrong checkout provenance, and determinism.
 
-## Status (original intake 2026-10-22; updated 2026-10-25)
+## What isn't done
 
-- This is a **public index + prepublication staging surface**, not a production integration.
-- No original private repository has had its visibility changed.
-- The first four donor reviews are partial. No source code is declared safe to publish based solely on the initial sweep.
-- `circle` has a private [sanitization proposal](https://github.com/the-static-collective/circle/pull/1), but its original Git history still contains old demo-account text. A clean-history import is required.
-- `gramfork`, `groove-rooms`, `idea-grove` have tracked `.env` files carrying project IDs, URLs and publishable-style Supabase keys. These are not evidence of secret service-role exposure, but complete-history and backend review still remain.
+This **does not** implement MEMENTO's human ADMIT/REFUSE/FOG gate, publish an event finding, save a world, write a source card, or ship a community-facing web app. That requires a separately authorized write pathway. Raw inputs remain caller-local. Consult [contract](docs/RECONSTRUCTION-CONTRACT.md).
 
-The larger family of private donor projects can enter later as **separate reviewed branches**, rather than exposing all private material in one bulk push.
+## Source references
 
-See the [living Git wiki proposal](https://github.com/the-static-collective/What-is-the-static-collective-/pull/100) for the broader ecology. 
+[Black Star original code](https://github.com/the-static-collective/GRAFT/tree/graft/black-star) · [MEMENTO original code](https://github.com/the-static-collective/GRAFT/tree/graft/MEMENTO) · [GRAFT index](https://github.com/the-static-collective/GRAFT).

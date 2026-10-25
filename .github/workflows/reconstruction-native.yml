@@ -1,0 +1,42 @@
+name: GRAFT reconstruction native handoff
+on:
+  push:
+    branches:
+      - graft/reconstruction-001
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  native-integration:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout adapter branch
+        uses: actions/checkout@v4
+      - name: Checkout pinned Black Star native source
+        uses: actions/checkout@v4
+        with:
+          repository: the-static-collective/GRAFT
+          ref: 08f42f769f9590d78b85c8d84358e1791d5bd318
+          path: donors/black-star
+          persist-credentials: false
+      - name: Checkout pinned MEMENTO native source
+        uses: actions/checkout@v4
+        with:
+          repository: the-static-collective/GRAFT
+          ref: 22a5714f25c7be59bac37b3ab691c28c1f036845
+          path: donors/memento
+          persist-credentials: false
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Native end-to-end and hostile-boundary tests
+        run: node --test test/*.test.mjs
+        env:
+          GRAFT_BLACKSTAR_ROOT: ${{ github.workspace }}/donors/black-star
+          GRAFT_MEMENTO_ROOT: ${{ github.workspace }}/donors/memento
+      - name: Show bounded synthetic receipt
+        run: |
+          node src/reconstruct.mjs --cut fixtures/early-cut.json --world same-room-a0 --depth 1 --blackstar-root donors/black-star --memento-root donors/memento

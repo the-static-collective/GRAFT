@@ -1,0 +1,21 @@
+{
+  "cut_id": "fictional-garden-early-cut",
+  "observer": "synthetic-reviewer",
+  "focus": "fictional garden message",
+  "knowledge_horizon": "2026-01-02T00:00:00Z",
+  "carriers": [
+    {
+      "carrier_id": "fixture-card-a",
+      "source_ref": "specimen:fixture-card-a",
+      "discovered_at": "2026-01-01T12:00:00Z",
+      "contact": true
+    }
+  ],
+  "decoder": "ordinary-reading",
+  "stance": "unresolved",
+  "projection": null,
+  "withheld": [],
+  "counterpressure": [],
+  "fog": [],
+  "authority": "projection_only"
+}
