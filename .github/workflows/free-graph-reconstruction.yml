@@ -53,6 +53,8 @@ jobs:
           GRAFT_BLACKSTAR_ROOT: ${{ github.workspace }}/donors/black-star
           GRAFT_MEMENTO_ROOT: ${{ github.workspace }}/donors/memento
           GRAFT_FREEGRAPH_ROOT: ${{ github.workspace }}/donors/free-graph
+      - name: Verify offline graph explorer source syntax
+        run: node --check explorer/app.js
       - name: Validate upstream Free Graph specimen and original native tests
         run: |
           python3 donors/free-graph/scripts/fg.py validate donors/free-graph/specimens/wav-space-v0.public.json
