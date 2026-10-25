@@ -12,7 +12,7 @@ import json
 import re
 import sys
 
-from scripts.fg_core import validate_packet
+from scripts.fg_core import packet_id, validate_packet
 from scripts.fg_ops import neighbors, rehash_packet
 
 SOURCE_REFS = {
@@ -207,6 +207,8 @@ def main():
     if len(matching) != 1:
         fail("UNKNOWN_FOCUS_WORLD")
     projected = neighbors(packet, matching[0]["id"], depth)
+    # Native neighbors returns an unstamped projection; stamp with native packet_id.
+    projected["packet_id"] = packet_id(projected)
     if validate_packet(projected):
         fail("FREE_GRAPH_NEIGHBORS_INVALID")
     output = {
