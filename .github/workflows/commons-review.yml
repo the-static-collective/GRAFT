@@ -1,0 +1,31 @@
+name: GRAFT public Commons candidate review
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: '23 8 * * *'
+  push:
+    branches: [main]
+    paths:
+      - 'candidate-registry.json'
+      - 'commons-feed.json'
+      - 'scripts/commons-review-queue.mjs'
+permissions:
+  contents: read
+jobs:
+  source-diff-only:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683
+        with:
+          persist-credentials: false
+      - name: Unit tests for nonpublishing review queue
+        run: node --test test/commons-feed.test.mjs
+      - name: Propose source changes to review; never publish
+        run: node scripts/commons-review-queue.mjs > commons-review-queue.json
+      - name: Upload safe public-source candidate queue
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
+        with:
+          name: graft-commons-review-queue
+          path: commons-review-queue.json
+          retention-days: 7
