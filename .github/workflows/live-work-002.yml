@@ -80,6 +80,11 @@ jobs:
       - uses: actions/setup-python@v5
         with:
           python-version: '3.11'
+      - name: Test loopback research UI and no-external-effects boundaries
+        run: |
+          node --test test/local-research-desk.test.mjs
+          node --check src/serve-live.mjs
+          node --check live/app.js
       - name: Test current-source discovery, source guards and useful-work local executor
         run: node --test test/live-work.test.mjs
       - name: Demonstrate actual public research and generate a printable kit

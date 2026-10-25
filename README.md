@@ -5,6 +5,7 @@
 - [Current-source scout](src/live-scout.mjs): re-checks current public branch HEADs, reads source bytes at those SHA cuts, discovers new branch leads and reports unknowns.
 - [Useful-work engine](src/work-kit.mjs): creates printable cards and a hash-receipted local work packet; it does not recruit, publish or execute field operations.
 - [One entrypoint](src/jarvis-initiative.mjs): native six-head context + current source observations + explicit local artifact generation.
+- [Local question-and-action browser](live/index.html): backed by [loopback server](src/serve-live.mjs); permits human-triggered live research and a one-use printable kit download. Requires source checkouts; **not publicly deployed**.
 - [Contract and commands](docs/LIVE-WORK-002.md).
 
 **Not yet:** unrestricted web research, live owner/project status across every branch, a persistent backend, Abundent deployment, contact with volunteers, or automated authorized external actions. A generated kit is real local work, not completed community service.
