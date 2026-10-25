@@ -65,5 +65,26 @@
       "branch": "graft/black-star",
       "entry": "src/blackstar_graft.py"
     }
+  ],
+  "adapters": [
+    {
+      "id": "reconstruction-001",
+      "branch": "graft/reconstruction-001",
+      "status": "NATIVE_COMPOSITION_TESTED_READ_ONLY",
+      "graft_commit": "87db43b9bd818696728976e9baea44c96d5816fb",
+      "native_source_refs": {
+        "blackstar": "08f42f769f9590d78b85c8d84358e1791d5bd318",
+        "memento": "22a5714f25c7be59bac37b3ab691c28c1f036845"
+      },
+      "contract": "docs/RECONSTRUCTION-CONTRACT.md",
+      "entrypoint": "src/reconstruct.mjs",
+      "test": "node --test test/*.test.mjs",
+      "tests_passing": 5,
+      "ci_url": "https://github.com/the-static-collective/GRAFT/actions/runs/40192807313",
+      "source_material": "synthetic_fixtures_only",
+      "effects": "none",
+      "admission": "none",
+      "deployment": false
+    }
   ]
 }

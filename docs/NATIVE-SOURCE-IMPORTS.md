@@ -29,3 +29,7 @@ The original donor's `test_ghostcut.py`, CLI selftest and source index checks de
 A proposed compatibility adapter could consume only Black Star's synthetic observer-cut **validation receipt** and hand an attributable reference to MEMENTO's own candidate/gate interface. That would require a separate contract test and no silent `ADMIT`. The present two imports **do not yet operate as an integrated service**.
 
 Machine registry: [candidate-registry.json](../candidate-registry.json).
+
+## Live native interoperability seam · RECONSTRUCTION-001 (2026-10-25)
+
+The independent [`graft/reconstruction-001` branch](https://github.com/the-static-collective/GRAFT/tree/graft/reconstruction-001) composes the two native imports at **exact pinned commit SHAs**. It checks a Black Star observer cut, compiles MEMENTO historical context and produces a GRAFT read-only proposal receipt with `authority:none`. It does not open a MEMENTO ADMIT gate or persist a memory. Its [CI run passed five integration tests](https://github.com/the-static-collective/GRAFT/actions/runs/40192807313), including horizon refusal, unknown-world refusal, source checkout identity and determinism. No deployment or live data processing is claimed.

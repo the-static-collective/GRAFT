@@ -6,6 +6,12 @@
 
 GRAFT receives **reviewed, clean-history source cuts** from independent projects. Each source gets its **own branch**, where its executable code can remain independent. The `main` branch is only the public directory, rules, and return paths.
 
+## RECONSTRUCTION-001 — native cross-project handoff (2026-10-25)
+
+**[Open the executable bridge](https://github.com/the-static-collective/GRAFT/tree/graft/reconstruction-001)** · **[GitHub Actions: 5/5 passing](https://github.com/the-static-collective/GRAFT/actions/runs/40192807313)**
+
+A third independent GRAFT branch now composes actual, **commit-pinned** Black Star and MEMENTO native binaries. It first validates a time-bounded observer cut using original Black Star Python, then retrieves MEMENTO's original addressed-world context with its Node compiler, and finally issues a GRAFT `graft.reconstruction-receipt/v1` **PROPOSE_ONLY** envelope. It carries source hashes and relation statuses, never raw source content or automatic admission. The integration runs locally or in CI; it is **not** a public website, hosted service, MEMENTO ledger write or event verdict.
+
 ## Two native donor-source imports (2026-10-25)
 
 With owner authorization, GRAFT now contains **selected original runnable code** from both private donors, under **new clean GRAFT commits**. Neither original repository's visibility or Git history was changed. Keys and source-evidence collections were not imported.
