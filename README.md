@@ -45,3 +45,15 @@ CI checks out all three exact code refs and exercises both the earlier reconstru
 The emitted packet deliberately has `task_world_cut.status=unresolved`, modes `re-enter`/`seed`, and no `constitutes` edges. That is because a reconstructable historical relation **is not an owner-current decision**. This is a CLI/JSON navigation substrate, **not yet an interactive website, a local community deployment or a stored shared graph**.
 
 Raw user inputs do not enter GitHub. Sources are digest-only redacted by default, and no keys are imported. A real-world output file should be treated as locally held information until reviewed; node IDs and source digests can be sensitive even when source text is withheld.
+
+## Inspect the result visually, offline
+
+Open [`explorer/index.html`](explorer/index.html) in your browser and select the JSON file emitted by the CLI:
+
+```bash
+node src/free-graph.mjs --cut fixtures/early-cut.json --world same-room-a0 \
+ --blackstar-root donors/black-star --memento-root donors/memento \
+ --freegraph-root donors/free-graph > graph.json
+```
+
+The bundled no-dependency explorer draws the **actual explicit edges** and allows node-by-node traversal, search, a bounded/full projection switch, and a detail panel showing source/edge authority. It does **not** fetch remote data, keep an account or independently revalidate the content hashes; the native kernel and CI perform the validation. It is **local browser UI**, not a publicly hosted Abundent deployment.
