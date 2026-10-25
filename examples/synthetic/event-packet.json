@@ -1,0 +1,40 @@
+{
+  "event_id": "EVENT-SYNTH-001",
+  "time_window": {
+    "start": "2026-01-01T12:00:00-06:00",
+    "end": "2026-01-01T12:00:10-06:00",
+    "timezone": "America/Chicago"
+  },
+  "place": "synthetic room",
+  "source_facts": [
+    {
+      "fact": "A red object is directly visible.",
+      "source_refs": ["synthetic:video-001"]
+    }
+  ],
+  "claims": [
+    {
+      "claimant": "Speaker A",
+      "proposition": "Another person moved the object.",
+      "status": "unresolved",
+      "source_refs": ["synthetic:video-001"]
+    }
+  ],
+  "interpretations": [
+    {
+      "interpreter": "Speaker A",
+      "interpretation": "The movement was intentional.",
+      "source_refs": ["synthetic:video-001"]
+    }
+  ],
+  "unknowns": [
+    "Who moved the object.",
+    "When it moved."
+  ],
+  "authority_effects": [
+    {
+      "effect": "state_of_place_available",
+      "status": "held"
+    }
+  ]
+}

@@ -1,0 +1,13 @@
+{
+  "receipt_id": "CONTACT-SYNTH-001",
+  "carrier_id": "video-synthetic-001",
+  "source_ref": "synthetic:video-001",
+  "discovered_at": "2026-01-01T00:00:00Z",
+  "contacted_at": "2026-01-02T00:00:00Z",
+  "source_class": "primary_video",
+  "contact_scope": "full_bytes",
+  "sha256": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+  "size_bytes": 1024,
+  "duration_seconds": 10.0,
+  "mime_type": "video/mp4"
+}

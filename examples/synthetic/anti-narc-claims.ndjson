@@ -1,0 +1,2 @@
+{"claim_id":"SYNTH-SOURCE-FACT-001","proposition":"The synthetic carrier records a red object.","claimant":"SYNTHETIC_CARRIER","layer":"source_fact","directness":"direct_record","epistemic_state":"source_fact_only","source_refs":["synthetic:video-001"],"reach_level":"private"}
+{"claim_id":"SYNTH-INTERPRETATION-001","proposition":"A speaker interprets the object's movement as intentional.","claimant":"Speaker A","layer":"interpretation","directness":"original_utterance","epistemic_state":"unresolved","source_refs":["synthetic:video-001"],"reach_level":"private"}

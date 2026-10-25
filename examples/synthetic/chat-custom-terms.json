@@ -1,0 +1,7 @@
+{
+  "terms": [
+    "example exact phrase",
+    {"label": "project-title", "value": "Example Title"},
+    {"label": "place", "value": "Example Place"}
+  ]
+}

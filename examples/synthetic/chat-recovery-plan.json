@@ -1,0 +1,22 @@
+{
+  "name": "synthetic recovery pass",
+  "timezone": "America/Chicago",
+  "roles": ["user", "assistant"],
+  "context": 2,
+  "windows": [
+    {
+      "id": "window-a",
+      "from": "2026-02-08",
+      "to": "2026-02-10",
+      "terms": ["example phrase", "example object"]
+    },
+    {
+      "id": "window-b",
+      "from": "2026-04-17",
+      "to": "2026-04-30",
+      "terms": ["example correction"]
+    }
+  ],
+  "global_terms": ["exact rare phrase"],
+  "global_limit": 500
+}

@@ -1,0 +1,40 @@
+{
+  "lineage_id": "MEDIA-LINEAGE-SYNTH-001",
+  "root_artifact": {
+    "artifact_id": "video-synthetic-001",
+    "artifact_kind": "primary_video",
+    "source_ref": "synthetic:video-001",
+    "sha256": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
+  },
+  "derivatives": [
+    {
+      "artifact_id": "transcript-synthetic-001",
+      "artifact_kind": "transcript",
+      "parent_artifact_id": "video-synthetic-001",
+      "relation": "transcription",
+      "produced_at": "2026-01-02T00:05:00Z",
+      "generator": "synthetic-transcriber",
+      "authority": "analysis_aid",
+      "sha256": "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb"
+    },
+    {
+      "artifact_id": "proxy-synthetic-001",
+      "artifact_kind": "analysis_proxy",
+      "parent_artifact_id": "video-synthetic-001",
+      "relation": "proxy",
+      "produced_at": "2026-01-02T00:06:00Z",
+      "generator": "synthetic-ffmpeg",
+      "authority": "derived_only",
+      "sha256": "cccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc"
+    },
+    {
+      "artifact_id": "scene-synthetic-001",
+      "artifact_kind": "scene_analysis",
+      "parent_artifact_id": "proxy-synthetic-001",
+      "relation": "scene_analysis",
+      "produced_at": "2026-01-02T00:07:00Z",
+      "generator": "synthetic-scene-model",
+      "authority": "analysis_aid"
+    }
+  ]
+}

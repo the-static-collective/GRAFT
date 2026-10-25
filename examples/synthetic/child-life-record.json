@@ -1,0 +1,94 @@
+{
+  "record_id": "child-life-0001",
+  "child_ref": "child-A",
+  "captured_at": "2026-09-29T13:00:00-05:00",
+  "capture_mode": "near_contemporaneous",
+  "occurrence_status": "observed",
+  "event_window": {
+    "start": "2026-09-29T12:15:00-05:00",
+    "end": "2026-09-29T13:00:00-05:00"
+  },
+  "memory_title": "The Red Swing",
+  "carriers": [
+    {
+      "source_ref": "self:photo-001",
+      "kind": "photo"
+    },
+    {
+      "source_ref": "self:parent-A-note",
+      "kind": "contemporaneous_note"
+    },
+    {
+      "source_ref": "self:parent-B-note",
+      "kind": "contemporaneous_note"
+    }
+  ],
+  "accounts": [
+    {
+      "account_id": "a-photo-observation",
+      "author_ref": "parent-A",
+      "account_kind": "observation",
+      "recorded_at": "2026-09-29T13:00:00-05:00",
+      "text": "Child returned to the red swing several times.",
+      "source_refs": ["self:photo-001"],
+      "audiences": ["private_archive", "child_future", "scrapbook"],
+      "adult_conflict": false,
+      "memory_eligible": true,
+      "assertions": [
+        {
+          "key": "activity",
+          "value": "red swing"
+        },
+        {
+          "key": "pickup_time",
+          "value": "13:00"
+        }
+      ]
+    },
+    {
+      "account_id": "a-child-quote",
+      "author_ref": "parent-A",
+      "speaker_ref": "child-A",
+      "quote_mode": "exact",
+      "account_kind": "direct_statement",
+      "recorded_at": "2026-09-29T12:45:00-05:00",
+      "text": "Again!",
+      "source_refs": ["self:parent-A-note"],
+      "audiences": ["private_archive", "child_future", "scrapbook"],
+      "adult_conflict": false,
+      "memory_eligible": true
+    },
+    {
+      "account_id": "a-parent-b-time",
+      "author_ref": "parent-B",
+      "account_kind": "observation",
+      "recorded_at": "2026-09-29T13:05:00-05:00",
+      "text": "Pickup looked closer to 1:05.",
+      "source_refs": ["self:parent-B-note"],
+      "audiences": ["private_archive", "co_parent"],
+      "adult_conflict": false,
+      "memory_eligible": false,
+      "assertions": [
+        {
+          "key": "pickup_time",
+          "value": "13:05"
+        }
+      ]
+    },
+    {
+      "account_id": "a-adult-dispute",
+      "author_ref": "parent-A",
+      "account_kind": "interpretation",
+      "recorded_at": "2026-09-29T13:10:00-05:00",
+      "text": "Adult disagreement about whether the handoff was late.",
+      "source_refs": ["self:parent-A-note"],
+      "audiences": ["private_archive", "co_parent"],
+      "adult_conflict": true,
+      "memory_eligible": false
+    }
+  ],
+  "privacy": {
+    "child_future_access": "allowed",
+    "default_audience": "private_archive"
+  }
+}

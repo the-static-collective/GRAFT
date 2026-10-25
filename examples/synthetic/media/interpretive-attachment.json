@@ -1,0 +1,15 @@
+{
+  "attachment_id": "ATTACH-SYNTH-001",
+  "kind": "lexical_clarification",
+  "target": {
+    "carrier_id": "video-synthetic-001",
+    "start_seconds": 2.0,
+    "end_seconds": 4.0
+  },
+  "context_source_ref": "synthetic:later-context-001",
+  "context_discovered_at": "2026-01-03T00:00:00Z",
+  "attached_at": "2026-01-03T00:05:00Z",
+  "relation_birthday": "2026-01-03T00:00:00Z",
+  "statement": "A later source clarifies the meaning of one recorded word.",
+  "no_retcon_note": "This attachment adds later context to the timecoded utterance without changing the source audio or original transcript."
+}
