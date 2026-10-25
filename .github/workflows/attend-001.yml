@@ -92,6 +92,8 @@ jobs:
           GRAFT_PLANZ_GARDEN_ROOT: ${{ github.workspace }}/donors/planz-garden
           GRAFT_PLANZ_TABLE_ROOT: ${{ github.workspace }}/donors/planz-table
           GRAFT_PLANZ_ABUNDENT_ROOT: ${{ github.workspace }}/donors/planz-abundent
+      - name: Check local ATTEND-001 viewer syntax
+        run: node --check attendant/app.js
       - name: Original graph and reconstruction regression tests
         run: node --test test/reconstruction.test.mjs test/free-graph.test.mjs
         env:

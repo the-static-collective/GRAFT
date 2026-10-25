@@ -10,7 +10,7 @@ Run the [source-attendant CLI](src/attend.mjs) with a question and pinned checko
 4. Imports **original CANNON** Canon Field verifier. Without externally selected trust pins, canon state stays UNKNOWN, not falsely EMPTY.
 5. Reports a bounded next step with **HOLD**, no authorization, no network calls, and no side effects.
 
-Optional exact-pinned original planZ **Garden, Common Table/Waseca and Abundent Field proposal shards** add relevant grocery, Coalition, music and community-facing idea doors, all marked draft/not canon and historically dated. No personal source text is copied into GRAFT.\n\nSee [ATTEND-001 contract](docs/ATTEND-001.md) for exact pins, commands, native boundaries and next work.
+Optional exact-pinned original planZ **Garden, Common Table/Waseca and Abundent Field proposal shards** add relevant grocery, Coalition, music and community-facing idea doors, all marked draft/not canon and historically dated. No personal source text is copied into GRAFT.\n\nA matching [offline source-attendant viewer](attendant/index.html) now renders returned planZ proposals, CANNON selection status and explicit Free Graph matches without any remote request. This is a local file reader; it does not submit new questions to a hosted agent.\n\nSee [ATTEND-001 contract](docs/ATTEND-001.md) for exact pins, commands, native boundaries and next work.
 
 ---
 
