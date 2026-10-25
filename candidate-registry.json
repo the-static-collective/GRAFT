@@ -112,6 +112,34 @@
       "source_material": "synthetic_ci_inputs_only",
       "admission": "none",
       "deployment": false
+    },
+    {
+      "id": "jarvis-cannon-planz-001",
+      "branch": "graft/jarvis-cannon-planz-001",
+      "status": "NATIVE_SOURCE_ATTENDANT_TESTED_READ_ONLY",
+      "graft_commit": "08dc172245bb5684bc44d2f7e208e0f5ae0812b0",
+      "native_source_refs": {
+        "blackstar": "08f42f769f9590d78b85c8d84358e1791d5bd318",
+        "memento": "22a5714f25c7be59bac37b3ab691c28c1f036845",
+        "free_graph": "ec0ad8743c5faac3f3675760bbafcbcb1df846c1",
+        "jarvis": "35b3843c13ab1994efc913724b1db08ce79bdeed",
+        "cannon": "453cf70c820a114423811cecdc70b4ec06f2675b",
+        "planz": "52183eafe0daf311582c6016b37805ae24ef4ec6"
+      },
+      "contract": "docs/ATTEND-001.md",
+      "entrypoint": "src/attend.mjs",
+      "plan_snapshot": "phaselift/board.json",
+      "canon_selection": "unknown_without_external_owner_key_pins",
+      "ci_url": "https://github.com/the-static-collective/GRAFT/actions/runs/40194870355",
+      "tests": {
+        "new_attendant": 8,
+        "earlier_reconstruction_and_graph": 12,
+        "native_free_graph": 45
+      },
+      "authorizes_effects": false,
+      "network": false,
+      "source_currentness": "pinned_historical_synthetic_graph_and_2026_10_19_planz_board",
+      "deployment": false
     }
   ]
 }

@@ -6,6 +6,12 @@
 
 GRAFT receives **reviewed, clean-history source cuts** from independent projects. Each source gets its **own branch**, where its executable code can remain independent. The `main` branch is only the public directory, rules, and return paths.
 
+## ATTEND-001 · JAR;VIS × Free Graph × planZ × CANNON (2026-10-25)
+
+The [source-attendant integration](https://github.com/the-static-collective/GRAFT/tree/graft/jarvis-cannon-planz-001) now composes **six pinned native code sources**: Black Star, MEMENTO, Free Graph, original JAR;VIS, planZ PhaseLift, and CANNON Canon Field. A local question receives an attributable graph cut, matching **historical** plan-board candidates, and an independently pin-verifiable (or explicitly UNKNOWN) CANNON selection view. No branch tip is treated as canon. JAR;VIS's fictional need/offer fixtures are **not** imported as community facts.
+
+**[Verified GitHub Actions: 8 new source-attendant tests, 12 regression tests, 45 native Free Graph tests](https://github.com/the-static-collective/GRAFT/actions/runs/40194870355).** This is an executable **local CLI / JSON handoff**, not a public Ask JAR;VIS web deployment, live search, plan activation, owner admission, or physical work.
+
 ## FREE GRAPH × RECONSTRUCTION — navigable historical roads (2026-10-25)
 
 **[Open GRAFT's native Free Graph branch](https://github.com/the-static-collective/GRAFT/tree/graft/free-graph-reconstruction-001)** · **[Verified GitHub Actions](https://github.com/the-static-collective/GRAFT/actions/runs/40194055434)**
