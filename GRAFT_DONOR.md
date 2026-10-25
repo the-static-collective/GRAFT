@@ -1,23 +1,17 @@
-# GRAFT donor · Provenance and witness-tool family
+# GRAFT donor: Black Star — synthetic Ghost Cut candidate
 
-**Branch:** `graft/black-star`  
-**State:** REGISTERED / HOLD  
-**Imported source code:** **NONE**  
-**Origin:** `the-static-collective/black-star` (private at registration)  
-**Registration date:** 2026-10-22
+- GRAFT branch: `graft/black-star`
+- State: **PUBLIC SYNTHETIC KERNEL CANDIDATE / HOLD**
+- Donor: private `the-static-collective/black-star`, `main` at `235f584f825eced13e70934a98554c3d2d9a13ad` (inspected 2026-10-25)
+- Concepts inspected: `README.md`, `docs/ARCHITECTURE.md`, `docs/REPOSITORY_BOUNDARY.md`, and `src/blackstar/ghostcut.py`.
+- Imported original donor source/history: **NONE**. `src/blackstar_graft.py` is a smaller new implementation, not a literal code transplant.
+- Public files: synthetic-only validator, standard-library tests, this manifest, and branch README.
+- Excluded: `derived/`, `source-registry/`, `lineage/`, real witness/media records, child-related data, personal names, location metadata, case allegations, uploaded source bytes, private archives, credentials, and all original Git ancestry.
 
-## Scope
+## Gate
 
-Executable provenance tools with privacy-sensitive historical evidence and child-related witness boundaries.
+`PUBLIC SYNTHETIC CODE != DONOR SOURCE AUDITED != PRIVATE RECORDS RELEASED`.
 
-## Release gate
+These validators are not claim judgments, child assessment tools, deployment, or consent to publish private sources. Porting **actual** donor code requires exact-cut review, full-history safety inspection, rights approval, and a separate human release receipt. Keep the donor private and the GRAFT branch independently inspectable.
 
-Extract the engine with synthetic demonstrations only; never import raw source carriers, names or disputed personal allegations.
-
-Before any source files are committed here, the owner must choose an exact donor ref, authorize the selected source and any rights held by others, verify the entire donor history for accidental secrets/data, conduct appropriate build/security tests in a disposable environment, and give the GRAFT branch **fresh, public-safe commit history** instead of copying private Git ancestry.
-
-This repository and **every branch of it are public**. An empty intake slot is not a public release or a claim that source was audited.
-
-`STAGED != TRANSFERRED != VERIFIED != DEPLOYED`.
-
-Source state remains in its original repository. GRAFT [main index](https://github.com/the-static-collective/GRAFT) explains the transplant ceremony.
+Run `python -m unittest discover -s test -v`. Record test execution separately from publication authority.
