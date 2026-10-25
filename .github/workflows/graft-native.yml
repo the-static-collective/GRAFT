@@ -1,0 +1,24 @@
+name: GRAFT Black Star native selected code
+on:
+  push:
+    branches:
+      - graft/black-star
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  python-native:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        python-version: ['3.11', '3.12']
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: ${{ matrix.python-version }}
+      - run: python -m pip install -e .
+      - run: python -m compileall -q src tests
+      - run: python -m unittest discover -s tests -v
+      - run: blackstar status
+      - run: blackstar validate-contact examples/synthetic/media/contact-receipt.json

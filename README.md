@@ -1,13 +1,27 @@
-# GRAFT × Black Star — synthetic Ghost Cut
+# GRAFT × Black Star — original executable witness organs
 
-**State: PUBLIC SYNTHETIC KERNEL CANDIDATE / HOLD.** This branch offers new, synthetic-only Python 3.11+ code derived from Black Star's *architectural distinctions*, not copied from the private package or its evidentiary material. No private carriers, evidence registers, personal histories, archived source IDs, names, or original Git ancestry were imported.
+**State: ORIGINAL CODE IMPORTED / REVIEW.** This public branch contains **53 selected original donor files** copied as file contents from the private Black Star repository at pinned commit `235f584f825eced13e70934a98554c3d2d9a13ad`, with fresh GRAFT commits and **no original Git ancestry**. The private donor's raw historical records, source-registry, archive snapshots, personal and child-related witness cases and credential material were deliberately not transferred.
 
-Three runnable functions in `src/blackstar_graft.py`:
+## What is native, not a reimplementation
 
-- `validate_cut` rejects knowledge from after an observer's selected horizon, undated contact, duplicate carrier IDs, and admission without a gate receipt.
-- `observer_delta` returns only attributable changes between valid cuts. Later discovery does not retroactively enter the earlier cut.
-- `validate_activation` checks that a proposed relation begins no earlier than its new trigger, preserving the old source and requiring explicit counterpressure.
+- Entire `src/blackstar/` original Python 3.11+ package: Ghost Cut, Anti-Narc, Media Contact, Situation Decoder, Child-First, Phone Witness, Chat Archive, CLI, source validation and supporting utilities.
+- Original `pyproject.toml`, launcher and software version identifiers.
+- Original `examples/synthetic/` specimen data; **six original unit-test files**, and selected reference docs.
+- One separate **GRAFT-authored** test `tests/test_graft_native_ghostcut.py` verifying the original Ghost Cut module against safe, invented fixture events.
 
-Run from this branch's root: `python -m unittest discover -s test -v`. Only Python's standard library is used. A deliberate distinction: these functions validate chronology and categories; they **do not find truth, rank human credibility, or adjudicate events**.
+The earlier `src/blackstar_graft.py` and `test/test_blackstar_graft.py` are still independently authored **GRAFT synthetic prototypes**, *not* the imported original modules.
 
-See [GRAFT_DONOR.md](GRAFT_DONOR.md) for the source ref and publication gate. The original Black Star package remains private and independently authoritative about its actual implementation.
+## Run native code
+
+```bash
+python -m pip install -e .
+python -m unittest discover -s tests -v
+blackstar status
+blackstar validate-contact examples/synthetic/media/contact-receipt.json
+```
+
+Native full-repository `blackstar --root . selftest` and source-registry checks intentionally remain out of scope here: they expect private historical `derived/` and `source-registry/` files not published on this branch. Other functionality can operate on user-supplied data in **private local directories**.
+
+The selected contents were scanned for common credential signatures before publication; no matches. That is not a whole-private-history secrets scan, and no active keys should be committed to GRAFT. **Code publication is not permission to publish third parties' private records.** Historical facts and participant accounts must remain separately sourced and gated.
+
+No open-source redistribution license is inferred simply by making the files public. See `GRAFT_DONOR.md` for exact provenance and review scope.
