@@ -1,0 +1,80 @@
+{
+  "schema": "graft/public-commons-feed-v1",
+  "release": "GRAFT-COMMONS-001-2026-10-25",
+  "publishedBy": "the-static-collective/GRAFT",
+  "gate": "PUBLIC_SUMMARY_EDITORIAL_NOT_CANON",
+  "disclosure": "Public-source summaries of experimental work. No canonical selection, real-world partner involvement, operational deployment, completed community service or consent is inferred.",
+  "sourceState": "SELECTED_SOURCE_DOCUMENTATION_REVIEWED_FOR_SUMMARY",
+  "entries": [
+    {
+      "id": "GRAFT-LIVE-SCOUT-002",
+      "lane": "research",
+      "status": "DOCUMENTED_PROTOTYPE",
+      "title": "Live public-source research scout",
+      "summary": "An on-demand local GRAFT scout examines current public GitHub branch heads for an allowlisted project set, reads Markdown at observed exact commits, records source hashes, and distinguishes discovered branch leads from verified documents. The research is a time-bounded observation, not an automatic public knowledge publication.",
+      "firstCheck": "What new public-source observation has an attributable verified source and permission to summarize?",
+      "sourceRepo": "GRAFT",
+      "sourceCommit": "aa3984d2dbdf949996639b029ca0d95ab6c290e5",
+      "sourcePath": "docs/LIVE-SCOUT-002.md",
+      "effects": "PUBLIC_READ_ONLY_SCOUT",
+      "sourceState": "PUBLIC_DOC_PIN_NOT_OWNER_CANON",
+      "publication": "PUBLIC_SUMMARY_PROPOSED_FOR_REVIEW"
+    },
+    {
+      "id": "GRAFT-LIVE-WORK-002",
+      "lane": "workbench",
+      "status": "DOCUMENTED_ARTIFACT",
+      "title": "Printable need-offer-build-return kit",
+      "summary": "The GRAFT LIVE-WORK-002 experiment accepts a public research cut and explicitly writes a local printable NEED / OFFER / BUILD / RETURN kit with work-plan JSON and a hash receipt. CI tested the synthetic grocery kit. This is not a mailed invitation, physical delivery, approved partner program, or deployed public service.",
+      "firstCheck": "Which willing reviewer could assess a fictional printable kit without accepting a real delivery obligation?",
+      "sourceRepo": "GRAFT",
+      "sourceCommit": "aa3984d2dbdf949996639b029ca0d95ab6c290e5",
+      "sourcePath": "docs/LIVE-WORK-002.md",
+      "effects": "LOCAL_SYNTHETIC_FILES_ONLY",
+      "sourceState": "PUBLIC_DOC_PIN_NOT_OWNER_CANON",
+      "publication": "PUBLIC_SUMMARY_PROPOSED_FOR_REVIEW"
+    },
+    {
+      "id": "GRAFT-ATTEND-001",
+      "lane": "planning",
+      "status": "DOCUMENTED_PROTOTYPE",
+      "title": "Source attendant and historical plan candidates",
+      "summary": "GRAFT ATTEND-001 composes pinned, read-only JAR;VIS, Black Star, MEMENTO, Free Graph, planZ and CANNON source components. It can surface historical Garden, Waseca Table and Abundent plan candidates, but cannot claim those proposals were admitted, accepted or implemented.",
+      "firstCheck": "Can a specific historically pinned proposal help a willing organizer ask a clearer question today?",
+      "sourceRepo": "GRAFT",
+      "sourceCommit": "73944d911e8fabb600533eb4e6b848b61ca49508",
+      "sourcePath": "docs/ATTEND-001.md",
+      "effects": "LOCAL_HISTORICAL_READER",
+      "sourceState": "PUBLIC_DOC_PIN_NOT_OWNER_CANON",
+      "publication": "PUBLIC_SUMMARY_PROPOSED_FOR_REVIEW"
+    },
+    {
+      "id": "GRAFT-FREE-GRAPH-001",
+      "lane": "graph",
+      "status": "DOCUMENTED_PROTOTYPE",
+      "title": "Historical graph reconstruction",
+      "summary": "An original-code Free Graph handoff produces read-only graph packets and bounded navigable neighborhoods of historical candidate relationships, keeping proposed, observed and unresolved edges distinct. A graph relationship is not evidence of a current partner, present-day connection or approved project.",
+      "firstCheck": "What source and actual human observation would make one particular proposed relationship current?",
+      "sourceRepo": "GRAFT",
+      "sourceCommit": "f88ab117a140788e7bd6ced8039d1d9fc5bf8206",
+      "sourcePath": "docs/FREE-GRAPH-CONTRACT.md",
+      "effects": "READ_ONLY_GRAPH_PACKET",
+      "sourceState": "PUBLIC_DOC_PIN_NOT_OWNER_CANON",
+      "publication": "PUBLIC_SUMMARY_PROPOSED_FOR_REVIEW"
+    },
+    {
+      "id": "GRAFT-RECONSTRUCTION-001",
+      "lane": "provenance",
+      "status": "DOCUMENTED_PROTOCOL",
+      "title": "Black Star and MEMENTO reconstruction seam",
+      "summary": "The GRAFT reconstruction contract invokes selected original Black Star and MEMENTO runtimes on bounded local material to emit a source-pinned PROPOSE_ONLY reconstruction receipt. It does not admit canon, import private histories, update a production ledger or verify a human field outcome.",
+      "firstCheck": "What independent source owner would authorize any proposed evidence to leave its local custody?",
+      "sourceRepo": "GRAFT",
+      "sourceCommit": "87db43b9bd818696728976e9baea44c96d5816fb",
+      "sourcePath": "docs/RECONSTRUCTION-CONTRACT.md",
+      "effects": "LOCAL_READ_ONLY_HANDOFF",
+      "sourceState": "PUBLIC_DOC_PIN_NOT_OWNER_CANON",
+      "publication": "PUBLIC_SUMMARY_PROPOSED_FOR_REVIEW"
+    }
+  ]
+}
