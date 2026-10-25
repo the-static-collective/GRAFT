@@ -1,0 +1,19 @@
+{
+  "name": "memento-narrative-front-room",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "engines": {
+    "node": ">=20"
+  },
+  "scripts": {
+    "test": "node --test",
+    "validate": "node scripts/validate.mjs",
+    "understory:record": "node scripts/record-understory.mjs",
+    "understory:ingest-3rdi": "node scripts/ingest-3rdi-handoff.mjs",
+    "world:save": "node scripts/save-historical-imagination.mjs",
+    "context:pack": "node scripts/compile-context-pack.mjs",
+    "posthog:dry-run": "node scripts/posthog-capture.mjs observatory/examples/crossing.opened.json",
+    "posthog:send": "node scripts/posthog-capture.mjs observatory/examples/crossing.opened.json --send"
+  }
+}
