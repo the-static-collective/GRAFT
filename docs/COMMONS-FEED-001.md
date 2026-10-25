@@ -33,3 +33,9 @@ Each entry points to a specific public GitHub doc path and exact commit. Its doc
 - Automated discovery never sets `PUBLIC_SUMMARY_APPROVED` and never merges a branch. The human publication gate is separate from text or model selection.
 - No network request to GRAFT may cause human contact, project execution, cash movement, donation, volunteer assignment, permission expansion or Git writes.
 - The first GRAFT publication source is deliberately a **small, source-verified set**. Full-tree automatic sync, embeddings, live graph service and partner notifications are beyond this release.
+
+## Automated discovery without automatic publication
+
+The new `scripts/commons-review-queue.mjs` compares the public `candidate-registry.json`'s known adapter source commits to this proposed feed. When an adapter is new or its documented source SHA changes, it produces a small `graft/commons-review-queue-v1` JSON of editorial candidates, each explicitly `REVIEW_PENDING`. It does not harvest donors or write approved feed content.
+
+`.github/workflows/commons-review.yml` schedules a daily read-only comparison and also runs on relevant reviewed main commits. It uploads an expiring **public-safe** review artifact (not a PR, release, push, model training event or publication). Editors make the actual source review and approved GRAFT-main commit separately. Scheduled GitHub Actions run only once the workflow is on the default branch.
