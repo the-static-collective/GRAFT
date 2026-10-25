@@ -6,16 +6,16 @@
 
 GRAFT receives **reviewed, clean-history source cuts** from independent projects. Each source gets its **own branch**, where its executable code can remain independent. The `main` branch is only the public directory, rules, and return paths.
 
-## Two runnable synthetic donor kernels (2026-10-25)
+## Two native donor-source imports (2026-10-25)
 
-MEMENTO and Black Star have moved beyond empty intake manifests: **new, standalone synthetic-only demonstrations** now live in their respective GRAFT branches. **No original private donor code, original Git ancestry, source evidence, or private content was imported.** These are testable, bounded candidates, **not releases of either original donor**.
+With owner authorization, GRAFT now contains **selected original runnable code** from both private donors, under **new clean GRAFT commits**. Neither original repository's visibility or Git history was changed. Keys and source-evidence collections were not imported.
 
-| Candidate | Runnable seam | Local fixture test | Gate |
-|---|---|---|---|
-| [MEMENTO membrane](https://github.com/the-static-collective/GRAFT/tree/graft/MEMENTO) | Crossing review (ADMIT / REFUSE / FOG); receipted context retrieval; no-retcon activation | `node --test test/*.test.mjs` — 4/4 passed locally on 2026-10-25 | **PUBLIC SYNTHETIC CANDIDATE / HOLD** |
-| [Black Star Ghost Cut](https://github.com/the-static-collective/GRAFT/tree/graft/black-star) | Historical knowledge horizon; observer delta; activation birthday | `python -m unittest discover -s test -v` — 6/6 passed locally on 2026-10-25 | **PUBLIC SYNTHETIC CANDIDATE / HOLD** |
+| Public branch | Original source files | CI | State |
+| --- | ---: | --- | --- |
+| [`graft/MEMENTO`](https://github.com/the-static-collective/GRAFT/tree/graft/MEMENTO) | **21 files** — native Node/UNDERSTORY/Historical Imaginations modules, native tests and specimens | [Node 22: passed](https://github.com/the-static-collective/GRAFT/actions/runs/40190057330) | **ORIGINAL CODE IMPORTED / VERIFIED SUBSET** |
+| [`graft/black-star`](https://github.com/the-static-collective/GRAFT/tree/graft/black-star) | **53 files** — full native `blackstar` Python package, synthetic fixtures, selected native tests/docs/packaging | [Python 3.11 & 3.12: passed](https://github.com/the-static-collective/GRAFT/actions/runs/40190328514) | **ORIGINAL CODE IMPORTED / VERIFIED SUBSET** |
 
-See [candidate review and interoperability rules](docs/SYNTHETIC-CANDIDATES.md). Tests witnessed in a disposable local workspace; no public CI or real-world field trial is claimed.
+Previous independent *GRAFT synthetic demos* remain in each branch for comparison but are **not** the actual source imports. These are public code branches, not private data mirrors, deployments or cross-project authority grants. See [native-source import receipts](docs/NATIVE-SOURCE-IMPORTS.md) and [earlier synthetic-candidate stage](docs/SYNTHETIC-CANDIDATES.md).
 
 ## First-wave publication candidates (4 of 17)
 
@@ -42,13 +42,13 @@ The original private inventory has **17 entries**. Four are first-wave reviews a
 | fork-EXCLAIM | [`graft/fork-EXCLAIM`](https://github.com/the-static-collective/GRAFT/tree/graft/fork-EXCLAIM) | REGISTERED / HOLD | [original (private)](https://github.com/the-static-collective/fork-EXCLAIM) |
 | jubilee-workspace | [`graft/jubilee-workspace`](https://github.com/the-static-collective/GRAFT/tree/graft/jubilee-workspace) | REGISTERED / HOLD | [original (private)](https://github.com/the-static-collective/jubilee-workspace) |
 | DerekDerrikDark | [`graft/DerekDerrikDark`](https://github.com/the-static-collective/GRAFT/tree/graft/DerekDerrikDark) | REGISTERED / HOLD | [original (private)](https://github.com/the-static-collective/DerekDerrikDark) |
-| MEMENTO | [`graft/MEMENTO`](https://github.com/the-static-collective/GRAFT/tree/graft/MEMENTO) | SYNTHETIC KERNEL / HOLD | [original (private)](https://github.com/the-static-collective/MEMENTO) |
+| MEMENTO | [`graft/MEMENTO`](https://github.com/the-static-collective/GRAFT/tree/graft/MEMENTO) | NATIVE CODE / VERIFIED SUBSET | [original (private)](https://github.com/the-static-collective/MEMENTO) |
 | King-sCup | [`graft/King-sCup`](https://github.com/the-static-collective/GRAFT/tree/graft/King-sCup) | REGISTERED / HOLD | [original (private)](https://github.com/the-static-collective/King-sCup) |
-| black-star | [`graft/black-star`](https://github.com/the-static-collective/GRAFT/tree/graft/black-star) | SYNTHETIC KERNEL / HOLD | [original (private)](https://github.com/the-static-collective/black-star) |
+| black-star | [`graft/black-star`](https://github.com/the-static-collective/GRAFT/tree/graft/black-star) | NATIVE CODE / VERIFIED SUBSET | [original (private)](https://github.com/the-static-collective/black-star) |
 
-**Intake-only branches contain manifests, not imported original applications.** MEMENTO and black-star additionally contain newly authored synthetic-only demonstration modules and tests—still no original donor source or private history. Source import into GRAFT is instantly public, and every actual donor-source transplant remains separately gated. One observed donor (`autodisco-video-receipt`) had an empty original Git repository during intake.
+**Intake-only branches contain safety manifests and no imported original application code.** MEMENTO and black-star are the exceptions: they now contain **selected original source files** with clean GRAFT history, plus the earlier synthetic demos. Remaining originals are unchanged. GRAFT is public in all branches; secrets and raw evidentiary records must not cross by default. One observed donor (`autodisco-video-receipt`) had an empty original Git repository at intake.
 
-**These branches are not published-source releases yet.** They initially carry only safety/status manifests; no private application source is imported automatically.
+**Native-code imported != complete original application != deployed service.** Any future original source transplant gets a separate file-selection and credential review. Work requiring private external data stays in its owning context.
 
 ## A branch is an independent application
 

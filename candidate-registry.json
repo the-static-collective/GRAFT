@@ -1,52 +1,69 @@
 {
-  "schema": "graft.synthetic-candidate-registry/v0",
+  "schema": "graft.donor-code-registry/v1",
   "updated": "2026-10-25",
   "policy": {
-    "default": "HOLD",
-    "donor_visibility": "private",
-    "original_donor_code_imported": false,
-    "personal_source_material_imported": false
+    "scope": "selected_original_code",
+    "secret_policy": "keys_must_not_be_published",
+    "donor_history_imported": false,
+    "raw_witness_data_imported": false,
+    "public_branches": true
   },
   "candidates": [
     {
-      "id": "memento-membrane",
+      "id": "memento-native",
       "branch": "graft/MEMENTO",
       "origin": "the-static-collective/MEMENTO",
-      "origin_ref": "main",
-      "origin_sha": "70ceaad8fd7a87e5b5f753f8f345693aec7570a0",
-      "phase": "PUBLIC_SYNTHETIC_CANDIDATE_HOLD",
-      "kind": "fresh-implementation",
-      "entry": "src/membrane.mjs",
-      "test": "node --test test/*.test.mjs",
-      "local_test_result": "4/4 passed 2026-10-25",
-      "capabilities": [
-        "crossing_review",
-        "bounded_context_pack",
-        "resurfacing_activation"
+      "source_sha": "70ceaad8fd7a87e5b5f753f8f345693aec7570a0",
+      "graft_sha": "22a5714f25c7be59bac37b3ab691c28c1f036845",
+      "state": "ORIGINAL_CODE_IMPORTED_TESTED_SUBSET",
+      "imported_files": 21,
+      "kind": "selected-original-file-contents",
+      "entrypoints": [
+        "scripts/lib/understory.mjs",
+        "scripts/lib/historical-imaginations.mjs",
+        "scripts/compile-context-pack.mjs"
       ],
-      "input_data": "synthetic_only",
-      "local_effects": "none",
-      "authority": "none"
+      "test": "node --test test/*.test.mjs",
+      "ci_url": "https://github.com/the-static-collective/GRAFT/actions/runs/40190057330",
+      "ci_status": "success",
+      "private_donor_unchanged": true,
+      "original_history_imported": false,
+      "keys_imported": false,
+      "data_origin": "synthetic_specimens_only",
+      "full_application_release": false
     },
     {
-      "id": "blackstar-ghostcut",
+      "id": "blackstar-native",
       "branch": "graft/black-star",
       "origin": "the-static-collective/black-star",
-      "origin_ref": "main",
-      "origin_sha": "235f584f825eced13e70934a98554c3d2d9a13ad",
-      "phase": "PUBLIC_SYNTHETIC_CANDIDATE_HOLD",
-      "kind": "fresh-implementation",
-      "entry": "src/blackstar_graft.py",
-      "test": "python -m unittest discover -s test -v",
-      "local_test_result": "6/6 passed 2026-10-25",
-      "capabilities": [
-        "historical_cut_validation",
-        "observer_delta",
-        "activation_chronology"
+      "source_sha": "235f584f825eced13e70934a98554c3d2d9a13ad",
+      "graft_sha": "08f42f769f9590d78b85c8d84358e1791d5bd318",
+      "state": "ORIGINAL_CODE_IMPORTED_TESTED_SUBSET",
+      "imported_files": 53,
+      "kind": "selected-original-file-contents",
+      "entrypoints": [
+        "src/blackstar/ghostcut.py",
+        "src/blackstar/chatarchive/ingest.py",
+        "src/blackstar/cli.py"
       ],
-      "input_data": "synthetic_only",
-      "local_effects": "none",
-      "authority": "none"
+      "test": "python -m unittest discover -s tests -v",
+      "ci_url": "https://github.com/the-static-collective/GRAFT/actions/runs/40190328514",
+      "ci_status": "success_python_311_312",
+      "private_donor_unchanged": true,
+      "original_history_imported": false,
+      "keys_imported": false,
+      "data_origin": "synthetic_specimens_only",
+      "full_application_release": false
+    }
+  ],
+  "legacy_synthetic_demos": [
+    {
+      "branch": "graft/MEMENTO",
+      "entry": "src/membrane.mjs"
+    },
+    {
+      "branch": "graft/black-star",
+      "entry": "src/blackstar_graft.py"
     }
   ]
 }

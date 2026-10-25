@@ -1,4 +1,4 @@
-# Two candidate transplants: MEMENTO × Black Star
+> **Historical stage only — superseded 2026-10-25.** The two GRAFT branches now ALSO contain selected real original code with CI verification. Read [NATIVE-SOURCE-IMPORTS.md](NATIVE-SOURCE-IMPORTS.md) for current state. The material below describes the earlier synthetic-only stage and must not be treated as the current complete branch inventory.\n\n# Two candidate transplants: MEMENTO × Black Star
 
 **Date:** 2026-10-25  
 **State:** public **synthetic-only kernels**, original private donor source **not** published. Do not conflate this demonstration with a full code transfer or release.

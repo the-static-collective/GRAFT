@@ -1,0 +1,31 @@
+# Original-source grafts: MEMENTO and Black Star
+
+**2026-10-25.** The owner authorized use of original source code, while requiring keys to remain private. This triggered a native selected-file transplant on both existing GRAFT branches. This page supersedes the earlier synthetic-only release stage.
+
+## Actual Git history/provenance
+| Public branch | Original private donor source commit | GRAFT commit | Files from donor | Executed CI |
+|---|---|---|---:|---|
+| `graft/MEMENTO` | `70ceaad8fd7a87e5b5f753f8f345693aec7570a0` | [`22a5714f`](https://github.com/the-static-collective/GRAFT/commit/22a5714f25c7be59bac37b3ab691c28c1f036845) | 21 | [success](https://github.com/the-static-collective/GRAFT/actions/runs/40190057330) |
+| `graft/black-star` | `235f584f825eced13e70934a98554c3d2d9a13ad` | [`08f42f76`](https://github.com/the-static-collective/GRAFT/commit/08f42f769f9590d78b85c8d84358e1791d5bd318) | 53 | [success, Python 3.11 & 3.12](https://github.com/the-static-collective/GRAFT/actions/runs/40190328514) |
+
+### Native MEMENTO
+The **original** source under `scripts/` provides UNDERSTORY recording and 3rdi handoff, historical world saving, and bounded context compilation, with paired original tests and synthetic world fixtures. Node 22 GitHub Actions succeeded for `node --test test/*.test.mjs` and one context compiler smoke test.
+
+The earlier GRAFT-authored synthetic `src/membrane.mjs` is retained distinctly. Note semantic difference: original MEMENTO's context pack can carry proposed non-refused edges with `admission: none`; the older synthetic demo used a narrower rule. Do not use the demo as a substitute for original system behavior.
+
+### Native Black Star
+The **original** Python package under `src/blackstar/` is imported with Python package metadata, CLI, ghost cuts, anti-narc, source/media validation, child-first, phone witness, situation decoder and full chat archive modules. Original synthetic fixtures and six original standalone test suites are included, plus a separate *new GRAFT test* of the native Ghost Cut module. GitHub Actions passed on Python **3.11 and 3.12**, including install, compile, unit test, status and synthetic media validation.
+
+The original donor's `test_ghostcut.py`, CLI selftest and source index checks depend on real-world derived witness records/source indexes, deliberately omitted here. The import therefore **does not claim full donor parity**, private archive migration, or production deployment.
+
+## Privacy, provenance, and authority
+- Raw witness data, `derived/`, `source-registry/`, archive history, private narratives, .env files and personal source material were **excluded** from the published cuts. User permission to share their own code does not by itself authorize sharing someone else's sensitive information.
+- A basic selected-file scan for recognizable provider keys and private-key signatures found no matches. This was not a complete multi-format secret scan or an audit of the donors' entire private Git history.
+- Files were copied by content into **new GRAFT commit ancestry**; neither private donor repo became public and neither private history was copied into public refs.
+- Existing synthetic GRAFT prototypes remain clearly separate from native code.
+- Successful tests verify only the selected subset under named runtimes, not fact truth, narrative canon, downstream authority, licensing or deployment.
+
+## Next crossing
+A proposed compatibility adapter could consume only Black Star's synthetic observer-cut **validation receipt** and hand an attributable reference to MEMENTO's own candidate/gate interface. That would require a separate contract test and no silent `ADMIT`. The present two imports **do not yet operate as an integrated service**.
+
+Machine registry: [candidate-registry.json](../candidate-registry.json).
