@@ -44,6 +44,9 @@ jobs:
         env:
           GRAFT_BLACKSTAR_ROOT: ${{ github.workspace }}/donors/black-star
           GRAFT_MEMENTO_ROOT: ${{ github.workspace }}/donors/memento
+      - name: Native fixture-only graph worker diagnostic
+        run: |
+          node --input-type=module -e 'import {reconstruct} from "./src/reconstruct.mjs"; process.stdout.write(JSON.stringify({receipt:reconstruct(["--cut","fixtures/early-cut.json","--world","same-room-a0","--blackstar-root","donors/black-star","--memento-root","donors/memento"]),focus:"same-room-a0",depth:1}));' | PYTHONPATH=donors/free-graph PYTHONDONTWRITEBYTECODE=1 python3 src/graph_worker.py >/dev/null
       - name: Run native Free Graph interoperability and hostile tests
         run: node --test test/free-graph.test.mjs
         env:
