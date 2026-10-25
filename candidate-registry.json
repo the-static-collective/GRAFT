@@ -1,0 +1,52 @@
+{
+  "schema": "graft.synthetic-candidate-registry/v0",
+  "updated": "2026-10-25",
+  "policy": {
+    "default": "HOLD",
+    "donor_visibility": "private",
+    "original_donor_code_imported": false,
+    "personal_source_material_imported": false
+  },
+  "candidates": [
+    {
+      "id": "memento-membrane",
+      "branch": "graft/MEMENTO",
+      "origin": "the-static-collective/MEMENTO",
+      "origin_ref": "main",
+      "origin_sha": "70ceaad8fd7a87e5b5f753f8f345693aec7570a0",
+      "phase": "PUBLIC_SYNTHETIC_CANDIDATE_HOLD",
+      "kind": "fresh-implementation",
+      "entry": "src/membrane.mjs",
+      "test": "node --test test/*.test.mjs",
+      "local_test_result": "4/4 passed 2026-10-25",
+      "capabilities": [
+        "crossing_review",
+        "bounded_context_pack",
+        "resurfacing_activation"
+      ],
+      "input_data": "synthetic_only",
+      "local_effects": "none",
+      "authority": "none"
+    },
+    {
+      "id": "blackstar-ghostcut",
+      "branch": "graft/black-star",
+      "origin": "the-static-collective/black-star",
+      "origin_ref": "main",
+      "origin_sha": "235f584f825eced13e70934a98554c3d2d9a13ad",
+      "phase": "PUBLIC_SYNTHETIC_CANDIDATE_HOLD",
+      "kind": "fresh-implementation",
+      "entry": "src/blackstar_graft.py",
+      "test": "python -m unittest discover -s test -v",
+      "local_test_result": "6/6 passed 2026-10-25",
+      "capabilities": [
+        "historical_cut_validation",
+        "observer_delta",
+        "activation_chronology"
+      ],
+      "input_data": "synthetic_only",
+      "local_effects": "none",
+      "authority": "none"
+    }
+  ]
+}
