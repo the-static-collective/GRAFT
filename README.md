@@ -1,47 +1,47 @@
-# GRAFT / RECONSTRUCTION-001
+# GRAFT × RECONSTRUCTION × FREE GRAPH · 001
 
-**Runnable, source-pinned adapter: original Black Star → original MEMENTO → GRAFT proposal receipt.**
+The working historical reconstruction now has a **navigable, content-addressed Free Graph projection** built from **three pinned original runtimes**.
 
-This is a **third independent application branch**. It does not merge donor application branches into GRAFT `main`; it checks out two original-code branches as read-only separate tools and runs their **native code**. No network service, database, private archive or account is needed.
-
-## What actually happens
-
-1. **Black Star**: original Python `blackstar validate-cut` checks that a candidate observer cut obeys its knowledge horizon, required explicit fields, and source-contact boundaries. A failure stops the chain.
-2. **MEMENTO**: original Node `compile-context-pack.mjs` retrieves world context. This can include **proposed**, explicitly unadmitted relations; GRAFT does not silently upgrade them.
-3. **GRAFT**: wraps the two native receipts into an attributable, content-hash-addressed **PROPOSE_ONLY** handoff. No original source text, personal narrative, keys, file paths, or raw carrier bytes are included in the receipt.
-
-`VALID CUT != VERIFIED EVENT`  
-`RETRIEVED RELATION != ADMITTED RELATION`  
-`PROPOSED HANDOFF != MEMENTO LEDGER WRITE`
-
-## Reproduce locally
-
-Requires Node.js 20+, Python 3.11+, and Git. Check out two sibling branches of **the same public GRAFT repo** to separate directories, **at the fixed commits below**:
-
-- `graft/black-star` at `08f42f769f9590d78b85c8d84358e1791d5bd318`
-- `graft/MEMENTO` at `22a5714f25c7be59bac37b3ab691c28c1f036845`
-
-Example, from this branch root (assuming those two checkouts are under `donors/`):
-
-```bash
-node src/reconstruct.mjs \
-  --cut fixtures/early-cut.json \
-  --world same-room-a0 --depth 1 \
-  --blackstar-root donors/black-star \
-  --memento-root donors/memento \
-  --python python3
-
-GRAFT_BLACKSTAR_ROOT=donors/black-star \
-GRAFT_MEMENTO_ROOT=donors/memento \
-node --test test/*.test.mjs
+```text
+Black Star original cut validation
+     ↓  knowledge horizon; NOT event verdict
+MEMENTO original world context
+     ↓  retrieved relation statuses; admission:none
+GRAFT RECONSTRUCTION-001 receipt
+     ↓  digest-only, PROPOSE_ONLY
+Free Graph original v0 kernel (hash / validate / neighbors)
+     ↓  immutable packet + bounded neighborhood, authority:none
+A later owning-world decision may consider it; none is made here.
 ```
 
-CI automatically checks out the exact donor commits and tests a successful native integration, an invalid future-dated cut, an absent world, wrong checkout provenance, and determinism.
+**This branch retains the earlier reconstruction adapter**, and adds `src/free-graph.mjs` plus `src/graph_worker.py` to produce actual `free-graph.packet/v0` records. The code invokes original `fg_ops.rehash_packet`, `validate_packet`, and `neighbors` from [Free Graph](https://github.com/the-static-collective/free-graph), rather than inventing a new incompatible graph format.
 
-## What isn't done
+## Current capabilities
 
-This **does not** implement MEMENTO's human ADMIT/REFUSE/FOG gate, publish an event finding, save a world, write a source card, or ship a community-facing web app. That requires a separately authorized write pathway. Raw inputs remain caller-local. Consult [contract](docs/RECONSTRUCTION-CONTRACT.md).
+- Walk from a reconstructed world to historically connected worlds at depth 0–3.
+- See a **proposed** MEMENTO relation as proposed, not as truth or adopted canon.
+- Follow a reconstruction receipt to its unresolved owner-gate question.
+- Preserve original source digests, exact code lineage and omitted doors.
+- Export a valid content-hashed Free Graph packet from synthetic or locally supplied cuts.
+- Refuse future knowledge, missing worlds, unpinned code, invalid authority and malformed requests.
 
-## Source references
+Run locally with three checked-out runtimes:
 
-[Black Star original code](https://github.com/the-static-collective/GRAFT/tree/graft/black-star) · [MEMENTO original code](https://github.com/the-static-collective/GRAFT/tree/graft/MEMENTO) · [GRAFT index](https://github.com/the-static-collective/GRAFT).
+```sh
+node src/free-graph.mjs \
+  --cut fixtures/early-cut.json \
+  --world same-room-a0 --depth 1 --graph-depth 2 \
+  --blackstar-root donors/black-star \
+  --memento-root donors/memento \
+  --freegraph-root donors/free-graph
+```
+
+**Pinned donor refs:** Black Star `08f42f769f9590d78b85c8d84358e1791d5bd318`; MEMENTO `22a5714f25c7be59bac37b3ab691c28c1f036845`; Free Graph `ec0ad8743c5faac3f3675760bbafcbcb1df846c1`.
+
+CI checks out all three exact code refs and exercises both the earlier reconstruction tests and new graph tests.
+
+## Authority and publication boundary
+
+The emitted packet deliberately has `task_world_cut.status=unresolved`, modes `re-enter`/`seed`, and no `constitutes` edges. That is because a reconstructable historical relation **is not an owner-current decision**. This is a CLI/JSON navigation substrate, **not yet an interactive website, a local community deployment or a stored shared graph**.
+
+Raw user inputs do not enter GitHub. Sources are digest-only redacted by default, and no keys are imported. A real-world output file should be treated as locally held information until reviewed; node IDs and source digests can be sensitive even when source text is withheld.

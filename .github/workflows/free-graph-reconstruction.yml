@@ -1,0 +1,56 @@
+name: GRAFT Free Graph reconstruction native integration
+on:
+  push:
+    branches:
+      - graft/free-graph-reconstruction-001
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  native-three-organ:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout GRAFT adapter
+        uses: actions/checkout@v4
+      - name: Checkout pinned Black Star
+        uses: actions/checkout@v4
+        with:
+          repository: the-static-collective/GRAFT
+          ref: 08f42f769f9590d78b85c8d84358e1791d5bd318
+          path: donors/black-star
+          persist-credentials: false
+      - name: Checkout pinned MEMENTO
+        uses: actions/checkout@v4
+        with:
+          repository: the-static-collective/GRAFT
+          ref: 22a5714f25c7be59bac37b3ab691c28c1f036845
+          path: donors/memento
+          persist-credentials: false
+      - name: Checkout pinned Free Graph
+        uses: actions/checkout@v4
+        with:
+          repository: the-static-collective/free-graph
+          ref: ec0ad8743c5faac3f3675760bbafcbcb1df846c1
+          path: donors/free-graph
+          persist-credentials: false
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Run first reconstruction integration suite
+        run: node --test test/reconstruction.test.mjs
+        env:
+          GRAFT_BLACKSTAR_ROOT: ${{ github.workspace }}/donors/black-star
+          GRAFT_MEMENTO_ROOT: ${{ github.workspace }}/donors/memento
+      - name: Run native Free Graph interoperability and hostile tests
+        run: node --test test/free-graph.test.mjs
+        env:
+          GRAFT_BLACKSTAR_ROOT: ${{ github.workspace }}/donors/black-star
+          GRAFT_MEMENTO_ROOT: ${{ github.workspace }}/donors/memento
+          GRAFT_FREEGRAPH_ROOT: ${{ github.workspace }}/donors/free-graph
+      - name: Validate upstream Free Graph specimen and original native tests
+        run: |
+          python3 donors/free-graph/scripts/fg.py validate donors/free-graph/specimens/wav-space-v0.public.json
+          python3 -m unittest discover -s donors/free-graph/tests -v
