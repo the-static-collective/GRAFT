@@ -1,0 +1,21 @@
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "black-star-witness"
+version = "0.4.0"
+description = "Provenance-first executable witness instrument"
+readme = "README.md"
+requires-python = ">=3.11"
+authors = [{name = "The Static Collective"}]
+dependencies = []
+
+[project.scripts]
+blackstar = "blackstar.cli:main"
+
+[tool.setuptools]
+package-dir = {"" = "src"}
+
+[tool.setuptools.packages.find]
+where = ["src"]

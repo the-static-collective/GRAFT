@@ -1,0 +1,22 @@
+# Black Star repository boundary: machine in Git, evidence vault in Drive.
+/sources/
+/vault/
+/private-sources/
+*.zip
+*.sqlite3
+*.db
+*.pdf
+*.jpg
+*.jpeg
+*.png
+*.webp
+*.mp4
+*.mov
+*.m4a
+*.wav
+*.xml
+__pycache__/
+*.pyc
+.DS_Store
+.env
+.env.*

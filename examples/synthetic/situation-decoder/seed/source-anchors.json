@@ -1,0 +1,10 @@
+{
+  "SYNTH-ANCHOR-001": {
+    "source_path": "synthetic/messages.ndjson",
+    "source_line": "1",
+    "sms_id": "synthetic-1",
+    "timestamp_local": "2026-01-01T12:00:00-06:00",
+    "direction": "synthetic",
+    "body": "Synthetic source anchor."
+  }
+}
