@@ -26,7 +26,7 @@ test('declined, delegated and unresponded seats do not cross',()=>{
 });
 test('URLs, email, phone and bearer tokens are not exported',()=>{
  for(const summary of ['Email me at hello@example.org','Here is https://example.org',
- 'Call 507-555-1234','Contact abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMN0123'])
+ 'Call 507-555-1234','Contact '+ 'a'.repeat(43)])
  assert.throws(()=>prepareCandidate({...base,redactedSummary:summary}),/PRIVATE_CONTENT_REFUSED/);
 });
 test('cannot choose unlicensed transport or arbitrary status',()=>{
