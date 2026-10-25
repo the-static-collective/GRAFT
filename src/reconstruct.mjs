@@ -20,12 +20,14 @@ function refuse(code) {
 function parseOptions(argv) {
   const options = { depth: 1, python: "python3" };
   const allowed = new Set(["cut", "world", "depth", "blackstar-root", "memento-root", "python"]);
+  const seen = new Set();
   if (argv.length % 2) refuse("INVALID_ARGUMENTS");
   for (let i = 0; i < argv.length; i += 2) {
     const flag = argv[i];
     const key = flag.startsWith("--") ? flag.slice(2) : "";
     if (!allowed.has(key) || typeof argv[i + 1] !== "string") refuse("INVALID_ARGUMENTS");
-    if (Object.hasOwn(options, key)) refuse("DUPLICATE_ARGUMENT");
+    if (seen.has(key)) refuse("DUPLICATE_ARGUMENT");
+    seen.add(key);
     options[key] = argv[i + 1];
   }
   for (const name of ["cut", "world", "blackstar-root", "memento-root"]) {
