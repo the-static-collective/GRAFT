@@ -1,3 +1,16 @@
+# GRAFT · LIVE-WORK-002 · RESEARCH → PREPARE → RETURN
+
+**What was missing is now an executable bounded pipeline:** original Black Star/MEMENTO/Free Graph + JAR;VIS/planZ/CANNON **and** fresh public GitHub research, topical branch discovery and actual printable packet production.
+
+- [Current-source scout](src/live-scout.mjs): re-checks current public branch HEADs, reads source bytes at those SHA cuts, discovers new branch leads and reports unknowns.
+- [Useful-work engine](src/work-kit.mjs): creates printable cards and a hash-receipted local work packet; it does not recruit, publish or execute field operations.
+- [One entrypoint](src/jarvis-initiative.mjs): native six-head context + current source observations + explicit local artifact generation.
+- [Contract and commands](docs/LIVE-WORK-002.md).
+
+**Not yet:** unrestricted web research, live owner/project status across every branch, a persistent backend, Abundent deployment, contact with volunteers, or automated authorized external actions. A generated kit is real local work, not completed community service.
+
+---
+
 # GRAFT · ATTEND-001 — JAR;VIS × Free Graph × CANNON × planZ
 
 **Source-grounded, read-only local JAR;VIS routing** built on the already verified Black Star → MEMENTO → GRAFT → Free Graph bridge. This is an experimental **six-native-head** composition, not a deployed Ask JAR;VIS site.

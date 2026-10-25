@@ -1,0 +1,134 @@
+name: GRAFT JARVIS LIVE-WORK-002 current research and local kit
+on:
+  push:
+    branches:
+      - graft/jarvis-live-research-work-002
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  pinned-native-integrations:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Checkout Black Star original-code graft
+        uses: actions/checkout@v4
+        with:
+          repository: the-static-collective/GRAFT
+          ref: 08f42f769f9590d78b85c8d84358e1791d5bd318
+          path: donors/black-star
+          persist-credentials: false
+      - name: Checkout MEMENTO original-code graft
+        uses: actions/checkout@v4
+        with:
+          repository: the-static-collective/GRAFT
+          ref: 22a5714f25c7be59bac37b3ab691c28c1f036845
+          path: donors/memento
+          persist-credentials: false
+      - name: Checkout Free Graph source
+        uses: actions/checkout@v4
+        with:
+          repository: the-static-collective/free-graph
+          ref: ec0ad8743c5faac3f3675760bbafcbcb1df846c1
+          path: donors/free-graph
+          persist-credentials: false
+      - name: Checkout JAR;VIS source
+        uses: actions/checkout@v4
+        with:
+          repository: the-static-collective/JAR-VIS
+          ref: 35b3843c13ab1994efc913724b1db08ce79bdeed
+          path: donors/jarvis
+          persist-credentials: false
+      - name: Checkout CANNON original Canon Field 001
+        uses: actions/checkout@v4
+        with:
+          repository: the-static-collective/CANNON
+          ref: 453cf70c820a114423811cecdc70b4ec06f2675b
+          path: donors/cannon
+          persist-credentials: false
+      - name: Checkout planZ PhaseLift snapshot
+        uses: actions/checkout@v4
+        with:
+          repository: the-static-collective/planZ
+          ref: 52183eafe0daf311582c6016b37805ae24ef4ec6
+          path: donors/planz
+          persist-credentials: false
+      - name: Checkout planZ Garden master proposal
+        uses: actions/checkout@v4
+        with:
+          repository: the-static-collective/planZ
+          ref: d0bcdf7d9fc40eef59deed560057c8579a69cb2a
+          path: donors/planz-garden
+          persist-credentials: false
+      - name: Checkout planZ Common Table Waseca proposal
+        uses: actions/checkout@v4
+        with:
+          repository: the-static-collective/planZ
+          ref: e57b227242d64d4e485540f6406ec63d21407e3c
+          path: donors/planz-table
+          persist-credentials: false
+      - name: Checkout planZ Abundent Field grand shard
+        uses: actions/checkout@v4
+        with:
+          repository: the-static-collective/planZ
+          ref: 1ec9a4043b150296e0d90796fae5e5cc02ba3dcc
+          path: donors/planz-abundent
+          persist-credentials: false
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Test current-source discovery, source guards and useful-work local executor
+        run: node --test test/live-work.test.mjs
+      - name: Demonstrate actual public research and generate a printable kit
+        run: |
+          node src/jarvis-initiative.mjs --question "What Waseca community grocery action can we prepare?" \
+            --cut fixtures/early-cut.json --world same-room-a0 --depth 1 \
+            --blackstar-root donors/black-star --memento-root donors/memento \
+            --freegraph-root donors/free-graph --jarvis-root donors/jarvis \
+            --planz-root donors/planz --cannon-root donors/cannon \
+            --planz-garden-root donors/planz-garden \
+            --planz-table-root donors/planz-table \
+            --planz-abundent-root donors/planz-abundent \
+            --build-kit "$RUNNER_TEMP/graft-work-kit-002" \
+            > "$RUNNER_TEMP/graft-live-research.json"
+          node --input-type=module -e 'import {readFileSync} from "node:fs"; const p=JSON.parse(readFileSync(process.env.RUNNER_TEMP+"/graft-live-research.json")); if(p.disposition!=="LOCAL_DRAFT_CREATED"||p.fresh_public_evidence.coverage.known_documents_read<1||p.executed.external_delivery!==false)process.exit(1); process.stdout.write("LIVE_SOURCE_RESEARCH_OK documents="+p.fresh_public_evidence.coverage.known_documents_read+" branch_leads="+p.fresh_public_evidence.coverage.new_branch_leads+" local_artifact=YES\\n");'
+        env:
+          GITHUB_TOKEN: ${{ github.token }}
+      - name: Publish the synthetic-question research kit as a CI artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: graft-live-work-002-grocery-kit
+          path: |
+            ${{ runner.temp }}/graft-work-kit-002/field-kit.html
+            ${{ runner.temp }}/graft-work-kit-002/work-plan.json
+            ${{ runner.temp }}/graft-work-kit-002/work-receipt.json
+            ${{ runner.temp }}/graft-live-research.json
+          if-no-files-found: error
+          retention-days: 7
+      - name: Native JARVIS PlanZ CANNON source-grounded routing
+        run: node --test test/attend.test.mjs
+        env:
+          GRAFT_BLACKSTAR_ROOT: ${{ github.workspace }}/donors/black-star
+          GRAFT_MEMENTO_ROOT: ${{ github.workspace }}/donors/memento
+          GRAFT_FREEGRAPH_ROOT: ${{ github.workspace }}/donors/free-graph
+          GRAFT_JARVIS_ROOT: ${{ github.workspace }}/donors/jarvis
+          GRAFT_CANNON_ROOT: ${{ github.workspace }}/donors/cannon
+          GRAFT_PLANZ_ROOT: ${{ github.workspace }}/donors/planz
+          GRAFT_PLANZ_GARDEN_ROOT: ${{ github.workspace }}/donors/planz-garden
+          GRAFT_PLANZ_TABLE_ROOT: ${{ github.workspace }}/donors/planz-table
+          GRAFT_PLANZ_ABUNDENT_ROOT: ${{ github.workspace }}/donors/planz-abundent
+      - name: Check local ATTEND-001 viewer syntax
+        run: node --check attendant/app.js
+      - name: Original graph and reconstruction regression tests
+        run: node --test test/reconstruction.test.mjs test/free-graph.test.mjs
+        env:
+          GRAFT_BLACKSTAR_ROOT: ${{ github.workspace }}/donors/black-star
+          GRAFT_MEMENTO_ROOT: ${{ github.workspace }}/donors/memento
+          GRAFT_FREEGRAPH_ROOT: ${{ github.workspace }}/donors/free-graph
+      - name: Native Free Graph and browser source checks
+        run: |
+          python3 -m unittest discover -s donors/free-graph/tests -v
+          node --check explorer/app.js
