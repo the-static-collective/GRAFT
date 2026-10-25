@@ -1,0 +1,14 @@
+{
+  "schema": "memento.understory-record/v0",
+  "id": "stance-same-room-a1-0001",
+  "family": "stance",
+  "observer": "derek",
+  "recorded_at": "2026-08-27T20:01:05Z",
+  "world_instance_id": "same-room-a1",
+  "evidence_refs": [
+    "specimen:hero-spiral-a1"
+  ],
+  "projection_ref": "projection-same-room-a1-0001",
+  "stance": "rejected",
+  "formed_at": "2026-08-27T20:01:00Z"
+}

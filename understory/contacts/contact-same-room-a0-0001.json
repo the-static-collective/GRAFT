@@ -1,0 +1,13 @@
+{
+  "schema": "memento.understory-record/v0",
+  "id": "contact-same-room-a0-0001",
+  "family": "contact",
+  "observer": "derek",
+  "recorded_at": "2026-08-27T18:00:05Z",
+  "world_instance_id": "same-room-a0",
+  "evidence_refs": [
+    "specimen:hero-spiral-a0"
+  ],
+  "occurrence_ref": "specimen:same-room-inscription",
+  "sensed_at": "2026-08-27T18:00:00Z"
+}

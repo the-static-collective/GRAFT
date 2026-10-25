@@ -1,0 +1,18 @@
+{
+  "schema": "memento.understory-record/v0",
+  "id": "association-same-room-0001",
+  "family": "association",
+  "observer": "derek",
+  "recorded_at": "2026-08-27T20:01:30Z",
+  "world_instance_id": "same-room-a1",
+  "evidence_refs": [
+    "specimen:hero-spiral-a0",
+    "specimen:hero-spiral-a1"
+  ],
+  "member_refs": [
+    "contact-same-room-a0-0001",
+    "stance-same-room-a1-0001"
+  ],
+  "relation_hint": "same-carrier-new-relevance",
+  "status": "unresolved"
+}

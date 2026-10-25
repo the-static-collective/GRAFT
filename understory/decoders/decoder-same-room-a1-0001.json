@@ -1,0 +1,15 @@
+{
+  "schema": "memento.understory-record/v0",
+  "id": "decoder-same-room-a1-0001",
+  "family": "decoder",
+  "observer": "derek",
+  "recorded_at": "2026-08-27T20:00:05Z",
+  "world_instance_id": "same-room-a1",
+  "evidence_refs": [
+    "specimen:hero-spiral-a1"
+  ],
+  "contact_ref": "contact-same-room-a0-0001",
+  "decoder_ref": "decoder:compile-from-within",
+  "applied_at": "2026-08-27T20:00:00Z",
+  "projection_ref": "projection-same-room-a1-0001"
+}

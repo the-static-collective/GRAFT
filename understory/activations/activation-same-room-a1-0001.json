@@ -1,0 +1,19 @@
+{
+  "schema": "memento.understory-record/v0",
+  "id": "activation-same-room-a1-0001",
+  "family": "activation",
+  "observer": "derek",
+  "recorded_at": "2026-08-27T20:02:05Z",
+  "world_instance_id": "same-room-a1",
+  "evidence_refs": [
+    "specimen:hero-spiral-a1"
+  ],
+  "trace_refs": [
+    "contact-same-room-a0-0001",
+    "attention-same-room-a0-0001",
+    "association-same-room-0001"
+  ],
+  "trigger_ref": "decoder-same-room-a1-0001",
+  "activated_at": "2026-08-27T20:02:00Z",
+  "descendant_projection_ref": "projection-same-room-a1-0002"
+}

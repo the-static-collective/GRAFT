@@ -1,0 +1,14 @@
+{
+  "schema": "memento.understory-record/v0",
+  "id": "attention-same-room-a0-0001",
+  "family": "attention",
+  "observer": "derek",
+  "recorded_at": "2026-08-27T18:01:05Z",
+  "world_instance_id": "same-room-a0",
+  "evidence_refs": [
+    "specimen:hero-spiral-a0"
+  ],
+  "contact_ref": "contact-same-room-a0-0001",
+  "action": "ignored",
+  "occurred_at": "2026-08-27T18:01:00Z"
+}

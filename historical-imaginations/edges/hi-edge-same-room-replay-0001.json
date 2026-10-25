@@ -1,0 +1,16 @@
+{
+  "schema": "memento.historical-imagination-edge/v0",
+  "id": "hi-edge-same-room-replay-0001",
+  "from": "same-room-a0",
+  "to": "same-room-a1",
+  "relation": "replays",
+  "born_at": "2026-08-27T20:02:30Z",
+  "basis": [
+    "understory/activations/activation-same-room-a1-0001.json"
+  ],
+  "status": "proposed",
+  "observer_scope": [
+    "derek"
+  ],
+  "decision_ref": null
+}
