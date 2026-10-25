@@ -1,0 +1,102 @@
+{
+  "schema": "graft/jubilee-banana-reentry-v1",
+  "asOf": "2026-10-25",
+  "purpose": "Historical donor reentry; descriptive, no authority",
+  "evidenceSources": [
+    {
+      "id": "jubilee-campfire",
+      "repo": "the-static-collective/Jubilee-Campfire",
+      "relation": "historical-protocol",
+      "proof": "local-prototype",
+      "note": "Four-person trusted circle; Offer Join Remember"
+    },
+    {
+      "id": "banana-gram-original",
+      "repo": "the-static-collective/BananaGram-Gram-to-Fork",
+      "relation": "historical-ui",
+      "proof": "prototype",
+      "note": "Telegram-shaped UX, early local fake hashing"
+    },
+    {
+      "id": "bnana-gram",
+      "repo": "the-static-collective/BnanaGram",
+      "relation": "vendor-source",
+      "proof": "source-present",
+      "note": "Telegram Web K GPL v3; not proof of integrated bot"
+    },
+    {
+      "id": "gramfork",
+      "repo": "the-static-collective/gramfork",
+      "relation": "distinct-authority-owner",
+      "proof": "staged-runtime",
+      "pr": 3,
+      "note": "Identity link only; no production bot command"
+    },
+    {
+      "id": "banana-spork",
+      "repo": "the-static-collective/BananaSpork",
+      "relation": "android-garden-holder",
+      "proof": "main-plus-open-field-gates",
+      "note": "Scope, need, message; FIELD-SPECIMEN-001 pending"
+    },
+    {
+      "id": "jubilee-engine-vm",
+      "repo": "the-static-collective/Jubilee-Engine-VM",
+      "relation": "act-first-evidence",
+      "proof": "isolated-profile",
+      "note": "Book of Acts not coin or money"
+    },
+    {
+      "id": "jubilee-treasury",
+      "repo": "the-static-collective/Jubilee-treasury",
+      "relation": "portable-resources",
+      "proof": "open-experimental-prs",
+      "note": "No operational settlement"
+    },
+    {
+      "id": "authority-kit",
+      "repo": "the-static-collective/jubilee-authority-kit",
+      "relation": "transition-laws",
+      "proof": "seed",
+      "note": "Not a master authority"
+    },
+    {
+      "id": "free-graph",
+      "repo": "the-static-collective/free-graph",
+      "relation": "relation-provenance",
+      "proof": "executable-local",
+      "note": "No automatic relationship truth"
+    },
+    {
+      "id": "seven-day",
+      "repo": "the-static-collective/webZ",
+      "relation": "civic-invitation",
+      "proof": "deployed-incomplete-field",
+      "pr": 121,
+      "note": "Two invitations or ambassador, no automatic circle membership"
+    },
+    {
+      "id": "milk-bridge",
+      "repo": "the-static-collective/webZ",
+      "relation": "permission-first-case",
+      "proof": "partial-release",
+      "pr": 122,
+      "note": "Fiction not verified food-shelf need"
+    },
+    {
+      "id": "graft",
+      "repo": "the-static-collective/GRAFT",
+      "relation": "source-reconstruction-nursery",
+      "proof": "branch-local",
+      "note": "Proposals not admissions"
+    }
+  ],
+  "unresolvedAliases": [
+    "Nanagram",
+    "Nanagraph",
+    "NanaGraph",
+    "BananaGraph"
+  ],
+  "crossSystemAuthority": false,
+  "confidentialDonorSourcesImported": false
+}
