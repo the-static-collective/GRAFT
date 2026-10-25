@@ -53,6 +53,27 @@ jobs:
           ref: 52183eafe0daf311582c6016b37805ae24ef4ec6
           path: donors/planz
           persist-credentials: false
+      - name: Checkout planZ Garden master proposal
+        uses: actions/checkout@v4
+        with:
+          repository: the-static-collective/planZ
+          ref: d0bcdf7d9fc40eef59deed560057c8579a69cb2a
+          path: donors/planz-garden
+          persist-credentials: false
+      - name: Checkout planZ Common Table Waseca proposal
+        uses: actions/checkout@v4
+        with:
+          repository: the-static-collective/planZ
+          ref: e57b227242d64d4e485540f6406ec63d21407e3c
+          path: donors/planz-table
+          persist-credentials: false
+      - name: Checkout planZ Abundent Field grand shard
+        uses: actions/checkout@v4
+        with:
+          repository: the-static-collective/planZ
+          ref: 1ec9a4043b150296e0d90796fae5e5cc02ba3dcc
+          path: donors/planz-abundent
+          persist-credentials: false
       - uses: actions/setup-node@v4
         with:
           node-version: '22'
@@ -68,6 +89,9 @@ jobs:
           GRAFT_JARVIS_ROOT: ${{ github.workspace }}/donors/jarvis
           GRAFT_CANNON_ROOT: ${{ github.workspace }}/donors/cannon
           GRAFT_PLANZ_ROOT: ${{ github.workspace }}/donors/planz
+          GRAFT_PLANZ_GARDEN_ROOT: ${{ github.workspace }}/donors/planz-garden
+          GRAFT_PLANZ_TABLE_ROOT: ${{ github.workspace }}/donors/planz-table
+          GRAFT_PLANZ_ABUNDENT_ROOT: ${{ github.workspace }}/donors/planz-abundent
       - name: Original graph and reconstruction regression tests
         run: node --test test/reconstruction.test.mjs test/free-graph.test.mjs
         env:

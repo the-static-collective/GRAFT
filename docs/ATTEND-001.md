@@ -50,3 +50,15 @@ If real externally pinned canon streams exist, append `--canon-bundle /path/bund
 | CANNON | Signed event streams against supplied pins | Owner authenticity, code validity or deployment rights |
 
 `ATTENTION ≠ AUTHORITY; TESTED ≠ SELECTED; SELECTED ≠ EXECUTED; PLAN ≠ PERMISSION.`
+
+## Public planZ proposal crossings (optional but tested)
+
+Three **separate frozen source branches** can be read by an operator, never merged into a “master plan” without an owner decision:
+
+- `--planz-garden-root donors/planz-garden`: [Garden Master Shard](https://github.com/the-static-collective/planZ/blob/d0bcdf7d9fc40eef59deed560057c8579a69cb2a/plans/2026-10-21-the-garden-master-shard-001.md), explicitly DRAFT / HELD / NOT CANON.
+- `--planz-table-root donors/planz-table`: [Common Table / Waseca Grand Plan](https://github.com/the-static-collective/planZ/blob/e57b227242d64d4e485540f6406ec63d21407e3c/plans/2026-10-21-common-table-waseca-grand-plan-001.md), explicitly proposal / NOT CANON.
+- `--planz-abundent-root donors/planz-abundent`: [Abundent Field / Common Goods, Local Hands](https://github.com/the-static-collective/planZ/blob/1ec9a4043b150296e0d90796fae5e5cc02ba3dcc/grand-shards/2026-10-21-abundent-field-common-goods-hands-001.md), explicitly PROPOSED / HELD FOR HUMAN REVIEW.
+
+The CLI verifies exact checkout commit SHA, source path, title and draft/held marker. It returns **only title, immutable link, byte digest, source date, lexical topic match and unresolved owner-adoption status**. It does not paste source text or pronounce stale plans presently operational. The current state of the Waseca grocery, the Coalition, land or church partners must be separately confirmed.
+
+CI checks the proposal shards with the original routing code, while only synthetic Black Star/MEMENTO records are processed. Without these optional branch checkouts the route remains valid but narrower.

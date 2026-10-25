@@ -16,13 +16,17 @@ export const PINNED = Object.freeze({
   jarvis:"35b3843c13ab1994efc913724b1db08ce79bdeed",
   cannon:"453cf70c820a114423811cecdc70b4ec06f2675b",
   planz:"52183eafe0daf311582c6016b37805ae24ef4ec6",
+  planz_garden:"d0bcdf7d9fc40eef59deed560057c8579a69cb2a",
+  planz_table:"e57b227242d64d4e485540f6406ec63d21407e3c",
+  planz_abundent:"1ec9a4043b150296e0d90796fae5e5cc02ba3dcc",
   blackstar:"08f42f769f9590d78b85c8d84358e1791d5bd318",
   memento:"22a5714f25c7be59bac37b3ab691c28c1f036845",
   freegraph:"ec0ad8743c5faac3f3675760bbafcbcb1df846c1"
 });
 const ALLOWED=new Set(["cut","world","depth","graph-depth","focus-world","question",
   "blackstar-root","memento-root","freegraph-root","jarvis-root","cannon-root",
-  "planz-root","canon-bundle","canon-pins","canon-checkpoint"]);
+  "planz-root","planz-garden-root","planz-table-root","planz-abundent-root",
+  "canon-bundle","canon-pins","canon-checkpoint"]);
 const REQUIRED=["cut","world","blackstar-root","memento-root","freegraph-root","jarvis-root","cannon-root","planz-root"];
 const STOP=new Set(["what","when","where","which","about","with","from","into","that","there","have","could","would","should","we","the","and","this","then","make","next","plan","plans","project","projects","some","show","tell"]);
 function refuse(code){throw Error(code)}
@@ -67,6 +71,45 @@ function suggest(board,q){
    next_as_written:r.next,disposition:"NOT_CONFIRMED",
    proposal_status:"REVIEW_CANDIDATE_ONLY",currentness:"BOARD_SNAPSHOT_ONLY"
  }));
+}
+const PLANZ_SHARDS=Object.freeze([
+  {flag:"planz-garden-root",ref:"planz_garden",rel:"plans/2026-10-21-the-garden-master-shard-001.md",
+   hint:"Garden shelter cultivation food commons stewardship Waseca",label:"THE GARDEN — MASTER SHARD 001"},
+  {flag:"planz-table-root",ref:"planz_table",rel:"plans/2026-10-21-common-table-waseca-grand-plan-001.md",
+   hint:"Common Table Waseca grocery coalition arts music volunteers card routing food",label:"COMMON TABLE / WASECA — GRAND PLAN DRAFT 001"},
+  {flag:"planz-abundent-root",ref:"planz_abundent",rel:"grand-shards/2026-10-21-abundent-field-common-goods-hands-001.md",
+   hint:"Abundent community grocery coalition church worship music field cards print neighbor route",
+   label:"GRAND PLAN SHARD 001 — ABUNDENT FIELD / COMMON GOODS, LOCAL HANDS"}
+]);
+function pinnedShards(o,question){
+  const t=tokens(question),out=[];
+  for(const spec of PLANZ_SHARDS){
+    if(!o[spec.flag])continue;
+    const root=pin(o[spec.flag],PINNED[spec.ref],"PLANZ_SHARD");
+    const path=join(root,spec.rel);
+    let body;
+    try{
+      if(!statSync(path).isFile()||statSync(path).size>128*1024)refuse("PLANZ_SHARD_SIZE_INVALID");
+      body=readFileSync(path,"utf8");
+    }catch{refuse("PLANZ_SHARD_SOURCE_UNAVAILABLE")}
+    if(body.split("\n")[0]!=="# "+spec.label ||
+       !/(NOT CANON|PROPOSED \/ HELD)/i.test(body.slice(0,1200))) {
+       refuse("PLANZ_SHARD_STATUS_UNVERIFIED");
+    }
+    if(t.some(word=>(spec.hint+" "+spec.label).toLowerCase().includes(word))){
+      out.push({
+        title:spec.label,source_url:"https://github.com/the-static-collective/planZ/blob/"+
+          PINNED[spec.ref]+"/"+spec.rel,
+        source_sha:PINNED[spec.ref],source_content_sha256:"sha256:"+
+          createHash("sha256").update(body).digest("hex"),
+        source_date:"2026-10-21",status_at_source:"PROPOSED_OR_HELD_NOT_CANON",
+        current_status:"UNKNOWN",owner_adoption:"NOT_ESTABLISHED",
+        match_basis:"explicit_public_topic_keywords",
+        next:"Review the pinned plan text, current owner source, and human gate. Not a work order."
+      });
+    }
+  }
+  return out;
 }
 function matchingWorlds(packet,q) {
  const ts=tokens(q);
@@ -113,6 +156,7 @@ export async function attend(argv){
  if(projection.schema!=="cannon.canon-projection/v1"||projection.deployment_grants!==0
   ||projection.physical_execution_grants!==0||projection.automatic_merges!==0)refuse("CANNON_AUTHORITY_VIOLATION");
  const planMatches=suggest(board,o.question);
+ const shardMatches=pinnedShards(o,o.question);
  const graphMatches=matchingWorlds(graph.free_graph_packet,o.question);
  const selected=projection.active.map(x=>({
   owner_id:x.owner_id,scope:x.scope,track:x.track,repository:x.repository,
@@ -121,8 +165,8 @@ export async function attend(argv){
   effect_permission:false
  }));
  const noPins=pins.owners.length===0;
- const answer=graphMatches.length||planMatches.length
-  ?"Source matches found. They are historical or plan-board candidates, not approved actions."
+ const answer=graphMatches.length||planMatches.length||shardMatches.length
+  ?"Source matches found. They are historical proposals, not approved actions."
   :"No direct source match for this question in the pinned graph or plan-board cut. Widen research before asserting a connection.";
  return {
   schema:"graft.jarvis-graph-cannon-planz/v1",
@@ -155,6 +199,7 @@ export async function attend(argv){
     snapshot_as_of:board.as_of,
     total_snapshot_records:board.records.length,
     matched_review_candidates:planMatches,
+    pinned_proposal_matches:shardMatches,
     review_gate:"LOCAL_ONLY_NOT_CALLED",
     status:"SNAPSHOT_NOT_CURRENT_OWNER_PLAN",
   },
@@ -171,14 +216,15 @@ export async function attend(argv){
     owner_selection_is_not_execution:true,
   },
   proposed_next:{
-    summary:planMatches.length?"Review the matched planZ card and its original source before making a local decision.":"Identify a relevant current owner source and exact evidence cut; do not invent a plan.",
-    candidates:planMatches.map(x=>({plan_id:x.id,possible_next:x.next_as_written,gate:"UNREQUESTED"})),
+    summary:planMatches.length||shardMatches.length?"Review the matched original planZ sources and obtain their current owning-world status before proposing action.":"Identify a relevant current owner source and exact evidence cut; do not invent a plan.",
+    candidates:[...planMatches.map(x=>({plan_id:x.id,possible_next:x.next_as_written,gate:"UNREQUESTED"})),
+      ...shardMatches.map(x=>({source_url:x.source_url,possible_next:x.next,gate:"UNREQUESTED"}))],
     follow_up:"Consult owning project and human gate for new evidence. No remote search or local write was attempted."
   },
   origin:{
     pinned:PINNED,
     graph_reconstruction_sha256:digestJson(graph.navigation),
-    data_limit:"one frozen synthetic MEMENTO world graph plus a pinned planZ PhaseLift snapshot",
+    data_limit:"one frozen synthetic MEMENTO world graph, pinned planZ PhaseLift board and optional pinned public proposal shards",
   },
   authority:"none",
   admission:"none",

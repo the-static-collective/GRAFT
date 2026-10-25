@@ -13,6 +13,9 @@ const roots={
   "jarvis-root":process.env.GRAFT_JARVIS_ROOT,
   "cannon-root":process.env.GRAFT_CANNON_ROOT,
   "planz-root":process.env.GRAFT_PLANZ_ROOT,
+  "planz-garden-root":process.env.GRAFT_PLANZ_GARDEN_ROOT,
+  "planz-table-root":process.env.GRAFT_PLANZ_TABLE_ROOT,
+  "planz-abundent-root":process.env.GRAFT_PLANZ_ABUNDENT_ROOT,
 };
 if(Object.values(roots).some(v=>!v))throw Error("Need all six independently pinned checkouts");
 function run(question="Neighbor",opts={}){
@@ -99,6 +102,22 @@ test("native CANNON can verify *synthetic* independent test pins without grantin
   assert.equal(v.cannon.status,"CALLER_PINNED_SIGNATURES_VERIFIED_NOT_OWNER_IDENTITY");
   assert.equal(v.side_effects,"none");
  }finally{rmSync(dir,{recursive:true,force:true})}
+});
+test("real pinned planZ Waseca, grocery and Abundent draft sources are discoverable",()=>{
+  const r=run("Waseca grocery and Coalition");
+  assert.equal(r.status,0,r.stderr);
+  const v=JSON.parse(r.stdout);
+  assert.ok(v.planz.pinned_proposal_matches.length>=2);
+  assert.ok(v.planz.pinned_proposal_matches.some(x=>x.title.includes("COMMON TABLE")));
+  assert.ok(v.planz.pinned_proposal_matches.some(x=>x.title.includes("ABUNDENT FIELD")));
+  assert.ok(v.planz.pinned_proposal_matches.every(x=>x.current_status==="UNKNOWN"&&x.owner_adoption==="NOT_ESTABLISHED"));
+  assert.ok(v.planz.pinned_proposal_matches.every(x=>/^sha256:[0-9a-f]{64}$/.test(x.source_content_sha256)));
+  assert.equal(v.authority,"none");
+});
+test("modified pin for proposal source cannot silently masquerade as owner history",()=>{
+  const r=run("Waseca grocery",{"planz-table-root":root});
+  assert.notEqual(r.status,0);assert.equal(r.stdout,"");
+  assert.match(r.stderr,/PLANZ_SHARD_REF_MISMATCH/);
 });
 test("same source snapshot produces deterministic grounded answers",()=>{
  const a=run("Neighbor"),b=run("Neighbor");
