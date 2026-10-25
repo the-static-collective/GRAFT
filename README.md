@@ -6,6 +6,14 @@
 
 GRAFT receives **reviewed, clean-history source cuts** from independent projects. Each source gets its **own branch**, where its executable code can remain independent. The `main` branch is only the public directory, rules, and return paths.
 
+## FREE GRAPH × RECONSTRUCTION — navigable historical roads (2026-10-25)
+
+**[Open GRAFT's native Free Graph branch](https://github.com/the-static-collective/GRAFT/tree/graft/free-graph-reconstruction-001)** · **[Verified GitHub Actions](https://github.com/the-static-collective/GRAFT/actions/runs/40194055434)**
+
+Original **Black Star → MEMENTO → GRAFT → Free Graph** now works as a source-pinned, read-only traversal. It produces a native-validated, content-addressed `free-graph.packet/v0` plus bounded neighborhoods, preserving **proposed vs observed vs unresolved** relationships without inventing historical ancestry or granting canon. The branch also contains an [offline local graph explorer](https://github.com/the-static-collective/GRAFT/tree/graft/free-graph-reconstruction-001/explorer) for opening exported JSON and clicking through the relationships.
+
+**Verified:** 5 original reconstruction tests, 7 three-organ integration tests, 45 upstream Free Graph contract tests, and offline explorer JavaScript syntax check. **Not deployed:** no live web endpoint, saved graph service, public intake, or actual community records.
+
 ## RECONSTRUCTION-001 — native cross-project handoff (2026-10-25)
 
 **[Open the executable bridge](https://github.com/the-static-collective/GRAFT/tree/graft/reconstruction-001)** · **[GitHub Actions: 5/5 passing](https://github.com/the-static-collective/GRAFT/actions/runs/40192807313)**

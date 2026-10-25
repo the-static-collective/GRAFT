@@ -33,3 +33,9 @@ Machine registry: [candidate-registry.json](../candidate-registry.json).
 ## Live native interoperability seam · RECONSTRUCTION-001 (2026-10-25)
 
 The independent [`graft/reconstruction-001` branch](https://github.com/the-static-collective/GRAFT/tree/graft/reconstruction-001) composes the two native imports at **exact pinned commit SHAs**. It checks a Black Star observer cut, compiles MEMENTO historical context and produces a GRAFT read-only proposal receipt with `authority:none`. It does not open a MEMENTO ADMIT gate or persist a memory. Its [CI run passed five integration tests](https://github.com/the-static-collective/GRAFT/actions/runs/40192807313), including horizon refusal, unknown-world refusal, source checkout identity and determinism. No deployment or live data processing is claimed.
+
+## Native Free Graph traversal: GRAFT × RECONSTRUCTION (2026-10-25)
+
+[`graft/free-graph-reconstruction-001`](https://github.com/the-static-collective/GRAFT/tree/graft/free-graph-reconstruction-001) adds a third pinned donor, original [Free Graph](https://github.com/the-static-collective/free-graph) at `ec0ad8743c5faac3f3675760bbafcbcb1df846c1`, to the working Black Star/MEMENTO reconstruction. The adapter calls original Free Graph content hashing, contract validation and bounded `neighbors` on digest-only, non-authoritative receipts. It emits a complete `free-graph.packet/v0`, a depth-bounded neighborhood, and an unresolved owner-gate question.
+
+[Latest CI passed](https://github.com/the-static-collective/GRAFT/actions/runs/40194055434): 5 earlier reconstruction tests, 7 new integration tests, 45 upstream Free Graph unit tests, and JavaScript syntax validation of the offline explorer. The downloadable browser explorer is packaged under `explorer/` but **no public site or hosted service** is deployed. This is historical adjacency, not a claim of causation, ancestry or the future. Original upstream repositories remain unchanged.

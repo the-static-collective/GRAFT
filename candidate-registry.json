@@ -85,6 +85,33 @@
       "effects": "none",
       "admission": "none",
       "deployment": false
+    },
+    {
+      "id": "free-graph-reconstruction-001",
+      "branch": "graft/free-graph-reconstruction-001",
+      "status": "NATIVE_GRAPH_COMPOSITION_TESTED_READ_ONLY",
+      "graft_commit": "f88ab117a140788e7bd6ced8039d1d9fc5bf8206",
+      "native_source_refs": {
+        "blackstar": "08f42f769f9590d78b85c8d84358e1791d5bd318",
+        "memento": "22a5714f25c7be59bac37b3ab691c28c1f036845",
+        "free_graph": "ec0ad8743c5faac3f3675760bbafcbcb1df846c1"
+      },
+      "contract": "docs/FREE-GRAPH-CONTRACT.md",
+      "entrypoint": "src/free-graph.mjs",
+      "graph_schema": "free-graph.packet/v0",
+      "navigation": "native_neighbors_depth_0_to_3",
+      "offline_explorer": "explorer/index.html",
+      "ci_url": "https://github.com/the-static-collective/GRAFT/actions/runs/40194055434",
+      "tests": {
+        "reconstruction": 5,
+        "graph_integration": 7,
+        "upstream_free_graph": 45,
+        "offline_js_syntax": "pass"
+      },
+      "authority": "none",
+      "source_material": "synthetic_ci_inputs_only",
+      "admission": "none",
+      "deployment": false
     }
   ]
 }
