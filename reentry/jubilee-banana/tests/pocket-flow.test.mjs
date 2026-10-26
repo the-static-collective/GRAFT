@@ -26,9 +26,9 @@ function mock(){
  const crypto={randomUUID:()=>'11111111-1111-4111-8111-111111111111',
  getRandomValues:a=>a.fill(1)};
  const script=app.replace(/^import .*?;\s*$/gm,'');
- new Function('document','crypto','window','confirm','setTimeout',
+ new Function('document','crypto','window','location','confirm','setTimeout',
  'createGram','addTrace','addTension','selectFirstYes','makeReturn','formatCard','proposeGramCrossing',script)(
- document,crypto,{print(){}},()=>true,()=>{},
+ document,crypto,{opener:null,print(){}},{hash:'',origin:'https://example.local'},()=>true,()=>{},
  createGram,addTrace,addTension,selectFirstYes,makeReturn,formatCard,proposeGramCrossing);
  return {els,submit:id=>els[id].events.submit({preventDefault(){},target:els[id]})};
 }
