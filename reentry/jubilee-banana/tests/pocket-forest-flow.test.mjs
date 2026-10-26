@@ -13,7 +13,7 @@ const script=readFileSync(join(here,'../pocket/app.mjs'),'utf8');
 function page(){
  const els={};
  const mk=id=>els[id]??(els[id]={
-  id,value:'',checked:false,disabled:['returnToTableBtn','forestDownload','forestCopyInvite','downloadHandoff'].includes(id),hidden:id==='returnToTableBtn'||id==='forestNextLink',textContent:'',href:'',
+  id,style:{},value:'',checked:false,disabled:['returnToTableBtn','forestDownload','forestCopyInvite','downloadHandoff'].includes(id),hidden:id==='returnToTableBtn'||id==='forestNextLink',textContent:'',href:'',
   children:[],events:{},reportValidity(){return true},reset(){},append(...x){this.children.push(...x)},
   replaceChildren(){this.children=[]},addEventListener(k,v){this.events[k]=v},focus(){},click(){}
  });
