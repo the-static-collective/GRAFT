@@ -6,19 +6,30 @@ no real operator, RF signal, shared network, or real-world fulfillment.
 import argparse
 import hashlib
 import json
+import subprocess
 import sys
 from pathlib import Path
 
 def require(cond,code):
     if not cond: raise ValueError(code)
 
-def run(prior_verification, prior_result, ghroot, output):
+def run(prior_verification, prior_result, ghroot, output, relay_root, donor_folder):
     # Original GHoT branch supplied by the caller at an immutable source pin.
     sys.path.insert(0,str(Path(ghroot).resolve()))
     from ghot.radio_house_002 import connect,enable,observe_media,favorable_lab_power,status
     from ghot.radio_house_003 import make_bundle,accept,advance,settle,verify_return
     from ghot.relatte_identity import IdentityKey,verify_receipt
+    # Re-run the original reLATTE cryptographic verifier; never trust booleans
+    # in a caller-created verification.json by themselves.
+    bridge=Path(relay_root).resolve()/"scripts"/"relay001-ghot-hold.mjs"
+    assert bridge.is_file(), "RELATTE_EXPERIMENT_NOT_PRESENT"
+    native=subprocess.run(["node","--experimental-strip-types",str(bridge),
+        "verify",str(Path(donor_folder).resolve()),str(Path(prior_result).resolve().parent)],
+        cwd=str(Path(relay_root).resolve()),text=True,capture_output=True,timeout=35,check=False)
+    require(native.returncode==0,"ORIGINAL_RELATTE_VERIFIER_REFUSED")
+    verified_native=json.loads(native.stdout)
     verification=json.loads(Path(prior_verification).read_text())
+    require(verified_native==verification,"VERIFICATION_DOCUMENT_DIFFERS_FROM_NATIVE")
     earlier=json.loads(Path(prior_result).read_text())
     require(verification.get("schema")=="static-relay/relatte-hold-verification/v0" and
             verification.get("signed_crossing_valid") is True and
@@ -33,7 +44,9 @@ def run(prior_verification, prior_result, ghroot, output):
     require(isinstance(source_hash,str) and len(source_hash)==64 and
             all(c in "0123456789abcdef" for c in source_hash),"BAD_SOURCE_HASH")
     crossing_hash=hashlib.sha256(verification["crossing_id"].encode("ascii")).hexdigest()
-    message="PUBLIC SYNTHETIC HANDOFF; PREVIOUS HOLD "+crossing_hash+"; MEDIA HASH "+source_hash+"; NO USER STORY; NO AUTHORITY TRANSFER"
+    message=("PUBLIC SYNTHETIC HANDOFF; PREVIOUS HOLD "+crossing_hash+
+        "; MEDIA HASH "+source_hash+"; NO USER STORY; NO AUTHORITY TRANSFER; ")*5
+    require(len(message)>256 and len(message)<4096,"LAB_WORK_PACKET_SIZE_INVALID")
     base=Path(output)
     require(not base.exists(),"OUTPUT_ALREADY_EXISTS")
     sender=base/"requester";worker=base/"worker"
@@ -102,6 +115,8 @@ def run(prior_verification, prior_result, ghroot, output):
     return record
 if __name__=="__main__":
     p=argparse.ArgumentParser()
-    for arg in ("--verification","--roundtrip","--radio-root","--output"):p.add_argument(arg,required=True)
+    for arg in ("--verification","--roundtrip","--radio-root","--output",
+                "--relay-root","--donor-folder"):p.add_argument(arg,required=True)
     a=p.parse_args()
-    print(json.dumps(run(a.verification,a.roundtrip,a.radio_root,a.output),sort_keys=True))
+    print(json.dumps(run(a.verification,a.roundtrip,a.radio_root,a.output,
+        a.relay_root,a.donor_folder),sort_keys=True))
