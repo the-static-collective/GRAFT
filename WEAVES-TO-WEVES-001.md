@@ -108,7 +108,8 @@ This is **not a replacement** for the prior live experiment chains. It gives the
 ## Acceptance ladder
 
 - **Done in source:** recursive deterministic addresses, structural validation, synthetic non-personal crosswalk, unit tests.
-- **Still to prove:** exact-head CI status on this branch, independent human reading of its output, external reweaving from a copied public packet, hostile privacy review and practical handoff usability.
+- **Verified in CI:** GitHub Actions run [40385573035](https://github.com/the-static-collective/GRAFT/actions/runs/40385573035) passed the unit tests and demo generation/validation/trace at commit 5c42300. Subsequent commit adds a downloadable public demo artifact; check that newer head independently before claiming it passed.
+- **Still to prove:** independent human reading of its output, external reweaving from a copied public packet, hostile privacy review and practical handoff usability.
 - **Not claimed:** service deployment; user sign-ups; ongoing moderation; real volunteer contact; physical help delivered; partnership; authority transfer.
 
 **Next proof:** let a person start with one of these five weaves, add an independently owned instrument, produce a forked packet offline, and bring back one reviewed output. That is the first *reweave*, not merely another diagram.
