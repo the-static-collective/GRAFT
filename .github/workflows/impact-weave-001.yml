@@ -1,0 +1,33 @@
+name: Impact Weave 001 — role-only permission boundaries
+on:
+  push:
+    branches:
+      - graft/impact-weave-001
+  pull_request:
+    paths:
+      - 'src/impact-weave*'
+      - 'test/impact-weave.test.mjs'
+      - '.github/workflows/impact-weave-001.yml'
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Syntax and import boundary
+        run: |
+          node --check src/impact-weave.mjs
+          node --check src/impact-weave-cli.mjs
+          node --check src/work-kit.mjs
+      - name: Run source-only field proposal tests
+        run: node --test test/impact-weave.test.mjs
+      - name: Exercise standalone printable kit with no online resources
+        run: |
+          node src/impact-weave-cli.mjs --lanes table,porch,stage,bench --output-directory /tmp/weave-001
+          test -s /tmp/weave-001/right-hands.html
+          test -s /tmp/weave-001/graft-native-four-cards.html
+          test -s /tmp/weave-001/work-receipt.json
