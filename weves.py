@@ -223,10 +223,35 @@ def specimen():
     return bundle("WEAVES TO WE'VES — OCT 26 SYNTHETIC CROSSWALK",
                   [*points, a, b, c, d, e, all_weaves, possible], possible)
 
+
+def reweave(parent, title, new_source_title, new_source_url, source_role, next_act):
+    """Fork an existing public bundle without editing any ancestor node."""
+    validate(parent)
+    nodes = parent["nodes"]
+    root = next(x for x in nodes if x["id"] == parent["root"])
+    if root["schema"] == WEVE:
+        base_id = root["source_weave"]
+        base = next(x for x in nodes if x["id"] == base_id)
+    elif root["schema"] == WEAVE:
+        base = root
+    else:
+        raise ValueError("reweave needs a weave or we've candidate as root")
+    added = particular(new_source_title, new_source_url, source_role)
+    follow = weave(title, [(base, "reused with attribution"), (added, "new independently owned instrument")],
+                   "Optional new relationship; no inherited permissions")
+    candidate = weve_candidate("Possible act from " + title, follow, next_act,
+                               "New local voluntary steward (not assigned)")
+    return bundle(title, [*nodes, added, follow, candidate], candidate)
+
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
-    parser.add_argument("command", choices=["demo", "validate", "trace"])
+    parser.add_argument("command", choices=["demo", "validate", "trace", "reweave"])
     parser.add_argument("path", nargs="?")
+    parser.add_argument("--title")
+    parser.add_argument("--source-title")
+    parser.add_argument("--source-url")
+    parser.add_argument("--source-role")
+    parser.add_argument("--next-act")
     args = parser.parse_args()
     if args.command == "demo":
         print(json.dumps(specimen(), ensure_ascii=False, indent=2))
@@ -235,7 +260,12 @@ def main():
             parser.error("path required")
         value = json.loads(Path(args.path).read_text(encoding="utf-8"))
         validate(value)
-        if args.command == "validate":
+        if args.command == "reweave":
+            fields = [args.title, args.source_title, args.source_url, args.source_role, args.next_act]
+            if any(not field for field in fields):
+                parser.error("reweave needs --title, --source-title, --source-url, --source-role, --next-act")
+            print(json.dumps(reweave(value, *fields), ensure_ascii=False, indent=2))
+        elif args.command == "validate":
             print("VALID PACKET STRUCTURE; field reality and consent NOT verified")
         else:
             for node in value["nodes"]:
