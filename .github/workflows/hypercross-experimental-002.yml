@@ -251,6 +251,8 @@ jobs:
             --verification "$RUNNER_TEMP/relay-hold/public/verification.json" \
             --roundtrip "$RUNNER_TEMP/relay-hold/public/roundtrip-result.json" \
             --radio-root donors/ghot-radio \
+            --relay-root donors/relatte-relay \
+            --donor-folder "$RUNNER_TEMP/relay-donor" \
             --output "$RUNNER_TEMP/radio-return-002" > "$RUNNER_TEMP/radio-verified.json"
           python3 - <<'CHECK'
           import json,os
@@ -282,6 +284,8 @@ jobs:
             --verification "$RUNNER_TEMP/forged-upstream-verification.json" \
             --roundtrip "$RUNNER_TEMP/relay-hold/public/roundtrip-result.json" \
             --radio-root donors/ghot-radio \
+            --relay-root donors/relatte-relay \
+            --donor-folder "$RUNNER_TEMP/relay-donor" \
             --output "$RUNNER_TEMP/forged-radio-output"; then
             echo "DANGER: invalid prior crossing admitted" >&2; exit 1
           fi
