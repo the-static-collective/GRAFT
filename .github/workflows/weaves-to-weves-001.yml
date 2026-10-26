@@ -1,0 +1,23 @@
+name: WEAVES TO WEVES 001
+on:
+  push:
+    branches:
+      - graft/weaves-to-weves-001
+  workflow_dispatch:
+jobs:
+  local-protocol:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Unit tests
+        run: python3 -m unittest -v test_weves.py
+      - name: Make nested sample and validate
+        run: |
+          python3 weves.py demo > /tmp/weaves-example.json
+          python3 weves.py validate /tmp/weaves-example.json
+          python3 weves.py trace /tmp/weaves-example.json
