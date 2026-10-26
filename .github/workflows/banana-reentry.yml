@@ -1,0 +1,33 @@
+name: BananaGram re-entry proof
+on:
+  push:
+    branches:
+      - graft/jubilee-banana-reentry-001
+  pull_request:
+    branches:
+      - main
+  workflow_dispatch:
+jobs:
+  gram-tests:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Test private-to-proposal boundaries
+        run: node --test reentry/jubilee-banana/tests/*.test.mjs
+      - name: Run fictional milk case example
+        run: node reentry/jubilee-banana/examples/vanishing-carton.mjs
+      - name: Produce reviewed Free Graph specimen
+        run: node reentry/jubilee-banana/examples/forest-packet.mjs /tmp/banana-forest-v0.json
+      - name: Fetch Free Graph validation substrate
+        uses: actions/checkout@v4
+        with:
+          repository: the-static-collective/free-graph
+          path: free-graph-upstream
+          persist-credentials: false
+      - name: Validate actual Free Graph v0 packet
+        run: python3 free-graph-upstream/scripts/fg.py validate /tmp/banana-forest-v0.json

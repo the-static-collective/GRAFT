@@ -1,0 +1,232 @@
+<!doctype html>
+<html lang="en"><head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="theme-color" content="#193e31">
+<title>BananaGram · A question with handles</title>
+<style>
+:root{--forest:#193e31;--leaf:#33745a;--ink:#233729;--sage:#e5eedc;--paper:#f8f5e9;--gold:#f2d78a;--line:#beccb9;--pink:#a2464d;--muted:#4c6559;--white:#fffef9}
+*{box-sizing:border-box}body{margin:0;background:var(--paper);color:var(--ink);font:16px/1.55 system-ui,-apple-system,sans-serif}
+header{background:var(--forest);color:var(--white);padding:18px 0 46px}
+.container{width:min(1080px,calc(100% - 30px));margin:auto}
+nav{display:flex;align-items:center;justify-content:space-between;gap:16px;flex-wrap:wrap;font-size:.85rem}
+nav a{color:var(--gold)}h1,h2,h3{font-family:Georgia,"Times New Roman",serif;letter-spacing:-.035em;line-height:1.09}
+h1{font-size:clamp(3.1rem,8vw,6.3rem);margin:52px 0 20px}h1 em{color:var(--gold);font-style:normal}
+h2{font-size:clamp(2rem,5vw,2.9rem);margin:10px 0 18px}h3{font-size:1.45rem;margin:0 0 14px}
+.hero{font-size:1.12rem;max-width:720px}.eyebrow,.kicker{font-size:.75rem;font-weight:900;letter-spacing:.16em;text-transform:uppercase;color:var(--leaf)}
+header .eyebrow{color:var(--gold)}
+.warning{margin:-20px auto 23px;position:relative;padding:15px 18px;background:#fff0c7;border-left:5px solid #995335;font-size:.9rem}
+main section{padding:34px 0}.light{background:var(--sage);border-top:1px solid var(--line);border-bottom:1px solid var(--line)}
+.grid{display:grid;grid-template-columns:1fr 1fr;gap:18px}.box{border:1px solid var(--line);background:var(--white);padding:20px;min-width:0}.box.emphasis{border:2px solid var(--forest)}
+p{margin:10px 0 15px}label{display:block;margin:16px 0 6px;font-weight:800}.hint{font-size:.84rem;color:var(--muted)}
+input,textarea,select,button{font:inherit}input[type=text],textarea,select{width:100%;border:1px solid #8fa797;border-radius:6px;padding:11px;background:#fff;color:var(--ink)}
+textarea{min-height:88px;resize:vertical}input:focus-visible,textarea:focus-visible,select:focus-visible,button:focus-visible,a:focus-visible{outline:3px solid var(--pink);outline-offset:2px}
+button,.button{display:inline-flex;align-items:center;justify-content:center;gap:7px;min-height:44px;padding:10px 16px;border-radius:6px;border:1px solid var(--forest);background:var(--forest);color:#fff;font-weight:800;text-decoration:none;cursor:pointer}
+button.secondary,.button.secondary{background:transparent;color:var(--forest)}button.gold{background:var(--gold);color:var(--ink);border-color:var(--gold)}button:disabled{opacity:.58;cursor:not-allowed}
+.actions{display:flex;gap:9px;flex-wrap:wrap;margin:16px 0 6px}
+ol{padding-left:22px}.steps{display:flex;gap:10px;flex-wrap:wrap}.steps span{font-size:.76rem;font-weight:800;background:#e4eadb;padding:6px 9px;border-radius:14px}
+#gramPreview,#firstYesPreview,#returnPreview,#crossPreview{white-space:pre-wrap;overflow-wrap:anywhere;border:1px solid var(--line);background:#eff5ed;padding:13px;font:13px/1.6 ui-monospace,Consolas,monospace;max-height:360px;overflow:auto}
+#gramPreview{min-height:260px}.status{min-height:24px;color:var(--leaf);font-weight:750;font-size:.9rem}
+.check{display:flex;gap:12px;align-items:flex-start;margin:15px 0}.check input{flex-shrink:0;width:22px;height:22px;accent-color:var(--forest)}.check label{font-weight:500;margin:0}
+.line{border-top:1px solid var(--line);margin:25px 0}.tabs{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:18px}.tabs button{background:transparent;color:var(--forest)}.tabs button.selected{background:var(--forest);color:white}
+#traceList,#tensionList{font-size:.88rem;overflow-wrap:anywhere}
+#traceList>div,#tensionList>div{border-top:1px solid var(--line);padding:10px 0}
+.footer{padding:22px 0;background:#112b21;color:#f4f4e5;font-size:.83rem}.footer a{color:var(--gold)}
+strong.privacy{color:#a34044}.smallprint{font-size:.8rem;color:#506359}.tag{font-size:.8rem;font-weight:850;color:#41624e}
+.hidden[hidden]{display:none!important}
+@media(max-width:760px){.grid{grid-template-columns:1fr}h1{margin-top:33px}main section{padding:24px 0}.box{padding:16px}}
+@media print{header{background:#fff;color:#000;padding-bottom:4px}main section{padding:4px 0}.warning,.actions,.tabs,#traceForm,#tensionForm,#firstYesForm,#returnForm,#crossForm,.footer{display:none!important}.grid{display:block}.box{break-inside:avoid}pre{max-height:none!important}body{font:11pt Georgia,serif}}
+</style></head>
+<body>
+<header><div class="container"><nav><b>THE GARDEN · BANANAGRAM / POCKET 001</b><div><a href="https://garden.abundent.org/seven">Seven-Day Table ↗</a> &nbsp; <a href="https://garden.abundent.org/">Garden ↗</a></div></nav>
+<div class="eyebrow" style="margin-top:37px">A portable question · a voluntary offering · a possible next step</div>
+<h1>Bring a question.<br><em>Leave a door.</em></h1>
+<p class="hero">Start with what matters. Preserve what you heard, what remains uncertain, and what becomes possible next. Prepare one useful action without asking anyone to join an institution.</p>
+<div class="steps"><span>NEED</span><span>OFFER</span><span>IF THIS SUCCEEDS</span><span>TRACE</span><span>TENSION</span><span>FIRST YES</span><span>RETURN</span></div>
+</div></header>
+<div class="container"><div class="warning"><b>This is a private draft workbench, not a community submission form.</b> Everything you type stays in this browser page while it is open; nothing is sent to the server. Closing or reloading the page loses unsaved work. Private downloads stay on your device. Please avoid typing identifying or sensitive information into a shareable proposal.</div></div>
+<main>
+<section><div class="container"><div class="kicker">01 · Say the important thing</div><h2>What can we make possible?</h2>
+<div class="grid"><div class="box emphasis">
+<form id="startForm" autocomplete="off">
+<label for="need">What question, need, or possibility matters?</label><textarea id="need" required minlength="12" maxlength="500" placeholder="Example: Is there an upcoming milk sourcing gap at the food shelf?"></textarea>
+<label for="offering">What might you offer back? <span class="hint">(Entirely optional)</span></label><textarea id="offering" maxlength="240" placeholder="Time, a skill, a question, an introduction—or nothing. No one owes repayment."></textarea>
+<label for="possible">If this succeeds, what becomes possible next?</label><textarea id="possible" required minlength="12" maxlength="300" placeholder="Example: The authorized buyer could compare real eligible choices."></textarea>
+<label for="question">One question still unanswered <span class="hint">(optional)</span></label><textarea id="question" maxlength="300" placeholder="Example: Would the food shelf director welcome this research?"></textarea>
+<div class="actions"><button type="submit" class="gold">Plant my Gram</button><button id="starter" type="button" class="secondary">Load fictional starter</button><button id="fresh" type="button" class="secondary">Start fresh</button></div>
+</form><p id="startStatus" class="status" role="status"></p>
+</div><aside class="box"><div class="kicker">Your portable Gram</div><h3>One particular, not a profile</h3><div id="gramPreview" aria-live="polite">Start by planting a question. The Gram stays in this page until you explicitly download it.</div>
+<div class="actions"><button id="savePrivate" class="secondary" type="button" disabled>Download private Gram JSON</button><button id="printPrivate" class="secondary" type="button">Print current view</button></div>
+<p class="smallprint"><strong class="privacy">Private means: don't post this raw file.</strong> It can contain unverified notes and names you typed. Only a separately reviewed redaction should travel outward.</p></aside>
+</div></div></section>
+<section class="light"><div class="container"><div class="kicker">02 · Don't erase the difficult parts</div><h2>Trace and Tension</h2><p>What someone said is not necessarily what happened. A disagreement can remain unresolved while the question travels.</p>
+<div class="grid"><div class="box"><h3>Add a trace</h3><form id="traceForm" autocomplete="off">
+<label for="trace">What was reported, observed, or tested?</label><textarea id="trace" minlength="12" maxlength="450" placeholder="An attendee mentioned a potential change in grant-funded milk support."></textarea>
+<label for="traceType">How do we know?</label><select id="traceType"><option value="heard_from_someone">Someone reported it (unverified)</option><option value="observed_by_author">I observed it (self-report)</option><option value="document_unreviewed">A document suggests it (not independently verified)</option><option value="local_test">I tried it locally (not a field proof)</option></select>
+<button type="submit">Add trace</button></form><div id="traceList" aria-live="polite"><p class="hint">No traces yet.</p></div></div>
+<div class="box"><h3>Preserve a tension</h3><form id="tensionForm" autocomplete="off">
+<label for="oneView">One understanding</label><textarea id="oneView" minlength="10" maxlength="320" placeholder="The grant is ending."></textarea>
+<label for="otherView">Another possibility</label><textarea id="otherView" minlength="10" maxlength="320" placeholder="Some purchasing options might remain available."></textarea>
+<label for="unresolved">What would resolve this?</label><textarea id="unresolved" minlength="10" maxlength="320" placeholder="Ask the authorized purchaser about the program and current allocation."></textarea>
+<button type="submit">Hold both, without deciding</button></form><div id="tensionList" aria-live="polite"><p class="hint">No tensions yet.</p></div></div></div>
+<p id="observeStatus" class="status" role="status"></p>
+</div></section>
+<section><div class="container"><div class="kicker">03 · One authorized direction</div><h2>First Yes: one useful act</h2>
+<div class="grid"><div class="box"><form id="firstYesForm" autocomplete="off">
+<label for="prepare">What could be prepared without someone else's permission?</label><textarea id="prepare" minlength="12" maxlength="320" placeholder="A blank buyer comparison worksheet, with prices left unknown."></textarea>
+<label for="permission">What must be asked before doing anything consequential?</label><textarea id="permission" minlength="12" maxlength="320" placeholder="Ask the buyer if a private milk sourcing comparison is welcome."></textarea>
+<label for="proof">What would count as a truthful return?</label><textarea id="proof" minlength="12" maxlength="320" placeholder="Worksheet prepared; answer is yes, no, or not yet."></textarea>
+<button type="submit">Select a First Yes plan</button></form><p id="firstYesStatus" class="status" role="status"></p></div>
+<div class="box"><h3>Selected ≠ authorized</h3><div id="firstYesPreview" class="hint">Your chosen plan will appear here. Selecting is not executing, purchasing, scheduling, enrolling, or confirming anything.</div></div></div>
+</div></section>
+<section class="light"><div class="container"><div class="kicker">04 · Let the work end honestly</div><h2>Fruit, Seed, Compost</h2>
+<div class="grid"><div class="box"><form id="returnForm" autocomplete="off">
+<label for="fruit">Fruit: what actually changed? <span class="hint">(Your own report, not independently confirmed)</span></label><textarea id="fruit" maxlength="300" placeholder="A draft worksheet was prepared. No actual sourcing was confirmed."></textarea>
+<label for="seed">Seed: what might be worth trying next?</label><textarea id="seed" maxlength="300" placeholder="With permission, verify the current sourcing program."></textarea>
+<label for="compost">Compost: what assumption failed or remains unresolved?</label><textarea id="compost" maxlength="300" placeholder="We still don't know whether the grant is ending."></textarea>
+<button type="submit">Record a local return</button></form><p id="returnStatus" class="status" role="status"></p></div>
+<div class="box"><h3>A seed isn't a successor</h3><div id="returnPreview" class="hint">A return doesn't automatically create another task or transfer anybody's authority.</div></div></div>
+</div></section>
+<section><div class="container"><div class="kicker">05 · A carefully chosen crossing</div><h2>Carry the question, not the private history</h2>
+<div class="grid"><div class="box"><form id="crossForm" autocomplete="off">
+<p>Write a <b>new, public-safe redaction</b>. Private traces, tensions, contacts, and the raw Gram will not be copied automatically. This is a proposal to a future recipient, not a public post.</p>
+<label for="redaction">The one safe sentence you choose to carry</label><textarea id="redaction" maxlength="240" minlength="12" placeholder="Would a willing food-shelf steward welcome a comparison of permitted milk sourcing options?"></textarea>
+<label for="destination">Potential next doorway</label><select id="destination"><option value="first-yes">First Yes — draft a possible useful action</option><option value="campfire-review">Campfire — invite a willing steward to review</option><option value="telegram-porch-draft">Telegram porch — create a draft, not send</option></select>
+<div class="check"><input type="checkbox" id="authorOwn"><label for="authorOwn">I am the author of this proposed contribution and I am choosing to submit the redacted question for consideration.</label></div>
+<div class="check"><input type="checkbox" id="consent"><label for="consent">I choose to export exactly this redacted text. I understand it may be shared after I deliberately hand it to someone.</label></div>
+<div class="check"><input type="checkbox" id="reviewed"><label for="reviewed">I checked the redaction for names, contact information, private details, and unverified claims, and I am satisfied with how it is worded.</label></div>
+<div class="actions"><button type="submit">Prepare an inert handoff</button><button type="button" id="downloadHandoff" class="secondary" disabled>Download proposal JSON</button><button type="button" id="returnToTableBtn" class="gold" hidden disabled>Return reviewed question to my Table</button></div><p class="smallprint" id="tableReturnHint" hidden>Opened by your private Seven-Day Table seat. This sends one reviewed sentence to that original tab only; it will be an editable, unsent draft. It does not opt into sharing or submit a contribution.</p>
+</form><p id="crossStatus" class="status" role="status"></p></div>
+<div class="box"><h3>A door, not a command</h3><div id="crossPreview" class="hint">Nothing crosses automatically. If you deliberately download the reviewed proposal, another authorized system or steward would still need to accept it.</div>
+<div class="line"></div><p class="tag">STATUS: local / experimental / no backend</p><p>Nothing in this prototype sends a message, records a donation, confirms milk delivery, invokes an AI model, enrolls a person, or modifies the Jubilee ledger.</p>
+<div class="actions"><a class="button secondary" href="https://garden.abundent.org/seven">Visit the Seven-Day Table</a></div>
+</div></div></div></section>
+<section class="light" id="forest"><div class="container">
+<div class="kicker">06 · Forest View · a possible path, not a people graph</div>
+<h2>What can grow from what happened?</h2>
+<p>One reviewed question can become an evidence-labeled, read-only <strong>Free Graph packet</strong> and a voluntary invitation to another table. The result stays unconfirmed without an independently verified receipt. Nothing here joins people, publishes information, or starts a table automatically.</p>
+<div class="grid">
+ <div class="box emphasis">
+ <h3>Make a public-safe forest seed</h3>
+ <p class="hint">First, prepare a reviewed redacted question in Step 05. Then separately write only what you're comfortable including in a portable packet.</p>
+ <form id="forestForm" autocomplete="off">
+ <label for="forestFruit">Fruit · your account of something that happened (optional; not independently verified)</label>
+ <textarea id="forestFruit" maxlength="240" placeholder="A blank comparison worksheet was drafted; no food was bought or delivered."></textarea>
+ <label for="forestSeed">Seed · one possible next question (optional)</label>
+ <textarea id="forestSeed" maxlength="240" placeholder="Would a willing purchaser like to verify one specific sourcing option?"></textarea>
+ <p class="hint">Enter fruit, seed, or both. Private traces and tensions are never automatically copied into the packet.</p>
+ <label class="check"><input type="checkbox" id="forestReviewed"><span>I reviewed the exact question, fruit and seed above for accuracy, uncertainty and private information.</span></label>
+ <label class="check"><input type="checkbox" id="forestConsent"><span>I approve preparing a portable, public-safe graph packet from only these redacted fields. This does not publish it.</span></label>
+ <div class="actions"><button type="submit" class="gold">Grow my private Forest View</button><button type="button" id="forestDownload" class="secondary" disabled>Download Free Graph packet</button></div>
+ </form>
+ <p id="forestStatus" class="status" role="status"></p>
+ </div>
+ <div class="box"><h3>A little forest of possibilities</h3>
+ <div id="forestDiagram" aria-live="polite" style="padding:15px;background:#e4eddc;border:1px solid #b8cbb3;min-height:155px">
+ <p class="hint">A reviewed question can branch into author-reported fruit and an optional next seed. No people are mapped.</p>
+ </div>
+ <p class="smallprint">Free Graph's five portable link verbs remain unchanged. This produces a content-addressed <em>seed projection</em>, not a project-owned truth or verified Jubilee consequence.</p>
+ </div>
+</div>
+<div class="grid" style="margin-top:18px">
+ <div class="box">
+ <h3>Make the next invitation—only if someone wants to</h3>
+ <p>A new table does not inherit the previous table's participants or obligations. It starts with a fresh invitation and a new human decision.</p>
+ <form id="forestNextForm" autocomplete="off">
+ <label for="forestNextTitle">New table title</label><input id="forestNextTitle" type="text" minlength="3" maxlength="84" value="The Next Table · One Useful Question">
+ <label for="forestNextQuestion">Public-safe invitation question (editable)</label>
+ <textarea id="forestNextQuestion" minlength="5" maxlength="270" placeholder="What might willing neighbors clarify or make possible together?"></textarea>
+ <label for="forestNextDate">Suggested date for the new table</label>
+ <input id="forestNextDate" type="date">
+ <label class="check"><input type="checkbox" id="forestNextApproval"><span>I approve these exact public-safe title, question and date for an independent invitation link. No one is enrolled.</span></label>
+ <div class="actions"><button type="submit" class="gold">Prepare a voluntary invitation</button><button type="button" class="secondary" id="forestCopyInvite" disabled>Copy link</button></div>
+ </form>
+ <a id="forestNextLink" href="https://abundent.org/tables/" class="button secondary" target="_blank" rel="noopener noreferrer" referrerpolicy="no-referrer" hidden>Open prepared Seventh Table invitation ↗</a>
+ <p id="forestNextStatus" class="status" role="status"></p>
+ </div>
+ <div class="box">
+ <h3>Why this isn't an automatic network</h3>
+ <p>People cannot be indexed from private history merely because they were mentioned. A reported result stays a self-report. A seed stays a possibility. A graph relation stays a proposed relation.</p>
+ <p>Only if somebody chooses to open the prepared invitation does the question leave this page. The destination can propose another table; no invitations are sent from here.</p>
+ <div id="forestPacketStatus" class="hint">No portable packet prepared.</div>
+ </div>
+</div>
+</div></section>
+<section id="field" class="light"><div class="container"><div class="kicker">07 · FIELD RETURN · Human confirmation belongs to the owner</div>
+<h2>What would make this real?</h2><p>This is a <strong>local witness-request worksheet</strong>, not a claim that anybody has already helped. You can prepare a public-safe question for a willing, authorized steward. You can also inspect a manually entered source-status claim without promoting it to verified provision.</p>
+<div class="grid">
+ <div class="box emphasis">
+ <h3>Ask for a real-world check</h3>
+ <form id="fieldRequestForm" autocomplete="off">
+ <label for="fieldAsk">One question for the person responsible</label>
+ <textarea id="fieldAsk" minlength="12" maxlength="240" placeholder="Would the food shelf purchaser welcome a private comparison of current ordering options?"></textarea>
+ <label for="fieldProof">What independent observation or owner receipt would settle this?</label>
+ <textarea id="fieldProof" minlength="12" maxlength="240" placeholder="Buyer confirms the actual supply terms, or authenticated recipient confirms a real delivery."></textarea>
+ <label for="fieldFog">What must we not assume yet?</label>
+ <textarea id="fieldFog" minlength="12" maxlength="240" placeholder="Whether a grant ends, the source quantity, and whether any new milk was delivered."></textarea>
+ <label class="check"><input type="checkbox" id="fieldApproved"><span>I choose to prepare this one public-safe question for human review. No recipient has agreed, and this doesn't send anything.</span></label>
+ <div class="actions"><button type="submit" class="gold">Prepare witness question</button><button type="button" class="secondary" id="fieldCopy" disabled>Copy a voluntary invitation</button><button type="button" class="secondary" id="fieldDownload" disabled>Save request JSON</button></div>
+ </form><p id="fieldRequestStatus" class="status" role="status"></p>
+ </div>
+ <div class="box"><h3>A report isn't a confirmation</h3>
+ <div id="fieldRequestPreview" style="white-space:pre-wrap;background:#eff5ed;border:1px solid #beccb9;padding:15px;min-height:165px">First make an explicitly reviewed Forest packet in Step 06, then prepare a question for the person authorized to answer it.</div>
+ <p class="smallprint">A person reporting that they delivered food does not prove the recipient received it. A receipt ID alone does not prove two records represent different physical deliveries. Declining to participate is a valid outcome.</p>
+ </div>
+</div>
+<div class="grid" style="margin-top:18px">
+<div class="box"><h3>Check a reported return</h3>
+ <p class="hint">Optional field exercise: manually transcribe only non-sensitive claimed quantities. This does not query BananaSpork or Supabase, authenticate anyone, or verify a real delivery.</p>
+ <form id="fieldCheckForm" autocomplete="off">
+ <label for="fieldSteward">Steward's response (as reported)</label>
+ <select id="fieldSteward"><option value="not-asked">Not asked yet</option><option value="accepted-to-review">Agreed to review the question</option><option value="declined">Declined</option><option value="no-need">No current need</option></select>
+ <label for="fieldRequirement">What particular requirement is being checked?</label><input id="fieldRequirement" type="text" minlength="5" maxlength="160" value="One hypothetical milk need">
+ <div class="grid">
+ <div><label for="fieldQuantity">Requested quantity</label><input id="fieldQuantity" type="number" min="0" step="any" value="24"></div>
+ <div><label for="fieldUnit">Unit</label><input id="fieldUnit" type="text" maxlength="36" value="cartons"></div>
+ </div>
+ <label for="fieldReported">Quantity helper says they delivered</label><input id="fieldReported" type="number" min="0" step="any" value="0">
+ <label for="fieldConfirmed">Quantity source record claims the recipient confirmed</label><input id="fieldConfirmed" type="number" min="0" step="any" value="0">
+ <label for="fieldOccurrence">Physical occurrence reference, if legitimately available <span class="hint">(optional; don't enter a name or token)</span></label><input id="fieldOccurrence" type="text" maxlength="96" placeholder="example-occurrence-001">
+ <label class="check"><input type="checkbox" id="fieldSecondEnabled"><span>The same underlying requirement has a second Campfire link (do not double-count).</span></label>
+ <div id="fieldSecondFields" hidden>
+ <label for="fieldSecondConfirmed">Second link's claimed confirmed quantity</label><input id="fieldSecondConfirmed" type="number" min="0" step="any" value="0">
+ <label for="fieldSecondOccurrence">Second link occurrence reference (optional)</label><input id="fieldSecondOccurrence" type="text" maxlength="96" placeholder="example-occurrence-001">
+ </div>
+ <label class="check"><input type="checkbox" id="fieldStatusFresh"><span>I have reason to believe this source status is current (still not verified by this page).</span></label>
+ <div class="actions"><button type="submit">Inspect this claim conservatively</button></div>
+ </form><p id="fieldCheckStatus" class="status" role="status"></p>
+ </div>
+ <div class="box"><h3>What is actually established?</h3>
+ <div id="fieldReviewPreview" style="white-space:pre-wrap;background:#eff5ed;border:1px solid #beccb9;padding:15px;min-height:165px">No source status has been inspected here.</div>
+ <div class="line"></div><p class="tag">HUMAN DECISION REQUIRED</p>
+ <p>Only a valid authorization and receipt from the owning system, with the relevant recipient's confirmation, can establish an actual fulfilled need. This worksheet does not perform those checks.</p>
+ <div class="actions"><button type="button" id="fieldReviewDownload" class="secondary" disabled>Download private review</button></div>
+ </div>
+</div>
+</div></section>
+<section id="field-trial"><div class="container">
+<div class="kicker">08 · THE FIRST REAL CAMPFIRE</div>
+<h2>Two willing members. One independent outsider. One honest return.</h2>
+<p>We're ready to test the part software cannot pretend happened. This experiment requires actual separate accounts and the intentionally selected NanaSpork project. <strong>Nothing in this page creates those accounts, tests their access, enrolls a household, or certifies a delivery.</strong></p>
+<div class="grid">
+ <div class="box emphasis"><h3>Invite two people to test a boundary</h3>
+ <p>One participant joins your small private Campfire. A second, nonmember tester independently attempts to access it and should be refused. Nobody shares passwords or needs to disclose a personal hardship.</p>
+ <p class="hint">Not a public recruitment campaign or aid request. This is a proposed voluntary test with synthetic messages and an optional, separately permissioned real-world Help Slip.</p>
+ <div class="actions"><button type="button" id="fieldTrialCopy">Copy a short invitation for testers</button><a class="button secondary" href="https://github.com/the-static-collective/BananaSpork/blob/feat/field-specimen-independent-proof-002/docs/field-specimen-002.md" target="_blank" rel="noopener noreferrer">Open the full field card ↗</a></div>
+ <p id="fieldTrialStatus" class="status" role="status"></p>
+ </div>
+ <div class="box"><h3>When does the test count?</h3>
+ <ol>
+  <li><strong>Separate sessions:</strong> two real members message, the nonmember cannot read or post.</li>
+  <li><strong>Durable:</strong> the exchange survives restarting the application.</li>
+  <li><strong>Faithful:</strong> importing the same Help Slip twice doesn't create a second underlying need.</li>
+  <li><strong>Honest:</strong> a helper's report doesn't reduce a need until the recipient actually confirms it.</li>
+  <li><strong>Reversible:</strong> one unresolved item stays unresolved; nobody is assigned a successor task.</li>
+ </ol>
+ <p class="hint">We now have our own <a href="https://github.com/the-static-collective/BananaSpork/pull/20" target="_blank" rel="noopener noreferrer">first-party Campfire backend</a>: persistent SQLite, invite-only accounts, ordinary messages, report and owner-acceptance records. This is source and local-service software, <strong>not yet a publicly hosted remote service</strong>. No independent physical delivery or three-person field trial has been confirmed.</p><p><a class="button secondary" href="https://github.com/the-static-collective/BananaSpork/blob/feat/campfire-selfhost-backend-001/campfire-backend/README.md" target="_blank" rel="noopener noreferrer">Run our own backend ↗</a></p>
+ </div>
+</div>
+</div></section>
+</main>
+<footer class="footer"><div class="container">BANANAGRAM POCKET 001 · A Static Collective / GRAFT re-entry experiment. A question can travel; authority must be granted locally. <a href="https://github.com/the-static-collective/GRAFT/pull/2">Source and status</a></div></footer>
+<script type="module" src="./app.mjs"></script>
+</body></html>
