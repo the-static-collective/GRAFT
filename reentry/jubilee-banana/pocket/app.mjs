@@ -265,9 +265,16 @@ $('forestNextForm').addEventListener('submit',e=>{
   tell('forestNextStatus','A public-safe portable invitation link is ready, not sent. Opening it shares ONLY your approved new table fields.');
  }catch(err){clearInvitation(err.message||'No invitation prepared.');}
 });
-for(const id of ['forestNextTitle','forestNextQuestion','forestNextDate','forestNextApproval']){
+for(const id of ['forestNextTitle','forestNextQuestion','forestNextDate']){
  $(id).addEventListener('input',()=>clearInvitation('Changed invitation fields. Review and explicitly approve them again.'));
 }
+$('forestNextApproval').addEventListener('change',()=>{
+ successor=null;
+ $('forestNextLink').hidden=true;
+ $('forestCopyInvite').disabled=true;
+ tell('forestNextStatus',$('forestNextApproval').checked?
+  'Fields approved. Press Prepare a voluntary invitation to build the link.':'Approval withdrawn; no invitation is available.');
+});
 $('forestCopyInvite').addEventListener('click',async()=>{
  if(!successor)return;
  try{
