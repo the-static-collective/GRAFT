@@ -21,6 +21,12 @@ jobs:
         run: python3 -m unittest -v test_weves.py
       - name: Make nested sample and validate
         run: |
-          python3 weves.py demo > /tmp/weaves-example.json
-          python3 weves.py validate /tmp/weaves-example.json
-          python3 weves.py trace /tmp/weaves-example.json
+          python3 weves.py demo > weave-map.json
+          python3 weves.py validate weave-map.json
+          python3 weves.py trace weave-map.json
+      - name: Preserve reusable public sample
+        uses: actions/upload-artifact@v4
+        with:
+          name: weaves-001-public-example
+          path: weave-map.json
+          retention-days: 30
