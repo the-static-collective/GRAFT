@@ -24,9 +24,19 @@ jobs:
           python3 weves.py demo > weave-map.json
           python3 weves.py validate weave-map.json
           python3 weves.py trace weave-map.json
+          python3 weves.py reweave weave-map.json \
+            --title "Test external reweave" \
+            --source-title "Independent sample" \
+            --source-url "https://example.org/public/sample" \
+            --source-role "new voluntary capacity" \
+            --next-act "Ask an independent steward before any public invitation" \
+            > reweaved-map.json
+          python3 weves.py validate reweaved-map.json
       - name: Preserve reusable public sample
         uses: actions/upload-artifact@v4
         with:
           name: weaves-001-public-example
-          path: weave-map.json
+          path: |
+            weave-map.json
+            reweaved-map.json
           retention-days: 30
