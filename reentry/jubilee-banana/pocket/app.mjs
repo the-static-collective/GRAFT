@@ -5,6 +5,16 @@ const $=(id)=>document.getElementById(id);
 const value=(id)=>$(id).value.trim();
 const tell=(id,msg)=>{$(id).textContent=msg;};
 let gram=null,plan=null,returned=null,handoff=null;
+const tableNonce=new URLSearchParams(location.hash.slice(1)).get('returnToTable');
+const tableReturnMode=!!(window.opener&&tableNonce&&/^[a-f0-9]{32}$/.test(tableNonce));
+const TABLE_MESSAGE='bananagram.reviewed-seat-draft/v0';
+if(tableReturnMode){
+ $('returnToTableBtn').hidden=false;
+ $('tableReturnHint').hidden=false;
+}
+function syncReturnButton(){
+ $('returnToTableBtn').disabled=!tableReturnMode||!handoff;
+}
 const newRef=()=>{
  const u=crypto.randomUUID?.();
  if(u) return 'gram:'+u;
@@ -22,7 +32,7 @@ function invalidateDownstream(){
  tell('firstYesPreview','This Gram has changed. Select a fresh First Yes plan if useful.');
  tell('returnPreview','This Gram has changed. A return must reference the latest revision.');
  tell('crossPreview','The Gram has changed. Review and prepare another redaction if you want to export it.');
- $('downloadHandoff').disabled=true;
+ $('downloadHandoff').disabled=true;syncReturnButton();
  tell('crossStatus','');
 }
 function updateList(id,items,formatter){
@@ -67,7 +77,7 @@ $('fresh').addEventListener('click',()=>{
  if(gram&&!confirm('Start fresh? Unsaved work in this browser page will be lost.'))return;
  gram=null;plan=null;returned=null;handoff=null;
  for(const form of ['startForm','traceForm','tensionForm','firstYesForm','returnForm','crossForm'])$(form).reset();
- $('downloadHandoff').disabled=true;
+ $('downloadHandoff').disabled=true;syncReturnButton();
  for(const id of ['startStatus','observeStatus','firstYesStatus','returnStatus','crossStatus'])tell(id,'');
  tell('firstYesPreview','Your chosen plan will appear here. Selecting is not executing, purchasing, scheduling, enrolling, or confirming anything.');
  tell('returnPreview','A return does not create another task or transfer authority.');
@@ -116,10 +126,10 @@ $('crossForm').addEventListener('submit',e=>{
   });
   handoff=result.standing==='PROPOSE_ONLY'?result:null;
   tell('crossPreview',JSON.stringify(result,null,2));
-  $('downloadHandoff').disabled=!handoff;
+  $('downloadHandoff').disabled=!handoff;syncReturnButton();
   tell('crossStatus',handoff?'A proposal-only packet is ready. Download it deliberately if you choose. No message has been sent.':
    'HOLD: author submission, export consent and redaction review are all required.');
- }catch(err){handoff=null;$('downloadHandoff').disabled=true;tell('crossStatus',err.message||'Unable to prepare redaction.');}
+ }catch(err){handoff=null;$('downloadHandoff').disabled=true;syncReturnButton();tell('crossStatus',err.message||'Unable to prepare redaction.');}
 });
 $('savePrivate').addEventListener('click',()=>{
  if(!gram)return;
@@ -137,7 +147,7 @@ $('downloadHandoff').addEventListener('click',()=>{
    consentToExport:$('consent').checked,reviewedByHuman:$('reviewed').checked,
    redactedSummary:value('redaction'),kind:'question',destination:value('destination')});
  if(current.standing!=='PROPOSE_ONLY'||JSON.stringify(current)!==JSON.stringify(handoff)){
-  handoff=null;$('downloadHandoff').disabled=true;
+  handoff=null;$('downloadHandoff').disabled=true;syncReturnButton();
   tell('crossStatus','Something changed. Review and prepare the redaction again.');return;
  }
  privateDownload('bananagram-reviewed-proposal.json',JSON.stringify(handoff,null,2));
@@ -145,9 +155,31 @@ $('downloadHandoff').addEventListener('click',()=>{
 });
 for(const id of ['redaction','destination','authorOwn','consent','reviewed']){
  $(id).addEventListener('input',()=>{
-  handoff=null;$('downloadHandoff').disabled=true;
+  handoff=null;$('downloadHandoff').disabled=true;syncReturnButton();
   tell('crossStatus','Draft changed; prepare and review again before exporting.');
  });
 }
+$('returnToTableBtn').addEventListener('click',()=>{
+ if(!tableReturnMode||!handoff||!window.opener||window.opener.closed){
+  tell('crossStatus','Your original Table tab is not available. Keep this private draft and use its separate download if you want.');
+  return;
+ }
+ try{
+  const current=proposeGramCrossing(gram,{
+   participationConfirmedByAuthor:$('authorOwn').checked,
+   consentToExport:$('consent').checked,
+   reviewedByHuman:$('reviewed').checked,
+   redactedSummary:value('redaction'),kind:'question',destination:value('destination')
+  });
+  if(current.standing!=='PROPOSE_ONLY'||JSON.stringify(current)!==JSON.stringify(handoff))
+   throw Error('The reviewed draft changed. Prepare it again first.');
+  const summary=current.candidate?.summary;
+  if(typeof summary!=='string'||summary.length<12||summary.length>240)
+   throw Error('Only a short reviewed question can return to the Table.');
+  window.opener.postMessage({type:TABLE_MESSAGE,nonce:tableNonce,
+    standing:'PROPOSE_ONLY',summary},location.origin);
+  tell('crossStatus','The reviewed question was offered to your original Table tab as an editable draft. No contribution was saved or shared.');
+ }catch(err){tell('crossStatus',err.message||'Unable to return the draft.');}
+});
 $('printPrivate').addEventListener('click',()=>window.print());
 render();
