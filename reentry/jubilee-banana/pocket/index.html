@@ -100,6 +100,57 @@ strong.privacy{color:#a34044}.smallprint{font-size:.8rem;color:#506359}.tag{font
 <div class="line"></div><p class="tag">STATUS: local / experimental / no backend</p><p>Nothing in this prototype sends a message, records a donation, confirms milk delivery, invokes an AI model, enrolls a person, or modifies the Jubilee ledger.</p>
 <div class="actions"><a class="button secondary" href="https://garden.abundent.org/seven">Visit the Seven-Day Table</a></div>
 </div></div></div></section>
+<section class="light" id="forest"><div class="container">
+<div class="kicker">06 · Forest View · a possible path, not a people graph</div>
+<h2>What can grow from what happened?</h2>
+<p>One reviewed question can become an evidence-labeled, read-only <strong>Free Graph packet</strong> and a voluntary invitation to another table. The result stays unconfirmed without an independently verified receipt. Nothing here joins people, publishes information, or starts a table automatically.</p>
+<div class="grid">
+ <div class="box emphasis">
+ <h3>Make a public-safe forest seed</h3>
+ <p class="hint">First, prepare a reviewed redacted question in Step 05. Then separately write only what you're comfortable including in a portable packet.</p>
+ <form id="forestForm" autocomplete="off">
+ <label for="forestFruit">Fruit · your account of something that happened (optional; not independently verified)</label>
+ <textarea id="forestFruit" maxlength="240" placeholder="A blank comparison worksheet was drafted; no food was bought or delivered."></textarea>
+ <label for="forestSeed">Seed · one possible next question (optional)</label>
+ <textarea id="forestSeed" maxlength="240" placeholder="Would a willing purchaser like to verify one specific sourcing option?"></textarea>
+ <p class="hint">Enter fruit, seed, or both. Private traces and tensions are never automatically copied into the packet.</p>
+ <label class="check"><input type="checkbox" id="forestReviewed"><span>I reviewed the exact question, fruit and seed above for accuracy, uncertainty and private information.</span></label>
+ <label class="check"><input type="checkbox" id="forestConsent"><span>I approve preparing a portable, public-safe graph packet from only these redacted fields. This does not publish it.</span></label>
+ <div class="actions"><button type="submit" class="gold">Grow my private Forest View</button><button type="button" id="forestDownload" class="secondary" disabled>Download Free Graph packet</button></div>
+ </form>
+ <p id="forestStatus" class="status" role="status"></p>
+ </div>
+ <div class="box"><h3>A little forest of possibilities</h3>
+ <div id="forestDiagram" aria-live="polite" style="padding:15px;background:#e4eddc;border:1px solid #b8cbb3;min-height:155px">
+ <p class="hint">A reviewed question can branch into author-reported fruit and an optional next seed. No people are mapped.</p>
+ </div>
+ <p class="smallprint">Free Graph's five portable link verbs remain unchanged. This produces a content-addressed <em>seed projection</em>, not a project-owned truth or verified Jubilee consequence.</p>
+ </div>
+</div>
+<div class="grid" style="margin-top:18px">
+ <div class="box">
+ <h3>Make the next invitation—only if someone wants to</h3>
+ <p>A new table does not inherit the previous table's participants or obligations. It starts with a fresh invitation and a new human decision.</p>
+ <form id="forestNextForm" autocomplete="off">
+ <label for="forestNextTitle">New table title</label><input id="forestNextTitle" type="text" minlength="3" maxlength="84" value="The Next Table · One Useful Question">
+ <label for="forestNextQuestion">Public-safe invitation question (editable)</label>
+ <textarea id="forestNextQuestion" minlength="5" maxlength="270" placeholder="What might willing neighbors clarify or make possible together?"></textarea>
+ <label for="forestNextDate">Suggested date for the new table</label>
+ <input id="forestNextDate" type="date">
+ <label class="check"><input type="checkbox" id="forestNextApproval"><span>I approve these exact public-safe title, question and date for an independent invitation link. No one is enrolled.</span></label>
+ <div class="actions"><button type="submit" class="gold">Prepare a voluntary invitation</button><button type="button" class="secondary" id="forestCopyInvite" disabled>Copy link</button></div>
+ </form>
+ <a id="forestNextLink" href="https://abundent.org/tables/" class="button secondary" target="_blank" rel="noopener noreferrer" referrerpolicy="no-referrer" hidden>Open prepared Seventh Table invitation ↗</a>
+ <p id="forestNextStatus" class="status" role="status"></p>
+ </div>
+ <div class="box">
+ <h3>Why this isn't an automatic network</h3>
+ <p>People cannot be indexed from private history merely because they were mentioned. A reported result stays a self-report. A seed stays a possibility. A graph relation stays a proposed relation.</p>
+ <p>Only if somebody chooses to open the prepared invitation does the question leave this page. The destination can propose another table; no invitations are sent from here.</p>
+ <div id="forestPacketStatus" class="hint">No portable packet prepared.</div>
+ </div>
+</div>
+</div></section>
 </main>
 <footer class="footer"><div class="container">BANANAGRAM POCKET 001 · A Static Collective / GRAFT re-entry experiment. A question can travel; authority must be granted locally. <a href="https://github.com/the-static-collective/GRAFT/pull/2">Source and status</a></div></footer>
 <script type="module" src="./app.mjs"></script>
