@@ -68,3 +68,22 @@ Flow:
 **Proof:** `tests/forest-projection.test.mjs` uses Node.js WebCrypto + independent SHA-256 checks on canonical IDs and refusal gates; `tests/pocket-forest-flow.test.mjs` simulates the full reviewed UI-to-invitation path. The branch workflow builds a fictional packet and runs the **native Free Graph Python validator** on it as an explicit CI stage. The run must pass before claiming validator acceptance. The public page and code modules were fetched live after deployment, but Android field-browser and real recipient acceptance remain unverified.
 
 **Crucial distinction:** This stage preserves a human's *report of fruit*. It does **not** create an independent human-witness record, a confirmed delivery or an owning-world receipt. Converting a report into verified consequence belongs to a separate lawful human/owner gate, never to this public graph maker.
+
+## FIELD-RETURN-001 · witness requests without counterfeit confirmation (stage 07)
+
+**Goal:** Complete a whole *question → return* workflow while preserving NanaSpork's real authority boundary. The Garden Pocket now includes **Step 07: What would make this real?**, a local field request and conservative review interface. It is based on the source contracts [BananaSpork FIELD-SPECIMEN-001](https://github.com/the-static-collective/BananaSpork/blob/main/docs/field-specimen-001.md), [RETURN-OF-THE-HELP-SLIP-001](https://github.com/the-static-collective/BananaSpork/blob/main/docs/return-of-help-slip-001.md), and `src/domain/help-slip/pour.ts`.
+
+**Human-friendly workflow:**
+
+- After a reviewed Forest proposal, author writes the *exact question to ask the steward*, what independent observation could establish the claimed event, and what must remain unresolved. A separate opt-in produces a **downloadable unsent request**, never an email, Telegram message, Supabase row, or task assignment.
+- A steward's reported response can be `not-asked`, `accepted-to-review`, `declined`, or `no-need`. Declined and no-need are valid terminal answers. No obligation or automatic re-invitation follows.
+- The local optional claim inspector distinguishes **helper-reported units** from **source-record-claimed confirmed units**. A delivery report cannot reduce residual.
+- If a requirement was poured into two Campfires, **one physical occurrence claimed by both may count only once**; distinct occurrence references can add within the claimed snapshot; absent/conflicting refs force the conservative *max-per-link* lower bound, with **exactness=false and residual unknown**.
+- Even a well-formed owner receipt *reference* and a current-status checkbox cannot verify an actual physical delivery in Pocket. Every result says `ownerReceiptReviewed=false` and `physicalProvisionVerified=false`. The owner-current authoritative confirmation belongs to authenticated NanaSpork/Campfire and actual recipient, not the public static webpage.
+- The author can explicitly download the request and private claim review as local JSON. Neither document enters Free Graph automatically; the reviewed Free Graph packet continues to represent only proposed or self-reported history.
+
+**Negative laws:** `MESSAGE != WITNESS`, `REPORT != CONFIRMATION`, `RECORD ID != PHYSICAL OCCURRENCE ID`, `TWO CAMPFIRE LINKS != TWO SOURCE REQUIREMENTS`, `SHARED PORTION CONFIRMED != SOURCE REQUEST CONFIRMED`, `A SELF-ENTERED NUMBER != A VERIFIED DELIVERY`.
+
+**Test coverage:** `tests/field-return.test.mjs` exercises duplicate occurrence deduplication, genuine distinct occurrence aggregation, mismatched occurrence fallback, helper report/refusal, safe public return and no promotion. `tests/pocket-field-flow.test.mjs` simulates the new UI from reviewed Gram → Forest → question for the steward → claimed delivery inspection. The standard re-entry workflow runs the native Free Graph validator too.
+
+**Remains genuinely open:** intentionally selected BananaSpork live project, two distinct authenticated accounts, member vs hostile nonmember RLS, source-backed `fulfillment.reported` and `fulfillment.confirmed`, physical recipient confirmation, durable rehydration, and public-safe owner-approved learning. No demo can certify those field observations, and no owner service-role keys should be injected into Pocket.
