@@ -51,7 +51,7 @@ export function draftCall(native,heartbeat,source){
   if(native?.schema!=='graft.hypercross-native-proof-of-return/v0'||
     native?.native_ghot_radio_return_verified!==true||native.real_human_consent!==false||
     native.external_media_or_network_actions!==0||native.semantic_authority!=='NONE'||
-    !/^sha256:[a-f0-9]{64}$/.test(native.parent_held_crossing_id)||
+    !/^[-A-Za-z0-9:._/]{8,200}$/.test(native.parent_held_crossing_id)||
     !/^sha256:[a-f0-9]{64}$/.test(native.computed_output_sha256))
     error('INVALID_NATIVE_RETURN');
   if(heartbeat?.schema!=='jarvis.heartbeat/v0'||
