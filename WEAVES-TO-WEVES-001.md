@@ -19,10 +19,18 @@ Run locally:
 python3 weves.py demo > weave-map.json
 python3 weves.py validate weave-map.json
 python3 weves.py trace weave-map.json
+python3 weves.py reweave weave-map.json \
+  --title "Our new weave" \
+  --source-title "My public community tool" \
+  --source-url "https://example.org/public/tool" \
+  --source-role "new voluntary contribution" \
+  --next-act "Ask a local adult steward to review one optional paper invitation" \
+  > our-weave.json
+python3 weves.py validate our-weave.json
 python3 -m unittest -v test_weves.py
 ~~~
 
-Requires Python 3.9+ only. The demo writes JSON to stdout; validate checks **packet structure**, not provenance accuracy, privacy safety, identity, consent, or field delivery. This branch makes no network calls.
+Requires Python 3.9+ only. The demo and reweave commands write JSON to stdout. The reweave command preserves existing content-addressed nodes, references the prior source weave, adds the new public source, and emits a new PROPOSE_ONLY candidate; it does not contact the source owner. Validation checks **packet structure**, not provenance accuracy, privacy safety, identity, consent, or field delivery. This branch makes no network calls.
 
 ## The five initial weaves
 
