@@ -140,6 +140,17 @@ def validate(document):
         if node.get("privacy") != "PUBLIC_REFERENCES_ONLY":
             raise ValueError("cannot include private packets in public bundle")
         schema = node.get("schema")
+        permitted = {
+            PARTICULAR: {"schema", "kind", "title", "source", "role", "source_state", "authority", "privacy", "id"},
+            WEAVE: {"schema", "kind", "title", "purpose", "inputs", "status", "authority", "privacy", "id"},
+            WEVE: {"schema", "kind", "title", "source_weave", "next_act", "steward_role", "stage", "participant_consent", "field_outcome", "authority", "privacy", "id"},
+            RETURN: {"schema", "kind", "source_candidate", "evidence_reference", "report", "review_state", "real_world_verification", "authority", "privacy", "id"},
+        }
+        if schema not in permitted or set(node) != permitted[schema]:
+            raise ValueError("unknown, missing, or potentially sensitive packet fields")
+        kinds = {PARTICULAR: "particular", WEAVE: "weave", WEVE: "weve", RETURN: "return"}
+        if node["kind"] != kinds[schema]:
+            raise ValueError("node kind/schema mismatch")
         if schema == PARTICULAR:
             public_ref(node["source"])
             if node["authority"] != "SOURCE_OWNED" or node["source_state"] not in {"REFERENCE_ONLY", "SOURCE_OBSERVED"}:
