@@ -1,5 +1,5 @@
 // BananaGram Pocket public static read-only field shell; no database access.
-import {HTML, APP, GRAM, PARTICIPATION, REENTRY, FOREST} from './assets.ts';
+import {HTML, APP, GRAM, PARTICIPATION, REENTRY, FOREST, WITNESS} from './assets.ts';
 const resources:Record<string,[string,string]>={
   '': [HTML,'text/html; charset=utf-8'],
   'app':[APP,'text/javascript; charset=utf-8'],
@@ -7,6 +7,7 @@ const resources:Record<string,[string,string]>={
   'participation':[PARTICIPATION,'text/javascript; charset=utf-8'],
   'reentry':[REENTRY,'text/javascript; charset=utf-8'],
   'forest':[FOREST,'text/javascript; charset=utf-8'],
+  'witness':[WITNESS,'text/javascript; charset=utf-8'],
 };
 const POLICY=[
  "default-src 'none'","base-uri 'none'","object-src 'none'",
