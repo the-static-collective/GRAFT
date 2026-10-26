@@ -13,7 +13,7 @@ const script=readFileSync(join(here,'../pocket/app.mjs'),'utf8');
 function page(){
  const els={};
  const mk=id=>els[id]??(els[id]={
-  id,value:'',checked:false,disabled:false,hidden:false,textContent:'',href:'',
+  id,value:'',checked:false,disabled:['returnToTableBtn','forestDownload','forestCopyInvite','downloadHandoff'].includes(id),hidden:id==='returnToTableBtn'||id==='forestNextLink',textContent:'',href:'',
   children:[],events:{},reportValidity(){return true},reset(){},append(...x){this.children.push(...x)},
   replaceChildren(){this.children=[]},addEventListener(k,v){this.events[k]=v},focus(){},click(){}
  });
@@ -45,7 +45,7 @@ test('complete Pocket → reviewed Free Graph → fresh independent invitation h
  p.el('forestReviewed').checked=true;
  p.el('forestConsent').checked=true;
  await p.submit('forestForm');
- assert.equal(p.el('forestDownload').disabled,false);
+ assert.equal(p.el('forestDownload').disabled,false,p.el('forestStatus').textContent);
  assert.match(p.el('forestPacketStatus').textContent,/fgp:sha256/);
  assert.equal(p.el('forestDiagram').children.length,3);
  p.el('forestNextTitle').value='A Next Table · One Open Question';
