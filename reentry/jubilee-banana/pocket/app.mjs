@@ -1,11 +1,12 @@
 import {createGram,addTrace,addTension,selectFirstYes,makeReturn,formatCard} from '../gram/portable-gram.mjs';
 import {proposeGramCrossing} from '../bridge/gram-reentry.mjs';
 import {composeForest,nextInvitation} from '../forest/forest-projection.mjs';
+import {prepareFieldRequest,inspectClaimedEvidence} from '../witness/field-return.mjs';
 
 const $=(id)=>document.getElementById(id);
 const value=(id)=>$(id).value.trim();
 const tell=(id,msg)=>{$(id).textContent=msg;};
-let gram=null,plan=null,returned=null,handoff=null,forest=null,successor=null;
+let gram=null,plan=null,returned=null,handoff=null,forest=null,successor=null,fieldRequest=null,fieldReview=null;
 const tableNonce=new URLSearchParams(location.hash.slice(1)).get('returnToTable');
 const tableReturnMode=!!(window.opener&&tableNonce&&/^[a-f0-9]{32}$/.test(tableNonce));
 const TABLE_MESSAGE='bananagram.reviewed-seat-draft/v0';
@@ -35,7 +36,15 @@ function clearInvitation(reason=''){
  $('forestNextApproval').checked=false;
  tell('forestNextStatus',reason);
 }
+function clearField(reason=''){
+ fieldRequest=null;fieldReview=null;
+ $('fieldDownload').disabled=true;$('fieldReviewDownload').disabled=true;
+ tell('fieldRequestPreview','No reviewed witness question prepared. This page does not certify anybody or anything.');
+ tell('fieldReviewPreview','No source status independently verified.');
+ tell('fieldRequestStatus',reason);tell('fieldCheckStatus','');
+}
 function clearForest(reason=''){
+ clearField('Forest changed. Review a new witness question to continue.');
  forest=null;
  $('forestDownload').disabled=true;
  tell('forestPacketStatus','No portable packet prepared.');
@@ -283,6 +292,105 @@ $('forestCopyInvite').addEventListener('click',async()=>{
  }catch{
   tell('forestNextStatus','Clipboard unavailable. Open the prepared link and use the browser address bar.');
  }
+});
+function quantity(id){
+ const v=$(id).value.trim();
+ if(!/^(?:0|[1-9]\d*)(?:\.\d+)?$/.test(v))throw Error('Enter a nonnegative numeric quantity for '+id);
+ const n=Number(v);if(!Number.isFinite(n))throw Error('Invalid quantity.');return n;
+}
+function occ(id,n){
+ const ref=value(id);
+ if(!ref)return [];
+ if(!/^[a-zA-Z0-9:_-]{4,96}$/.test(ref))throw Error('Use a non-identifying occurrence reference, no personal details.');
+ if(n===0)throw Error('A zero-unit occurrence is not confirmation.');
+ return [{occurrenceRef:ref,confirmedUnits:n}];
+}
+function fieldText(r){
+ return ['FIELD RETURN 001 · UNSENT HUMAN QUESTION',
+ 'Source graph: '+r.sourcePacketId,'QUESTION: '+r.question,
+ 'ASK: '+r.request,'WHAT WOULD PROVE IT: '+r.evidenceQuestion,
+ 'UNKNOWN: '+r.unresolved,'STATUS: No steward/recipient authenticated.',
+ 'BOUNDARY: Not a receipt, consent, or authority to contact others.'].join('\n\n');
+}
+$('fieldRequestForm').addEventListener('submit',e=>{
+ e.preventDefault();
+ if(!forest){tell('fieldRequestStatus','Prepare a reviewed Forest seed in Step 06 first.');return;}
+ if(!e.target.reportValidity())return;
+ try{
+  const output=prepareFieldRequest(forest,{reviewApproved:$('fieldApproved').checked,
+   ask:value('fieldAsk'),whatWouldProveIt:value('fieldProof'),uncertainty:value('fieldFog')});
+  if(output.standing!=='REQUEST_DRAFT_UNSENT'){
+   clearField('HOLD: approve the exact field question before preparing it.');return;
+  }
+  fieldRequest=output;fieldReview=null;
+  $('fieldDownload').disabled=false;$('fieldReviewDownload').disabled=true;
+  tell('fieldRequestPreview',fieldText(output));
+  tell('fieldReviewPreview','No claimed source evidence reviewed yet.');
+  tell('fieldRequestStatus','Private question prepared. You choose whether to ask anybody. No message sent.');
+  tell('fieldCheckStatus','');
+ }catch(err){clearField(err.message||'Cannot prepare witness request.');}
+});
+for(const id of ['fieldAsk','fieldProof','fieldFog']){
+ $(id).addEventListener('input',()=>{if(fieldRequest)clearField('Question changed; review and approve again.');});
+}
+$('fieldApproved').addEventListener('change',()=>{
+ if(fieldRequest)clearField('Approval changed; review again before preparing.');
+});
+$('fieldDownload').addEventListener('click',()=>{
+ if(!fieldRequest)return;
+ privateDownload('bananagram-private-witness-request.json',JSON.stringify(fieldRequest,null,2));
+ tell('fieldRequestStatus','Private request saved locally; nothing was transmitted.');
+});
+$('fieldSecondEnabled').addEventListener('change',()=>{
+ $('fieldSecondFields').hidden=!$('fieldSecondEnabled').checked;
+ fieldReview=null;$('fieldReviewDownload').disabled=true;
+ tell('fieldCheckStatus','Link configuration changed; inspect again.');
+});
+$('fieldCheckForm').addEventListener('submit',e=>{
+ e.preventDefault();
+ if(!fieldRequest){tell('fieldCheckStatus','Prepare a witness question first.');return;}
+ if(!e.target.reportValidity())return;
+ try{
+  const a=quantity('fieldConfirmed'),b=quantity('fieldReported'),target=quantity('fieldQuantity');
+  const links=[];
+  if(a>0||value('fieldOccurrence'))links.push({
+    claimedConfirmedUnits:a,occurrences:occ('fieldOccurrence',a)
+  });
+  if($('fieldSecondEnabled').checked){
+   const n=quantity('fieldSecondConfirmed');
+   links.push({claimedConfirmedUnits:n,occurrences:occ('fieldSecondOccurrence',n)});
+  }
+  fieldReview=inspectClaimedEvidence(fieldRequest,{
+   stewardResponse:value('fieldSteward'),requirement:value('fieldRequirement'),
+   requestedUnits:target,unit:value('fieldUnit'),helperReportedUnits:b,
+   links,statusFresh:$('fieldStatusFresh').checked
+  });
+  $('fieldReviewDownload').disabled=false;
+  const q=fieldReview.quantity;
+  tell('fieldReviewPreview',[
+   'FIELD RETURN · '+fieldReview.standing,
+   'Claimed source count: '+q.claimedConfirmationLowerBound+' '+q.unit+' (unverified)',
+   'Accounting basis: '+q.confirmationBasis,
+   'Exact across submitted links: '+(q.confirmedUnitsExact?'yes within the claim':'NO; conservatively bounded'),
+   'Helper report only: '+q.helperReported+' '+q.unit,
+   'Residual: '+(q.residualUpperBound===null?'unknown':q.residualUpperBound+' '+q.unit),
+   'Warnings: '+(fieldReview.warnings.length?fieldReview.warnings.join('; '):'Independent owner check still required'),
+   'Actual physical provision verified: NO.',
+   fieldReview.nextGate||fieldReview.humanDecision
+  ].join('\n\n'));
+  tell('fieldCheckStatus','Local claimed-status review prepared. Owner confirmation still required.');
+ }catch(err){fieldReview=null;$('fieldReviewDownload').disabled=true;tell('fieldCheckStatus',err.message||'Could not inspect claimed evidence.');}
+});
+for(const id of ['fieldSteward','fieldRequirement','fieldQuantity','fieldUnit','fieldReported','fieldConfirmed',
+ 'fieldOccurrence','fieldSecondConfirmed','fieldSecondOccurrence','fieldStatusFresh']){
+ $(id).addEventListener('input',()=>{
+  if(fieldReview){fieldReview=null;$('fieldReviewDownload').disabled=true;tell('fieldCheckStatus','Claim changed; inspect it again.');}
+ });
+}
+$('fieldReviewDownload').addEventListener('click',()=>{
+ if(!fieldReview)return;
+ privateDownload('bananagram-private-field-review.json',JSON.stringify(fieldReview,null,2));
+ tell('fieldCheckStatus','Local review downloaded, not a confirmed Jubilee receipt.');
 });
 $('printPrivate').addEventListener('click',()=>window.print());
 render();
