@@ -95,6 +95,16 @@ class WevesTest(unittest.TestCase):
         self.assertEqual(r["review_state"], "UNREVIEWED")
         self.assertTrue(weves.validate(weves.bundle("with return", [*self.doc["nodes"], r], r)))
 
+    def test_reported_return_can_seed_another_distinct_weave(self):
+        report = weves.return_report(self.candidate, "https://example.org/public/receipt",
+                                     "A report was submitted; outcome awaits separate human review")
+        future = weves.weave("future fork", [(report, "unverified input"), (self.a, "other source")],
+                             "Explore a possible next voluntary act without auto adoption")
+        doc = weves.bundle("return reuse", [*self.doc["nodes"], report, future], future)
+        self.assertTrue(weves.validate(doc))
+        self.assertEqual(future["inputs"][0]["ref"], report["id"])
+        self.assertEqual(report["real_world_verification"], "NOT_ESTABLISHED_BY_THIS_TOOL")
+
     def test_forged_review_rejected(self):
         with self.assertRaisesRegex(ValueError, "verification"):
             weves.return_report(self.candidate, "https://example.org/receipt", "done", "VERIFIED")
