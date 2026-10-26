@@ -1,10 +1,11 @@
 import {createGram,addTrace,addTension,selectFirstYes,makeReturn,formatCard} from '../gram/portable-gram.mjs';
 import {proposeGramCrossing} from '../bridge/gram-reentry.mjs';
+import {composeForest,nextInvitation} from '../forest/forest-projection.mjs';
 
 const $=(id)=>document.getElementById(id);
 const value=(id)=>$(id).value.trim();
 const tell=(id,msg)=>{$(id).textContent=msg;};
-let gram=null,plan=null,returned=null,handoff=null;
+let gram=null,plan=null,returned=null,handoff=null,forest=null,successor=null;
 const tableNonce=new URLSearchParams(location.hash.slice(1)).get('returnToTable');
 const tableReturnMode=!!(window.opener&&tableNonce&&/^[a-f0-9]{32}$/.test(tableNonce));
 const TABLE_MESSAGE='bananagram.reviewed-seat-draft/v0';
@@ -27,7 +28,26 @@ function privateDownload(filename,body){
  a.href=url;a.download=filename;document.body.append(a);a.click();a.remove();
  setTimeout(()=>URL.revokeObjectURL(url),1200);
 }
+function clearInvitation(reason=''){
+ successor=null;
+ $('forestNextLink').hidden=true;
+ $('forestCopyInvite').disabled=true;
+ $('forestNextApproval').checked=false;
+ tell('forestNextStatus',reason);
+}
+function clearForest(reason=''){
+ forest=null;
+ $('forestDownload').disabled=true;
+ tell('forestPacketStatus','No portable packet prepared.');
+ $('forestDiagram').replaceChildren();
+ const note=document.createElement('p');note.className='hint';
+ note.textContent='No reviewed forest seed yet. Your private Gram is not a shared graph.';
+ $('forestDiagram').append(note);
+ tell('forestStatus',reason);
+ clearInvitation();
+}
 function invalidateDownstream(){
+ clearForest('Source revision changed. Review a fresh handoff before building a Forest.');
  plan=null;returned=null;handoff=null;
  tell('firstYesPreview','This Gram has changed. Select a fresh First Yes plan if useful.');
  tell('returnPreview','This Gram has changed. A return must reference the latest revision.');
@@ -127,9 +147,10 @@ $('crossForm').addEventListener('submit',e=>{
   handoff=result.standing==='PROPOSE_ONLY'?result:null;
   tell('crossPreview',JSON.stringify(result,null,2));
   $('downloadHandoff').disabled=!handoff;syncReturnButton();
+  clearForest('Reviewed redaction changed. Compose the forest again.');
   tell('crossStatus',handoff?'A proposal-only packet is ready. Download it deliberately if you choose. No message has been sent.':
    'HOLD: author submission, export consent and redaction review are all required.');
- }catch(err){handoff=null;$('downloadHandoff').disabled=true;syncReturnButton();tell('crossStatus',err.message||'Unable to prepare redaction.');}
+ }catch(err){handoff=null;$('downloadHandoff').disabled=true;syncReturnButton();clearForest('Cannot export an unreviewed question.');tell('crossStatus',err.message||'Unable to prepare redaction.');}
 });
 $('savePrivate').addEventListener('click',()=>{
  if(!gram)return;
@@ -147,7 +168,7 @@ $('downloadHandoff').addEventListener('click',()=>{
    consentToExport:$('consent').checked,reviewedByHuman:$('reviewed').checked,
    redactedSummary:value('redaction'),kind:'question',destination:value('destination')});
  if(current.standing!=='PROPOSE_ONLY'||JSON.stringify(current)!==JSON.stringify(handoff)){
-  handoff=null;$('downloadHandoff').disabled=true;syncReturnButton();
+  handoff=null;$('downloadHandoff').disabled=true;syncReturnButton();clearForest('Source approval changed.');
   tell('crossStatus','Something changed. Review and prepare the redaction again.');return;
  }
  privateDownload('bananagram-reviewed-proposal.json',JSON.stringify(handoff,null,2));
@@ -155,7 +176,7 @@ $('downloadHandoff').addEventListener('click',()=>{
 });
 for(const id of ['redaction','destination','authorOwn','consent','reviewed']){
  $(id).addEventListener('input',()=>{
-  handoff=null;$('downloadHandoff').disabled=true;syncReturnButton();
+  handoff=null;$('downloadHandoff').disabled=true;syncReturnButton();clearForest('Redaction changed; forest review must be repeated.');
   tell('crossStatus','Draft changed; prepare and review again before exporting.');
  });
 }
@@ -181,5 +202,81 @@ $('returnToTableBtn').addEventListener('click',()=>{
   tell('crossStatus','The reviewed question was offered to your original Table tab as an editable draft. No contribution was saved or shared.');
  }catch(err){tell('crossStatus',err.message||'Unable to return the draft.');}
 });
+function forestNode(label,value,metadata){
+ const article=document.createElement('div');
+ article.style.cssText='border:1px solid #c0d0ba;padding:12px;margin:9px 0;border-radius:6px;background:#fffef8';
+ const h=document.createElement('strong');h.textContent=label;article.append(h);
+ const body=document.createElement('p');body.textContent=value;article.append(body);
+ const small=document.createElement('small');small.textContent=metadata;article.append(small);
+ $('forestDiagram').append(article);
+}
+function renderForest(){
+ $('forestDiagram').replaceChildren();
+ if(!forest)return;
+ forestNode('QUESTION · UNRESOLVED',forest.question,'Portable question / author reviewed / no owner adoption');
+ if(forest.fruit)forestNode('FRUIT · AUTHOR REPORT',forest.fruit,'Not independently witnessed or confirmed');
+ if(forest.seed)forestNode('SEED · POSSIBILITY',forest.seed,'No automatic next table or successor authority');
+ $('forestDownload').disabled=false;
+ tell('forestPacketStatus','Free Graph v0 seed packet: '+forest.graph.packet_id+
+  ' · '+forest.graph.nodes.length+' nodes · '+forest.graph.links.length+
+  ' proposed links · owner state unresolved. No remote graph was updated.');
+}
+$('forestForm').addEventListener('submit',async e=>{
+ e.preventDefault();
+ if(!handoff){tell('forestStatus','First create the separately reviewed handoff in Step 05.');return;}
+ if(!e.target.reportValidity())return;
+ try{
+  const output=await composeForest(handoff,{
+   fruit:value('forestFruit'),seed:value('forestSeed'),
+   authorReviewed:$('forestReviewed').checked,
+   exportConsent:$('forestConsent').checked
+  });
+  if(output.standing!=='REVIEWED_PACKET_UNPUBLISHED'){
+   clearForest('HOLD: review and independent export consent are required.');return;
+  }
+  forest=output;
+  renderForest();
+  if(forest.seed)$('forestNextQuestion').value=forest.seed;
+  clearInvitation('Forest seed prepared. Edit the next invitation, then explicitly approve it.');
+  tell('forestStatus','Private Forest View prepared from only the reviewed text. No Free Graph server updated, no aid confirmed, no invitation sent.');
+ }catch(err){clearForest(err.message||'Could not compose Forest packet.');}
+});
+$('forestDownload').addEventListener('click',()=>{
+ if(!forest)return;
+ privateDownload('bananagram-free-graph-v0.json',JSON.stringify(forest.graph,null,2));
+ tell('forestStatus','Free Graph seed packet downloaded locally. It has NOT been accepted by an owning project or published.');
+});
+for(const id of ['forestFruit','forestSeed','forestReviewed','forestConsent']){
+ $(id).addEventListener('input',()=>{
+  if(forest)clearForest('Forest fields changed. Compose and review a new packet before exporting.');
+ });
+}
+$('forestNextForm').addEventListener('submit',e=>{
+ e.preventDefault();
+ if(!forest){tell('forestNextStatus','First compose a reviewed Forest packet with a possible next question.');return;}
+ if(!e.target.reportValidity())return;
+ try{
+  successor=nextInvitation(forest,{title:value('forestNextTitle'),
+   purpose:value('forestNextQuestion'),date:value('forestNextDate'),
+   approved:$('forestNextApproval').checked});
+  $('forestNextLink').href=successor.url;
+  $('forestNextLink').hidden=false;
+  $('forestCopyInvite').disabled=false;
+  tell('forestNextStatus','A public-safe portable invitation link is ready, not sent. Opening it shares ONLY your approved new table fields.');
+ }catch(err){clearInvitation(err.message||'No invitation prepared.');}
+});
+for(const id of ['forestNextTitle','forestNextQuestion','forestNextDate','forestNextApproval']){
+ $(id).addEventListener('input',()=>clearInvitation('Changed invitation fields. Review and explicitly approve them again.'));
+}
+$('forestCopyInvite').addEventListener('click',async()=>{
+ if(!successor)return;
+ try{
+  await navigator.clipboard.writeText(successor.url);
+  tell('forestNextStatus','Link copied. You still choose whether and with whom to share it.');
+ }catch{
+  tell('forestNextStatus','Clipboard unavailable. Open the prepared link and use the browser address bar.');
+ }
+});
 $('printPrivate').addEventListener('click',()=>window.print());
 render();
+
