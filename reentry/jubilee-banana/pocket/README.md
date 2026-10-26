@@ -49,3 +49,22 @@ The Seven-Day Table's [webZ PR #127](https://github.com/the-static-collective/we
 Pocket `window.opener.postMessage` sends only `{type,nonce,standing,summary}` to its exact same origin. No complete Gram, names, source traces, unresolved tensions, invite credential, institution, household data, or authority crosses. The parent Table validates exact source/nonce/origin; accepts at most the reviewed 240-character question into its unsent textarea; turns off sharing; and requires the guest's separate save. If the popup was not opened from the seat, the return button is unavailable. If blocked, raw Gram download remains an independent fallback.
 
 **Released:** `banana-pocket` v2 ACTIVE on public `/gram`; `seven-day-table` v8 ACTIVE on public `/seven`, with backend unchanged. Child simulated opener test passed; real Android two-tab interaction, private-seat acceptance and a physical-world result remain unverified. Added dedicated Node regression `tests/pocket-window-return.test.mjs`.
+
+## Forest View 001 — Free Graph seed → next voluntary invitation (deployed)
+
+[Public Pocket](https://garden.abundent.org/gram) now has a **Step 06: Forest View**. This is **in addition** to (not a replacement for) the private Seven-Day Table seat return.
+
+Flow:
+- Human prepares the separately reviewed, redacted `PROPOSE_ONLY` question in Step 05.
+- Human may separately write a **public-safe author-report fruit** and **public-safe possible-next-question seed**. Neither text is copied from the private Gram, Trace, Tension, household history or existing unsent Table seat.
+- Two additional controls separately require human review and explicit graph-export consent; no packet is produced without both.
+- `forest/forest-projection.mjs` builds one **content-addressed native `free-graph.packet/v0`** with real SHA-256 source/node/link/packet IDs, one portable `conversation-witness` source of authority `none`, `unresolved` task-world cut, optional proposed author-report testimony and a proposed next question. Only `connects` links are used, with local qualifiers; **never `constitutes`**, `tests`, or `bears-on` on this unverified evidence.
+- The diagram lives in browser memory. The user can explicitly download the reviewed packet, but **GRAFT/Free Graph remote history is NOT modified** by a page visit.
+- If the user included a next seed, they may prepare a **new, editable native Seventh Table `v:1` invitation** with a fresh ID and empty host, parent and participant lineage. This uses the existing `https://abundent.org/tables/#invite=...` format. It is not sent, it does not create the table, it does not import personal identities or imply consent from existing participants.
+- Any edit to the original Gram or a reviewed field invalidates and disables the previously prepared downstream packet and invitation.
+
+**Runtime:** `banana-pocket` v3 ACTIVE, same static GET/HEAD Edge function with new same-origin `?asset=forest`. No new API endpoints, database writes, auth permissions, visitor tracking code, automatic messages or cross-site resource calls.
+
+**Proof:** `tests/forest-projection.test.mjs` uses Node.js WebCrypto + independent SHA-256 checks on canonical IDs and refusal gates; `tests/pocket-forest-flow.test.mjs` simulates the full reviewed UI-to-invitation path. The branch workflow builds a fictional packet and runs the **native Free Graph Python validator** on it as an explicit CI stage. The run must pass before claiming validator acceptance. The public page and code modules were fetched live after deployment, but Android field-browser and real recipient acceptance remain unverified.
+
+**Crucial distinction:** This stage preserves a human's *report of fruit*. It does **not** create an independent human-witness record, a confirmed delivery or an owning-world receipt. Converting a report into verified consequence belongs to a separate lawful human/owner gate, never to this public graph maker.
