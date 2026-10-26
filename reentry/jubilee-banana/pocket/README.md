@@ -41,3 +41,11 @@ Function deployment target (when deliberately released): Supabase `banana-pocket
 - **Not yet proved**: real Android browser gesture/download usability, two-user Campfire, actual Telegram transport, sharing on behalf of a steward, JARVIS action, actual milk sourcing, or a production data-retention mechanism. CI status has not been independently confirmed.
 
 Deployment source is the generated `pocket/edge/assets.ts` plus the narrow static `pocket/edge/index.ts`. Rebuild assets from original source after any UI changes and redeploy deliberately, rather than assuming a GitHub PR merge deploys Edge functions.
+
+## Table return bridge 001 (live pilot, no silent submission)
+
+The Seven-Day Table's [webZ PR #127](https://github.com/the-static-collective/webZ/pull/127) now opens `/gram` from an authenticated-by-private-link **active seat** and passes a short-lived random nonce in the new-tab hash. When opened that way, Pocket reveals an optional **Return reviewed question to my Table** button after a human explicitly authors/reviews/consents to a redacted PROPOSE_ONLY packet.
+
+Pocket `window.opener.postMessage` sends only `{type,nonce,standing,summary}` to its exact same origin. No complete Gram, names, source traces, unresolved tensions, invite credential, institution, household data, or authority crosses. The parent Table validates exact source/nonce/origin; accepts at most the reviewed 240-character question into its unsent textarea; turns off sharing; and requires the guest's separate save. If the popup was not opened from the seat, the return button is unavailable. If blocked, raw Gram download remains an independent fallback.
+
+**Released:** `banana-pocket` v2 ACTIVE on public `/gram`; `seven-day-table` v8 ACTIVE on public `/seven`, with backend unchanged. Child simulated opener test passed; real Android two-tab interaction, private-seat acceptance and a physical-world result remain unverified. Added dedicated Node regression `tests/pocket-window-return.test.mjs`.
