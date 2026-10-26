@@ -22,6 +22,11 @@ function page(){
   addEventListener(k,v){this.events[k]=v},focus(){},click(){}
  });
  for(const [,id] of html.matchAll(/\bid="([^"]+)"/g))el(id);
+ // Mirror HTML default control values; fake DOM does not parse select/input markup.
+ const defaults={fieldSteward:'not-asked',fieldRequirement:'One hypothetical milk need',
+ fieldQuantity:'24',fieldUnit:'cartons',fieldReported:'0',fieldConfirmed:'0',
+ fieldSecondConfirmed:'0'};
+ for(const [id,value] of Object.entries(defaults))el(id).value=value;
  const document={getElementById:el,createElement:el,body:{append(){}}};
  const window={opener:null,print(){}},location={hash:'',origin:'https://example.test'};
  const code=script.replace(/^import .*?;\s*$/gm,'');
@@ -72,7 +77,7 @@ test('reported delivery without confirmation stays unresolved, and duplicate occ
  p.el('fieldQuantity').value='50';p.el('fieldUnit').value='cartons';
  p.el('fieldReported').value='40';p.el('fieldConfirmed').value='0';
  p.submit('fieldCheckForm');
- assert.match(p.el('fieldReviewPreview').textContent,/HELPER_REPORT_HAS_NO_CONFIRMATION/);
+ assert.match(p.el('fieldReviewPreview').textContent,/HELPER_REPORT_HAS_NO_CONFIRMATION/,p.el('fieldCheckStatus').textContent);
  assert.match(p.el('fieldReviewPreview').textContent,/Actual physical provision verified: NO/);
  p.el('fieldConfirmed').value='20';
  p.el('fieldOccurrence').value='delivery:occ-001';
