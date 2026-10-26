@@ -40,7 +40,7 @@ def verify(root,signed_path,summary_path):
          not summary["publication"] and summary["native_return_verified"],
          "FALSE_EXTERNAL_EFFECT_CLAIM")
     prior=summary["previous_held_crossing_id"]
-    need(isinstance(prior,str) and prior.startswith("sha256:"),
+    need(isinstance(prior,str) and 8 <= len(prior) <= 200 and all(c.isascii() and (c.isalnum() or c in ":._-/") for c in prior),
          "PREVIOUS_CROSSING_NOT_LINKED")
     canonical=json.dumps({
       "bundle":bundle,"admission":admission,"execution":finished
