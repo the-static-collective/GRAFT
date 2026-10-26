@@ -109,6 +109,26 @@ class WevesTest(unittest.TestCase):
         with self.assertRaises(ValueError):
             weves.particular("x", "https://example.org/x", "field witness", "VERIFIED_DELIVERY")
 
+    def test_reweave_is_genuinely_forkable(self):
+        forked = weves.reweave(self.doc, "new circle", "neighbor-owned tool",
+                              "https://example.net/public/tool", "voluntary craft",
+                              "try an opt-in practical action")
+        self.assertTrue(weves.validate(forked))
+        self.assertEqual(forked["nodes"][:len(self.doc["nodes"])], self.doc["nodes"])
+        candidate = forked["nodes"][-1]
+        self.assertEqual(candidate["stage"], "PROPOSE_ONLY")
+        new_weave = forked["nodes"][-2]
+        self.assertEqual(new_weave["inputs"][0]["ref"], self.meta["id"])
+
+    def test_reweave_rejects_missing_or_private_source_pointer(self):
+        with self.assertRaises(ValueError):
+            weves.reweave(self.doc, "x", "private", "file:///mycase.db", "case", "act")
+
+    def test_reweave_fails_if_same_source_node_already_exists(self):
+        with self.assertRaisesRegex(ValueError, "duplicate"):
+            weves.reweave(self.doc, "duplicate", "a",
+                          "https://example.org/public/a", "source pointer", "act")
+
     def test_specimen_contains_reusable_nested_weaves(self):
         specimen = weves.specimen()
         self.assertTrue(weves.validate(specimen))
