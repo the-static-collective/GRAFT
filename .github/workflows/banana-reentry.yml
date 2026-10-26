@@ -1,0 +1,20 @@
+name: BananaGram re-entry proof
+on:
+  push:
+    branches:
+      - graft/jubilee-banana-reentry-001
+  workflow_dispatch:
+jobs:
+  gram-tests:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Test private-to-proposal boundaries
+        run: node --test reentry/jubilee-banana/tests/*.test.mjs
+      - name: Run fictional milk case example
+        run: node reentry/jubilee-banana/examples/vanishing-carton.mjs
