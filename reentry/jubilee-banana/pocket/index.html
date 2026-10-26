@@ -151,6 +151,58 @@ strong.privacy{color:#a34044}.smallprint{font-size:.8rem;color:#506359}.tag{font
  </div>
 </div>
 </div></section>
+<section id="field" class="light"><div class="container"><div class="kicker">07 · FIELD RETURN · Human confirmation belongs to the owner</div>
+<h2>What would make this real?</h2><p>This is a <strong>local witness-request worksheet</strong>, not a claim that anybody has already helped. You can prepare a public-safe question for a willing, authorized steward. You can also inspect a manually entered source-status claim without promoting it to verified provision.</p>
+<div class="grid">
+ <div class="box emphasis">
+ <h3>Ask for a real-world check</h3>
+ <form id="fieldRequestForm" autocomplete="off">
+ <label for="fieldAsk">One question for the person responsible</label>
+ <textarea id="fieldAsk" minlength="12" maxlength="240" placeholder="Would the food shelf purchaser welcome a private comparison of current ordering options?"></textarea>
+ <label for="fieldProof">What independent observation or owner receipt would settle this?</label>
+ <textarea id="fieldProof" minlength="12" maxlength="240" placeholder="Buyer confirms the actual supply terms, or authenticated recipient confirms a real delivery."></textarea>
+ <label for="fieldFog">What must we not assume yet?</label>
+ <textarea id="fieldFog" minlength="12" maxlength="240" placeholder="Whether a grant ends, the source quantity, and whether any new milk was delivered."></textarea>
+ <label class="check"><input type="checkbox" id="fieldApproved"><span>I choose to prepare this one public-safe question for human review. No recipient has agreed, and this doesn't send anything.</span></label>
+ <div class="actions"><button type="submit" class="gold">Prepare witness question</button><button type="button" class="secondary" id="fieldDownload" disabled>Download printable question</button></div>
+ </form><p id="fieldRequestStatus" class="status" role="status"></p>
+ </div>
+ <div class="box"><h3>A report isn't a confirmation</h3>
+ <div id="fieldRequestPreview" style="white-space:pre-wrap;background:#eff5ed;border:1px solid #beccb9;padding:15px;min-height:165px">First make an explicitly reviewed Forest packet in Step 06, then prepare a question for the person authorized to answer it.</div>
+ <p class="smallprint">A person reporting that they delivered food does not prove the recipient received it. A receipt ID alone does not prove two records represent different physical deliveries. Declining to participate is a valid outcome.</p>
+ </div>
+</div>
+<div class="grid" style="margin-top:18px">
+<div class="box"><h3>Check a reported return</h3>
+ <p class="hint">Optional field exercise: manually transcribe only non-sensitive claimed quantities. This does not query BananaSpork or Supabase, authenticate anyone, or verify a real delivery.</p>
+ <form id="fieldCheckForm" autocomplete="off">
+ <label for="fieldSteward">Steward's response (as reported)</label>
+ <select id="fieldSteward"><option value="not-asked">Not asked yet</option><option value="accepted-to-review">Agreed to review the question</option><option value="declined">Declined</option><option value="no-need">No current need</option></select>
+ <label for="fieldRequirement">What particular requirement is being checked?</label><input id="fieldRequirement" type="text" minlength="5" maxlength="160" value="One hypothetical milk need">
+ <div class="grid">
+ <div><label for="fieldQuantity">Requested quantity</label><input id="fieldQuantity" type="number" min="0" step="any" value="24"></div>
+ <div><label for="fieldUnit">Unit</label><input id="fieldUnit" type="text" maxlength="36" value="cartons"></div>
+ </div>
+ <label for="fieldReported">Quantity helper says they delivered</label><input id="fieldReported" type="number" min="0" step="any" value="0">
+ <label for="fieldConfirmed">Quantity source record claims the recipient confirmed</label><input id="fieldConfirmed" type="number" min="0" step="any" value="0">
+ <label for="fieldOccurrence">Physical occurrence reference, if legitimately available <span class="hint">(optional; don't enter a name or token)</span></label><input id="fieldOccurrence" type="text" maxlength="96" placeholder="example-occurrence-001">
+ <label class="check"><input type="checkbox" id="fieldSecondEnabled"><span>The same underlying requirement has a second Campfire link (do not double-count).</span></label>
+ <div id="fieldSecondFields" hidden>
+ <label for="fieldSecondConfirmed">Second link's claimed confirmed quantity</label><input id="fieldSecondConfirmed" type="number" min="0" step="any" value="0">
+ <label for="fieldSecondOccurrence">Second link occurrence reference (optional)</label><input id="fieldSecondOccurrence" type="text" maxlength="96" placeholder="example-occurrence-001">
+ </div>
+ <label class="check"><input type="checkbox" id="fieldStatusFresh"><span>I have reason to believe this source status is current (still not verified by this page).</span></label>
+ <div class="actions"><button type="submit">Inspect this claim conservatively</button></div>
+ </form><p id="fieldCheckStatus" class="status" role="status"></p>
+ </div>
+ <div class="box"><h3>What is actually established?</h3>
+ <div id="fieldReviewPreview" style="white-space:pre-wrap;background:#eff5ed;border:1px solid #beccb9;padding:15px;min-height:165px">No source status has been inspected here.</div>
+ <div class="line"></div><p class="tag">HUMAN DECISION REQUIRED</p>
+ <p>Only a valid authorization and receipt from the owning system, with the relevant recipient's confirmation, can establish an actual fulfilled need. This worksheet does not perform those checks.</p>
+ <div class="actions"><button type="button" id="fieldReviewDownload" class="secondary" disabled>Download private review</button></div>
+ </div>
+</div>
+</div></section>
 </main>
 <footer class="footer"><div class="container">BANANAGRAM POCKET 001 · A Static Collective / GRAFT re-entry experiment. A question can travel; authority must be granted locally. <a href="https://github.com/the-static-collective/GRAFT/pull/2">Source and status</a></div></footer>
 <script type="module" src="./app.mjs"></script>
