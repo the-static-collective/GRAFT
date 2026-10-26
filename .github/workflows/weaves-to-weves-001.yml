@@ -4,6 +4,9 @@ on:
     branches:
       - graft/weaves-to-weves-001
   workflow_dispatch:
+  pull_request:
+    branches:
+      - main
 jobs:
   local-protocol:
     runs-on: ubuntu-latest
