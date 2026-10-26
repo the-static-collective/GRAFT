@@ -93,6 +93,13 @@ def run(prior_verification, prior_result, ghroot, output, relay_root, donor_fold
             "SIGNATURE_INVALID")
         require(checked["result_sha256"]=="sha256:"+hashlib.sha256(message.encode("ascii")).hexdigest(),
             "WORKER_DIGEST_MISMATCH")
+        # Preserve public-synthetic signed material only in the runner's private
+        # scratch directory so the NEXT native code can cold-verify actual
+        # signatures instead of trusting this wrapper's summary booleans.
+        (sender/"signed-public-proof.json").write_text(json.dumps({
+            "schema":"graft.radio-return-signed-proof/v0",
+            "bundle":delivered,"admission":signed_local_hold,
+            "execution":signed_execution},sort_keys=True),encoding="utf-8")
         # A derivative of the previously held crossing is used; no reopening
         # that held receiver or interpretation of its HOLD as permission.
         record={"schema":"graft.hypercross-experimental-radio-return/v0",
