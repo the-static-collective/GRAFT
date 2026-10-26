@@ -38,7 +38,7 @@ function clearInvitation(reason=''){
 }
 function clearField(reason=''){
  fieldRequest=null;fieldReview=null;
- $('fieldDownload').disabled=true;$('fieldReviewDownload').disabled=true;
+ $('fieldDownload').disabled=true;$('fieldCopy').disabled=true;$('fieldReviewDownload').disabled=true;
  tell('fieldRequestPreview','No reviewed witness question prepared. This page does not certify anybody or anything.');
  tell('fieldReviewPreview','No source status independently verified.');
  tell('fieldRequestStatus',reason);tell('fieldCheckStatus','');
@@ -323,7 +323,7 @@ $('fieldRequestForm').addEventListener('submit',e=>{
    clearField('HOLD: approve the exact field question before preparing it.');return;
   }
   fieldRequest=output;fieldReview=null;
-  $('fieldDownload').disabled=false;$('fieldReviewDownload').disabled=true;
+  $('fieldDownload').disabled=false;$('fieldCopy').disabled=false;$('fieldReviewDownload').disabled=true;
   tell('fieldRequestPreview',fieldText(output));
   tell('fieldReviewPreview','No claimed source evidence reviewed yet.');
   tell('fieldRequestStatus','Private question prepared. You choose whether to ask anybody. No message sent.');
@@ -335,6 +335,33 @@ for(const id of ['fieldAsk','fieldProof','fieldFog']){
 }
 $('fieldApproved').addEventListener('change',()=>{
  if(fieldRequest)clearField('Approval changed; review again before preparing.');
+});
+function fieldInvitation(r){
+ return [
+  'A question for a willing community steward',
+  '',
+  r.request,
+  '',
+  'The particular thing we would like to verify:',
+  r.evidenceQuestion,
+  '',
+  'What we do NOT yet know:',
+  r.unresolved,
+  '',
+  'Would exploring this question be useful to you? There is no commitment to participate.',
+  'Please say no or not yet if that is more useful.',
+  '',
+  'This is an independent community inquiry, not an official request or claim of completed aid.'
+ ].join('\n');
+}
+$('fieldCopy').addEventListener('click',async()=>{
+ if(!fieldRequest)return;
+ try{
+  await navigator.clipboard.writeText(fieldInvitation(fieldRequest));
+  tell('fieldRequestStatus','Voluntary request copied. You choose whether and to whom to send it. Nothing was sent here.');
+ }catch{
+  tell('fieldRequestStatus','Clipboard permission unavailable. You can select the prepared question or save your private request.');
+ }
 });
 $('fieldDownload').addEventListener('click',()=>{
  if(!fieldRequest)return;
