@@ -1,0 +1,309 @@
+name: GRAFT HYPERCROSS-002 experimental Morse to native Radio House return
+on:
+  push:
+    branches:
+      - graft/hypercross-experimental-002
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  cross-cross-cross:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+      - uses: actions/checkout@v4
+        with:
+          repository: the-static-collective/GRAFT
+          ref: 08f42f769f9590d78b85c8d84358e1791d5bd318
+          path: donors/black-star
+          persist-credentials: false
+      - uses: actions/checkout@v4
+        with:
+          repository: the-static-collective/GRAFT
+          ref: 22a5714f25c7be59bac37b3ab691c28c1f036845
+          path: donors/memento
+          persist-credentials: false
+      - uses: actions/checkout@v4
+        with:
+          repository: the-static-collective/free-graph
+          ref: ec0ad8743c5faac3f3675760bbafcbcb1df846c1
+          path: donors/free-graph
+          persist-credentials: false
+      - uses: actions/checkout@v4
+        with:
+          repository: the-static-collective/JAR-VIS
+          ref: 35b3843c13ab1994efc913724b1db08ce79bdeed
+          path: donors/jarvis
+          persist-credentials: false
+      - uses: actions/checkout@v4
+        with:
+          repository: the-static-collective/planZ
+          ref: 52183eafe0daf311582c6016b37805ae24ef4ec6
+          path: donors/planz
+          persist-credentials: false
+      - uses: actions/checkout@v4
+        with:
+          repository: the-static-collective/CANNON
+          ref: 453cf70c820a114423811cecdc70b4ec06f2675b
+          path: donors/cannon
+          persist-credentials: false
+      - uses: actions/checkout@v4
+        with:
+          repository: the-static-collective/planZ
+          ref: d0bcdf7d9fc40eef59deed560057c8579a69cb2a
+          path: donors/planz-garden
+          persist-credentials: false
+      - uses: actions/checkout@v4
+        with:
+          repository: the-static-collective/planZ
+          ref: e57b227242d64d4e485540f6406ec63d21407e3c
+          path: donors/planz-table
+          persist-credentials: false
+      - uses: actions/checkout@v4
+        with:
+          repository: the-static-collective/planZ
+          ref: 1ec9a4043b150296e0d90796fae5e5cc02ba3dcc
+          path: donors/planz-abundent
+          persist-credentials: false
+      - uses: actions/checkout@v4
+        with:
+          repository: the-static-collective/LOADOUT
+          ref: 1adcb3d82f736f3ca8329c3c1d0d9eba398d49ee
+          path: donors/loadout
+          persist-credentials: false
+      - uses: actions/checkout@v4
+        with:
+          repository: the-static-collective/GHoT
+          ref: e35dd470384d864b7b0b629a68dad570875a7df0
+          path: donors/ghot
+          persist-credentials: false
+      - uses: actions/checkout@v4
+        with:
+          repository: the-static-collective/reLATTE
+          ref: 7016dadcafc335d7ad8dccc26f4d6e0769dcf28c
+          path: donors/relatte
+          persist-credentials: false
+      - uses: actions/checkout@v4
+        with:
+          repository: the-static-collective/LemonPRESS
+          ref: 02feb4454240d482a5e0e03258f24f8b5cc0b9f5
+          path: donors/lemonpress
+          persist-credentials: false
+      - uses: actions/checkout@v4
+        with:
+          repository: the-static-collective/GHoT
+          ref: 9aec1e00667994c7e0dc0e345c5d40d5012fdf8e
+          path: donors/ghot-relay
+          persist-credentials: false
+      - uses: actions/checkout@v4
+        with:
+          repository: the-static-collective/reLATTE
+          ref: 69ddd67eb84049eec7ff8e040c465de078d98def
+          path: donors/relatte-relay
+          persist-credentials: false
+      - uses: actions/checkout@v4
+        with:
+          repository: the-static-collective/GHoT
+          ref: 96bb7e39d8e558ab07f3bdbf39e54dd3cdcb3aec
+          path: donors/ghot-radio
+          persist-credentials: false
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '24'
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Install only reLATTE runtime dependency
+        run: |
+          npm install --prefix donors/relatte --omit=dev --ignore-scripts --no-audit --no-fund
+          npm install --prefix donors/relatte-relay --omit=dev --ignore-scripts --no-audit --no-fund
+          sudo apt-get update -qq
+          sudo apt-get install -y -qq ffmpeg
+          command -v ffprobe
+      - name: Static regression and source boundary checks
+        run: |
+          node --check src/hypercross.mjs
+          node --test test/hypercross.test.mjs test/live-work.test.mjs
+      - name: One actual cross-repository public synthetic question
+        env:
+          GITHUB_TOKEN: ${{ github.token }}
+        shell: bash
+        run: |
+          set -euo pipefail
+          args=(
+            --question "What Waseca community grocery action can be prepared as a printable invitation?"
+            --cut fixtures/early-cut.json --world same-room-a0
+            --blackstar-root donors/black-star --memento-root donors/memento
+            --freegraph-root donors/free-graph --jarvis-root donors/jarvis
+            --planz-root donors/planz --cannon-root donors/cannon
+            --planz-garden-root donors/planz-garden
+            --planz-table-root donors/planz-table
+            --planz-abundent-root donors/planz-abundent
+            --loadout-root donors/loadout --ghot-root donors/ghot
+            --relatte-root donors/relatte --lemonpress-root donors/lemonpress
+          )
+          node src/hypercross.mjs "${args[@]}" --output "$RUNNER_TEMP/hypercross-001" > "$RUNNER_TEMP/hypercross-cli-result.json"
+          node --input-type=module <<'CHECK'
+          import assert from 'node:assert/strict';
+          import {readFileSync} from 'node:fs';
+          import {join} from 'node:path';
+          const x=JSON.parse(readFileSync(join(process.env.RUNNER_TEMP,'hypercross-001','hypercross-receipt.json'),'utf8'));
+          assert.equal(x.schema,'graft.hypercross/v1');
+          assert.equal(x.stages.length,9);
+          assert.equal(x.stages[0].result,'NATIVE_VALIDATED');
+          assert.equal(x.loadout.public_publish,'REFUSE');
+          assert.equal(x.ghot.verified_against_local_bytes,true);
+          assert.equal(x.relatte.receiver_decision,'HOLD');
+          assert.equal(x.relatte.idempotent_replay,true);
+          assert.equal(x.press.admission,'pending');
+          assert.equal(x.people_contacted,0);
+          assert.equal(x.publication,'NONE');
+          process.stdout.write('HYPERCROSS_NATIVE_CHAIN_PASS: '+x.stages.map(s=>s.name+'='+s.result).join(' -> ')+'\\n');
+          CHECK
+      - name: A future-discovered source cannot pass Black Star and no output is created
+        env:
+          GITHUB_TOKEN: ${{ github.token }}
+        shell: bash
+        run: |
+          set -euo pipefail
+          args=(
+            --question "What Waseca community grocery action can be prepared as a printable invitation?"
+            --cut fixtures/future-in-early-cut.json --world same-room-a0
+            --blackstar-root donors/black-star --memento-root donors/memento
+            --freegraph-root donors/free-graph --jarvis-root donors/jarvis
+            --planz-root donors/planz --cannon-root donors/cannon
+            --planz-garden-root donors/planz-garden
+            --planz-table-root donors/planz-table
+            --planz-abundent-root donors/planz-abundent
+            --loadout-root donors/loadout --ghot-root donors/ghot
+            --relatte-root donors/relatte --lemonpress-root donors/lemonpress
+          )
+          if node src/hypercross.mjs "${args[@]}" --output "$RUNNER_TEMP/hypercross-should-not-exist" > "$RUNNER_TEMP/unsafe-result.json" 2>"$RUNNER_TEMP/refusal.txt"; then
+            echo "DANGER: future knowledge passed" >&2; exit 1
+          fi
+          test ! -d "$RUNNER_TEMP/hypercross-should-not-exist"
+          grep -q BLACK_STAR_VALIDATION_REFUSED "$RUNNER_TEMP/refusal.txt"
+          echo "FUTURE_KNOWLEDGE_REFUSAL_PASS (zero local output)"
+      - name: Build the next arrival as genuine Morse audio from prior work-kit SHA
+        shell: bash
+        run: |
+          set -euo pipefail
+          SRC_HASH="$(node --input-type=module -e 'import fs from "node:fs"; const x=JSON.parse(fs.readFileSync(process.env.RUNNER_TEMP+"/hypercross-001/hypercross-receipt.json")); process.stdout.write(x.kit.sha256)')"
+          python3 src/make-audio-beacon.py "$SRC_HASH" "$RUNNER_TEMP/hypercross-002-morse.wav" > "$RUNNER_TEMP/beacon-report.json"
+          ffprobe -v error -show_format -show_streams -of json "$RUNNER_TEMP/hypercross-002-morse.wav" > "$RUNNER_TEMP/beacon-ffprobe.json"
+          python3 - <<'CHECK'
+          import json,os
+          from pathlib import Path
+          r=Path(os.environ["RUNNER_TEMP"])
+          a=json.loads((r/"beacon-report.json").read_text())
+          b=json.loads((r/"beacon-ffprobe.json").read_text())
+          assert a["radio_transmission"] is False and a["message"].startswith("HC ")
+          assert b["streams"][0]["codec_type"]=="audio"
+          print("BEACON_PUBLIC_AUDIO_OK")
+          CHECK
+      - name: Native experimental LOADOUT to GHoT ffprobe of actual prior-derived WAV
+        shell: bash
+        run: |
+          set -euo pipefail
+          WAV="$RUNNER_TEMP/hypercross-002-morse.wav"
+          SHA="$(sha256sum "$WAV" | cut -d ' ' -f 1)"
+          GHOT_HOME="$RUNNER_TEMP/hypercross-ghot-relay" python3 donors/ghot-relay/ghot/relay001_loadout_probe.py "$WAV" \
+            --sha256 "$SHA" --loadout-src donors/loadout/src \
+            --ghot-root donors/ghot-relay --out "$RUNNER_TEMP/relay-donor" > "$RUNNER_TEMP/relay-probe-result.json"
+          python3 - <<'CHECK'
+          import json,os
+          from pathlib import Path
+          p=Path(os.environ["RUNNER_TEMP"])/"relay-donor"
+          v=json.loads((p/"relay-crossing.json").read_text())
+          assert v["status"]=="PROBED_NATIVE_GHOT" and v["source_unchanged"]
+          assert v["ghot_output_sha256_valid"] is True
+          print("EXPERIMENTAL_GHOT_NATIVE_PROBE_PASS")
+          CHECK
+      - name: Original experimental reLATTE third organ signs the GHoT witness into HOLD
+        shell: bash
+        run: |
+          set -euo pipefail
+          node --experimental-strip-types donors/relatte-relay/scripts/relay001-ghot-hold.mjs \
+            "$RUNNER_TEMP/relay-donor" "$RUNNER_TEMP/relay-hold" "$RUNNER_TEMP/hypercross-002-morse.wav" > "$RUNNER_TEMP/signed-hold-result.json"
+          node --experimental-strip-types donors/relatte-relay/scripts/relay001-ghot-hold.mjs verify \
+            "$RUNNER_TEMP/relay-donor" "$RUNNER_TEMP/relay-hold/public" > "$RUNNER_TEMP/signed-hold-reverification.json"
+          node --input-type=module <<'CHECK'
+          import fs from 'node:fs';
+          import assert from 'node:assert/strict';
+          const p=process.env.RUNNER_TEMP+'/relay-hold/public/';
+          const v=JSON.parse(fs.readFileSync(p+'verification.json'));
+          const r=JSON.parse(fs.readFileSync(p+'roundtrip-result.json'));
+          assert.equal(v.signed_crossing_valid,true);
+          assert.equal(v.signed_receive_valid,true);
+          assert.equal(v.signed_hold_valid,true);
+          assert.equal(r.disposition_receipt.kind,'R3_HOLD');
+          assert.deepEqual(r.receiver_snapshot.admitted,[]);
+          console.log('EXPERIMENTAL_RELATTE_NATIVE_HOLD_PASS');
+          CHECK
+      - name: Original experimental GHoT Radio House 003 receives prior HOLD digest and returns signed local hash
+        shell: bash
+        run: |
+          set -euo pipefail
+          python3 src/radio-return-002.py \
+            --verification "$RUNNER_TEMP/relay-hold/public/verification.json" \
+            --roundtrip "$RUNNER_TEMP/relay-hold/public/roundtrip-result.json" \
+            --radio-root donors/ghot-radio \
+            --relay-root donors/relatte-relay \
+            --donor-folder "$RUNNER_TEMP/relay-donor" \
+            --output "$RUNNER_TEMP/radio-return-002" > "$RUNNER_TEMP/radio-verified.json"
+          python3 - <<'CHECK'
+          import json,os
+          from pathlib import Path
+          p=Path(os.environ["RUNNER_TEMP"])
+          relay=json.loads((p/"relay-hold/public/verification.json").read_text())
+          radio=json.loads((p/"radio-verified.json").read_text())
+          assert radio["native_return_verified"]
+          assert radio["previous_held_crossing_id"]==relay["crossing_id"]
+          assert radio["media_pause_enforced"] and radio["actual_broadcasts"]==0
+          assert not radio["real_operator_consent"] and not radio["publication"]
+          assert (p/"radio-return-002/worker/radio-house-002.sqlite3").exists()
+          print("EXPERIMENTAL_RADIO_HOUSE_SIGNED_WORK_PASS")
+          CHECK
+      - name: Negative crossing denies doctored upstream verification without creating local worker
+        shell: bash
+        run: |
+          set -euo pipefail
+          cp "$RUNNER_TEMP/relay-hold/public/verification.json" "$RUNNER_TEMP/forged-upstream-verification.json"
+          python3 - <<'CHECK'
+          import json,os
+          from pathlib import Path
+          p=Path(os.environ['RUNNER_TEMP'])/'forged-upstream-verification.json'
+          x=json.loads(p.read_text())
+          x['signed_hold_valid']=False
+          p.write_text(json.dumps(x))
+          CHECK
+          if python3 src/radio-return-002.py \
+            --verification "$RUNNER_TEMP/forged-upstream-verification.json" \
+            --roundtrip "$RUNNER_TEMP/relay-hold/public/roundtrip-result.json" \
+            --radio-root donors/ghot-radio \
+            --relay-root donors/relatte-relay \
+            --donor-folder "$RUNNER_TEMP/relay-donor" \
+            --output "$RUNNER_TEMP/forged-radio-output"; then
+            echo "DANGER: invalid prior crossing admitted" >&2; exit 1
+          fi
+          test ! -e "$RUNNER_TEMP/forged-radio-output"
+          echo "TAMPERED_PREVIOUS_RECEIPT_REFUSED"
+      - name: Export synthetic outputs for reproducible inspection
+        uses: actions/upload-artifact@v4
+        with:
+          name: graft-hypercross-002-experimental-radio-synthetic
+          path: |
+            ${{ runner.temp }}/hypercross-001/kit/field-kit.html
+            ${{ runner.temp }}/hypercross-001/kit/work-plan.json
+            ${{ runner.temp }}/hypercross-001/kit/work-receipt.json
+            ${{ runner.temp }}/hypercross-001/hypercross-receipt.json
+            ${{ runner.temp }}/hypercross-001/lemonpress-candidate.json
+            ${{ runner.temp }}/beacon-report.json
+            ${{ runner.temp }}/signed-hold-reverification.json
+            ${{ runner.temp }}/relay-hold/public/verification.json
+            ${{ runner.temp }}/radio-return-002/synthetic-summary.json
+          if-no-files-found: error
+          retention-days: 7
