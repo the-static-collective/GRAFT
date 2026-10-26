@@ -419,6 +419,32 @@ $('fieldReviewDownload').addEventListener('click',()=>{
  privateDownload('bananagram-private-field-review.json',JSON.stringify(fieldReview,null,2));
  tell('fieldCheckStatus','Local review downloaded, not a confirmed Jubilee receipt.');
 });
+$('fieldTrialCopy').addEventListener('click',async()=>{
+ const note=[
+  'Would you help test a small community cooperation experiment?',
+  '',
+  'We are checking whether two independent, consenting members can exchange',
+  'a message in a private Campfire, while a third independent nonmember',
+  'is correctly prevented from reading or posting.',
+  '',
+  'This is a voluntary software field test—not a request for personal stories,',
+  'private case files, passwords, money, or access to anyone else’s account.',
+  '',
+  'The second phase can test one small Help Slip only with the relevant',
+  'person’s permission. A helper report is not counted as completed aid.',
+  '',
+  'The current test card is at:',
+  'https://github.com/the-static-collective/BananaSpork/blob/feat/field-specimen-independent-proof-002/docs/field-specimen-002.md',
+  '',
+  'Interested? It is also completely fine to decline.'
+ ].join('\n');
+ try{
+  await navigator.clipboard.writeText(note);
+  tell('fieldTrialStatus','Invitation copied. You decide whether and who to ask. No outreach has occurred here.');
+ }catch{
+  tell('fieldTrialStatus','Clipboard unavailable. You can open the field card and share only if you choose.');
+ }
+});
 $('printPrivate').addEventListener('click',()=>window.print());
 render();
 
