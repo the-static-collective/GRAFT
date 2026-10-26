@@ -14,7 +14,7 @@ const origin='https://kbhqacsdvjsstzyplqij.supabase.co';
 function fakePage({withOpener=true,hash='#returnToTable='+nonce}={}){
  const elements={};
  const el=id=>elements[id]??(elements[id]={
-  value:'',checked:false,disabled:false,hidden:false,textContent:'',children:[],events:{},
+  value:'',checked:false,disabled:false,hidden:id==='returnToTableBtn'||id==='forestNextLink',textContent:'',children:[],events:{},
   reportValidity(){return true},reset(){},append(...a){this.children.push(...a)},
   replaceChildren(){this.children=[]},addEventListener(k,v){this.events[k]=v},focus(){},click(){}
  });
