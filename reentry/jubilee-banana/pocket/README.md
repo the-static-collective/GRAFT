@@ -87,3 +87,11 @@ Flow:
 **Test coverage:** `tests/field-return.test.mjs` exercises duplicate occurrence deduplication, genuine distinct occurrence aggregation, mismatched occurrence fallback, helper report/refusal, safe public return and no promotion. `tests/pocket-field-flow.test.mjs` simulates the new UI from reviewed Gram → Forest → question for the steward → claimed delivery inspection. The standard re-entry workflow runs the native Free Graph validator too.
 
 **Remains genuinely open:** intentionally selected BananaSpork live project, two distinct authenticated accounts, member vs hostile nonmember RLS, source-backed `fulfillment.reported` and `fulfillment.confirmed`, physical recipient confirmation, durable rehydration, and public-safe owner-approved learning. No demo can certify those field observations, and no owner service-role keys should be injected into Pocket.
+
+## FIELD-SPECIMEN-002 · first independent real Campfire (Pocket Step 08)
+
+The public `/gram` page now contains a short **two members + independent nonmember** field invitation and a voluntary copy button (v6 ACTIVE). It links to [BananaSpork field-trial card PR #19](https://github.com/the-static-collective/BananaSpork/pull/19). No login credentials, household data, invitations, witness attestations or real partners are enrolled or collected by this static UI.
+
+The BananaSpork test branch includes an offline 17-check reviewer, RLS/Realtime read-only SQL metadata preflight, and normal CI full test/build. Its schema is operator-*reported*, never independently confirmed; a synthetic fixture explicitly cannot be considered field proof. The currently connected `pantry-gate` project was inspected read-only and lacks NanaSpork circle tables; it was **not** selected or modified as a BananaSpork backend. Two independent member sessions, a third actual nonmember denial, and a real consented recipient confirmation remain physical-world acceptance gates.
+
+**Live evidence:** GET for `/gram` and the older `/seven` both succeeded after Pocket v6 release; source repo CI for NanaSpork and GRAFT both passed. This is a field *invitation* and evidence-capture kit, not a human field result.
