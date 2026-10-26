@@ -29,14 +29,16 @@ function page(){
  for(const [id,value] of Object.entries(defaults))el(id).value=value;
  const document={getElementById:el,createElement:el,body:{append(){}}};
  const window={opener:null,print(){}},location={hash:'',origin:'https://example.test'};
+ const clipboardCopies=[];
+ const navigator={clipboard:{writeText:async t=>{clipboardCopies.push(t);}}};
  const code=script.replace(/^import .*?;\s*$/gm,'');
- new Function('document','window','location','crypto','confirm','setTimeout','URLSearchParams',
+ new Function('document','window','location','navigator','crypto','confirm','setTimeout','URLSearchParams',
  'createGram','addTrace','addTension','selectFirstYes','makeReturn','formatCard',
  'proposeGramCrossing','composeForest','nextInvitation','prepareFieldRequest','inspectClaimedEvidence',code)(
-  document,window,location,webcrypto,()=>true,()=>{},URLSearchParams,
+  document,window,location,navigator,webcrypto,()=>true,()=>{},URLSearchParams,
   createGram,addTrace,addTension,selectFirstYes,makeReturn,formatCard,
   proposeGramCrossing,composeForest,nextInvitation,prepareFieldRequest,inspectClaimedEvidence);
- return {el,submit:id=>el(id).events.submit({preventDefault(){},target:el(id)})};
+ return {el,clipboardCopies,submit:id=>el(id).events.submit({preventDefault(){},target:el(id)})};
 }
 async function seeded(){
  const p=page();
@@ -66,6 +68,11 @@ test('witness request remains unsent until author approval',async()=>{
  p.submit('fieldRequestForm');
  assert.equal(p.el('fieldDownload').disabled,false,p.el('fieldRequestStatus').textContent);
  assert.match(p.el('fieldRequestPreview').textContent,/UNSENT HUMAN QUESTION/);
+ assert.equal(p.el('fieldCopy').disabled,false);
+ await p.el('fieldCopy').events.click();
+ assert.equal(p.clipboardCopies.length,1);
+ assert.match(p.clipboardCopies[0],/There is no commitment to participate/);
+ assert.doesNotMatch(p.clipboardCopies[0],/sourcePacketId|receiptClaim|sourceRef/);
 });
 test('reported delivery without confirmation stays unresolved, and duplicate occurrences are not added',async()=>{
  const p=await seeded();
