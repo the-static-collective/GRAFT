@@ -1,0 +1,16 @@
+name: GRAFT held cultural candidate receiver
+on:
+  push:
+    branches: ['graft/culture-return-005']
+  pull_request:
+    paths: ['src/culture-nursery.mjs','test/culture-nursery.test.mjs','.github/workflows/culture-return-005.yml']
+permissions:
+  contents: read
+jobs:
+  nursery:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with: {node-version: '24'}
+      - run: node --test test/culture-nursery.test.mjs
