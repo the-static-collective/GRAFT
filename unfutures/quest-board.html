@@ -1,0 +1,168 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="color-scheme" content="dark">
+<title>UNFUTURES · The Reciprocity Reactor · Reality 2.0</title>
+<style>
+:root{font-family:system-ui,-apple-system,Segoe UI,sans-serif;background:#0d1818;color:#f4f4e9}
+*{box-sizing:border-box}body{margin:0;min-height:100vh;background:radial-gradient(ellipse at 75% -15%,#235d45 0,transparent 60%),#0d1818}
+header{padding:40px max(22px,calc((100vw - 1110px)/2));border-bottom:1px solid #53665a}
+.kicker{font-size:12px;letter-spacing:.19em;color:#b5d49d;font-weight:700}
+h1{font-size:clamp(32px,6vw,69px);line-height:1.01;letter-spacing:-.05em;margin:18px 0}
+p{line-height:1.55;color:#c6cec5}.sub{max-width:700px}
+.tags{display:flex;flex-wrap:wrap;gap:8px;margin-top:18px}
+.tag{border:1px solid #68816e;border-radius:20px;padding:5px 10px;color:#cde2cf;font-size:12px}
+main{max-width:1160px;padding:24px;margin:auto}
+h2{font-size:23px;letter-spacing:-.02em}
+.stats{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:10px}
+.stat{border:1px solid #516859;border-radius:14px;background:#172d27;padding:16px}
+.num{display:block;font-size:34px;color:#e2f49d;font-weight:750}
+.label{font-size:12px;color:#d5ded4}
+.toolbar{display:flex;gap:14px;align-items:center;flex-wrap:wrap;margin:24px 0}
+button,.load{background:#ddf2a0;color:#16231b;border:0;border-radius:12px;padding:12px 15px;font:700 14px system-ui;cursor:pointer}
+button:focus-visible,.load:focus-within{outline:3px solid #fff;outline-offset:3px}
+.load{display:inline-block;background:#29463a;color:#fff;border:1px solid #7c9c80}
+input[type=file]{max-width:225px;color:#eaf5d7}
+.board{display:grid;grid-template-columns:320px minmax(0,1fr);gap:14px}
+.panel{border:1px solid #536d5d;border-radius:18px;background:#152921;padding:18px;min-width:0}
+.panel h2{margin:0 0 14px}.cards{display:grid;gap:10px}
+.quest{display:block;text-align:left;width:100%;border:1px solid #6a806b;background:#21372d;color:#e8f5e8}
+.quest[aria-pressed=true]{background:#e3f3ab;color:#16251a}
+.small{font-size:12px;opacity:.78}.strong{font-size:18px;font-weight:720;display:block;margin:7px 0}
+.route{padding:16px;margin:14px 0;border:1px dashed #647d69;border-radius:14px;background:#22372d}
+.route h3{margin:0;font-size:15px}.route p{margin:5px 0 0;font-size:14px}
+.arrow{color:#c9ed9e;font-weight:bold}.note{background:#493c2b;padding:14px;border-radius:12px;color:#ffe4bc;font-size:13px}
+.steps{display:flex;flex-wrap:wrap;gap:6px}.step{font-size:12px;padding:7px;border-radius:8px;background:#244937}
+.mono{font-family:ui-monospace,SFMono-Regular,monospace;font-size:11px;overflow-wrap:anywhere}
+footer{max-width:1160px;margin:auto;padding:15px 24px 45px;font-size:12px;color:#a6c1ae}
+#err{color:#ffc3ba}
+@media(max-width:780px){.stats{grid-template-columns:repeat(2,1fr)}.board{grid-template-columns:1fr}header{padding:28px 22px}}
+</style>
+</head>
+<body>
+<header>
+ <div class="kicker">STATIC COLLECTIVE / UNFUTURES-002 / OFFLINE SPECIMEN</div>
+ <h1>Trade less.<br>Make more possible.</h1>
+ <p class="sub">A cooperative game-window into reciprocal resource circuits. Every person, town transaction, delivery and confirmation shown here is <strong>fictional</strong>. Explore possible coordination rather than wagering on outcomes.</p>
+ <div class="tags">
+  <span class="tag">NO CRYPTO</span><span class="tag">NO BETTING</span>
+  <span class="tag">NO LIVE PARTNERS</span><span class="tag">NO NETWORK REQUESTS</span>
+  <span class="tag">ALL COMMITMENTS REQUIRE CONSENT</span>
+ </div>
+</header>
+<main>
+ <div class="stats" id="stats"></div>
+ <div class="toolbar">
+  <button type="button" id="reset">Explore the sample world</button>
+  <label class="load">Import a locally generated quest board
+    <input type="file" id="file" accept=".json,application/json" aria-label="Choose synthetic quest JSON">
+  </label>
+  <span class="small" id="source">Built-in fictional sample</span>
+ </div>
+ <p id="err" role="alert"></p>
+ <section class="board" aria-label="Cooperative quest board">
+  <div class="panel">
+   <h2>Available circuits</h2>
+   <p class="small">Select a complete reciprocal cycle. A proposal remains on HOLD until everyone involved agrees.</p>
+   <div class="cards" id="quests"></div>
+  </div>
+  <div class="panel" id="detail" aria-live="polite"></div>
+ </section>
+ <p class="note"><strong>Authority boundary:</strong> This offline viewer can inspect a synthetic engine-generated quest board, but it cannot approve tasks, verify work, sign receipts, update any community database or create real obligations. Even a green “confirmed” badge refers only to a simulated event sequence.</p>
+</main>
+<footer>RENDERING ≠ AUTHORITY · PROPOSAL ≠ ACCEPTANCE · REPORT ≠ CONFIRMATION · SYNTHETIC DEMONSTRATION ≠ FIELD EVIDENCE</footer>
+<script>
+"use strict";
+const $=id=>document.getElementById(id);
+const sample={
+ schema:"reality2.unfutures-quest-board/v0",environment:"SYNTHETIC_ONLY",
+ mode:"FICTIONAL_COOPERATIVE_PLAY",noMoney:true,noTrading:true,
+ quests:[
+  {id:"quest-1",cycleId:"fictional-triad",title:"Circuit 1 · Mankato ↔ Waldorf ↔ Waseca",
+   state:"HOLD",towns:["Mankato","Waldorf","Waseca"],approvals:{received:0,required:9},
+   requirements:[
+    {from:"Mankato",to:"Waldorf",resource:"solar",unit:"kit",quantity:1,transport:"carrier-Mankato",report:false,recipientConfirmed:false},
+    {from:"Waldorf",to:"Waseca",resource:"timber",unit:"bundle",quantity:1,transport:"carrier-Waldorf",report:false,recipientConfirmed:false},
+    {from:"Waseca",to:"Mankato",resource:"grain",unit:"crate",quantity:1,transport:"carrier-Waseca",report:false,recipientConfirmed:false}
+   ]},
+  {id:"quest-2",cycleId:"fictional-pair",title:"Circuit 2 · New-Ulm ↔ Owatonna",
+   state:"HOLD",towns:["New-Ulm","Owatonna"],approvals:{received:0,required:6},
+   requirements:[
+    {from:"New-Ulm",to:"Owatonna",resource:"fuel",unit:"can",quantity:1,transport:"carrier-New-Ulm",report:false,recipientConfirmed:false},
+    {from:"Owatonna",to:"New-Ulm",resource:"tools",unit:"kit",quantity:1,transport:"carrier-Owatonna",report:false,recipientConfirmed:false}
+   ]}
+ ]};
+let data=sample, selected=0;
+function elem(tag,txt,cls){const el=document.createElement(tag); if(txt!==undefined)el.textContent=txt;if(cls)el.className=cls;return el}
+function paint(){
+ const quests=data.quests;
+ $("stats").replaceChildren();
+ for(const [num,label] of [
+  [quests.length,"Cooperative circuits"],[quests.reduce((s,q)=>s+q.requirements.length,0),"Needs in proposed cycles"],
+  [quests.filter(q=>q.state==="HOLD").length,"Held for consent"],
+  [quests.filter(q=>q.state==="CONFIRMED").length,"Simulated completed cycles"]
+ ]){
+  const tile=elem("div",undefined,"stat");tile.append(elem("span",String(num),"num"),elem("span",label,"label"));
+  $("stats").append(tile);
+ }
+ $("quests").replaceChildren();
+ quests.forEach((q,i)=>{
+  const b=elem("button",undefined,"quest");b.type="button";b.setAttribute("aria-pressed",String(i===selected));
+  b.append(elem("span","QUEST "+String(i+1)+" / "+q.state,"small"),elem("span",q.towns.join(" ↔ "),"strong"),
+    elem("span",q.requirements.length+" reciprocal legs","small"));
+  b.addEventListener("click",()=>{selected=i;paint()});
+  $("quests").append(b);
+ });
+ const q=quests[selected], d=$("detail");d.replaceChildren();
+ if(!q){d.append(elem("h2","No selected cycle"));return}
+ d.append(elem("div","SIMULATED CIRCUIT / "+q.state,"kicker"),elem("h2",q.towns.join("  ↔  ")));
+ d.append(elem("p","For the circuit to become an actual arrangement, every provider, receiver and transport steward would need to consent. No such consent is collected in this viewer."));
+ const steps=elem("div",undefined,"steps");
+ ["DISCOVER","PROPOSE","CONSENT","REPORT","CONFIRM","RETURN"].forEach(s=>steps.append(elem("span",s,"step")));
+ d.append(steps);
+ for(const r of q.requirements){
+  const route=elem("article",undefined,"route");
+  route.append(elem("h3",r.from+"  →  "+r.to),
+   elem("p",r.quantity+" "+r.unit+" of "+r.resource+" · transporter: "+r.transport),
+   elem("p",(r.report?"Simulated report recorded":"No report")
+       +" · "+(r.recipientConfirmed?"Simulated receipt confirmed":"No recipient confirmation"),"small"));
+  d.append(route);
+ }
+ d.append(elem("p",q.approvals.received+" of "+q.approvals.required
+   +" fictional participating actors have simulated consent in this snapshot.","small"));
+ d.append(elem("p","Cycle reference: "+q.cycleId,"mono"));
+}
+function validate(x){
+ if(!x || x.schema!=="reality2.unfutures-quest-board/v0"
+  ||x.environment!=="SYNTHETIC_ONLY"||x.noMoney!==true
+  ||x.noTrading!==true||!Array.isArray(x.quests)||x.quests.length>100)
+  throw Error("Not a valid synthetic UNFUTURES quest board.");
+ for(const q of x.quests){
+  if(typeof q.cycleId!=="string"||!Array.isArray(q.towns)||!Array.isArray(q.requirements)
+    ||!q.approvals||!Number.isSafeInteger(q.approvals.required)
+    ||!Number.isSafeInteger(q.approvals.received)
+    ||q.requirements.some(r=>typeof r.from!=="string"||typeof r.to!=="string"
+      ||typeof r.resource!=="string"||typeof r.unit!=="string"
+      ||!Number.isSafeInteger(r.quantity)||typeof r.transport!=="string"))
+    throw Error("Invalid quest shape.");
+ }
+}
+$("reset").addEventListener("click",()=>{
+ data=sample;selected=0;$("err").textContent="";$("source").textContent="Built-in fictional sample";paint()});
+$("file").addEventListener("change",async ev=>{
+ const file=ev.target.files?.[0];if(!file)return;
+ try{
+  if(file.size>500000)throw Error("File too large for bounded offline viewer.");
+  const decoded=JSON.parse(await file.text());validate(decoded);
+  data=decoded;selected=0;$("err").textContent="";
+  $("source").textContent="Local synthetic board: "+file.name;
+  paint();
+ }catch(e){$("err").textContent=String(e.message||e)}
+ ev.target.value="";
+});
+paint();
+</script>
+</body>
+</html>
