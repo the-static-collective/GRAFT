@@ -113,8 +113,10 @@ test("uncertain production assumptions cannot be treated as actual resource stoc
   assert.equal(board.noTrading,true);
   assert.equal(board.noMoney,true);
   const output=shadowOffersForReactor(compiled);
-  assert.ok(output.length>=5);
+  assert.equal(output.length,2); // Only terminal lots; intermediate outputs were consumed.
   assert.ok(output.every(o=>o.status==="UNVERIFIED_PROPOSED_OUTPUT"&&o.admission==="HOLD"));
+  assert.ok(output.every(o=>o.transferAuthority===false&&o.liveInventory===false));
+  assert.ok(output.every(o=>o.conflictsWithGoals.length===1));
 });
 test("typed units matter and incompatible chain stops at missing input",()=>{
   const corrupted={...fixture,inventory:fixture.inventory.map(x=>x.resource==="van"
@@ -269,4 +271,34 @@ test("002 reactor can inspect proposed capabilities ONLY in a clearly fictional 
   assert.equal(exported.status,"UNVERIFIED_PROPOSED_OUTPUT");
   assert.equal(exported.admission,"HOLD");
   // This proves an executable what-if data crossing, not a receipted 002 allocation.
+});
+
+test("a direct, already-present synthetic good can be reported with no recipe steps",()=>{
+  const direct={...fixture,recipes:[],goals:[
+    {id:"goal-produce",town:"Waseca",requester:"receiver-produce",priority:1,
+      requirements:[{resource:"produce",unit:"crate",quantity:3}]}
+  ]};
+  const result=compilePossibilities(direct);
+  assert.equal(result.result.goalCount,1);
+  assert.equal(result.proposal.steps.length,0);
+  const j=formationJournal(result.proposal,sha256);
+  for(const actor of result.proposal.requiredActors)
+    j.append("CONSENT",actor,{decision:"YES"});
+  j.append("REPORT_GOAL","owner-farm",{goalId:"goal-produce",note:"SYNTHETIC"});
+  assert.equal(j.snapshot().status,"IN_PROGRESS");
+  j.append("CONFIRM_GOAL","receiver-produce",
+    {goalId:"goal-produce",decision:"YES"});
+  assert.equal(j.snapshot().status,"CONFIRMED");
+});
+test("hypothetical downstream offers explicitly conflict with already-allocated goals",()=>{
+  const shadow=shadowOffersForReactor(compiled);
+  const ids=new Set(compiled.proposal.goals.map(g=>g.goalId));
+  for(const offered of shadow){
+    assert.equal(offered.admission,"HOLD");
+    assert.ok(offered.conflictsWithGoals.every(id=>ids.has(id)));
+  }
+  assert.ok(shadow.some(o=>o.conflictsWithGoals.includes("goal-nourish")));
+  assert.ok(shadow.some(o=>o.conflictsWithGoals.includes("goal-winter")));
+  assert.equal(shadow.some(o=>o.resource==="meal_boxes"),false);
+  assert.equal(shadow.some(o=>o.resource==="meal_route_capacity"),false);
 });
