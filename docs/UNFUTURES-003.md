@@ -76,7 +76,7 @@ The in-memory journal records events, sequence, SHA-256 event chain and full pla
 
 ## Real code-to-code crossing: 003 × 002
 
-The shadowOffersForReactor adapter exports proposed results as typed records bearing status **UNVERIFIED_PROPOSED_OUTPUT** and admission **HOLD**. A synthetic what-if scenario feeds one such output into UNFUTURES-002 cycle scanning, showing an additional *potential* reciprocal circuit. This is an executable interface test, **not an admission of new actual inventory** and not a production API.
+The shadowOffersForReactor adapter exports only terminal proposed outputs as typed records bearing status **UNVERIFIED_PROPOSED_OUTPUT** and admission **HOLD**. Consumed intermediate products are never exported again. Every projected output also carries explicit conflictsWithGoals identifiers if its capacity is already assigned to a selected goal: the downstream thought experiment is an **alternative**, not additional free supply. No offer is transferable or admitted to live inventory. A synthetic what-if scenario feeds one such output into UNFUTURES-002 cycle scanning, showing an additional *potential* reciprocal circuit. This is an executable interface test, **not an admission of new actual inventory** and not a production API.
 
 UNFUTURES-003 imports only the 001 serializer and 002 cycle scanner. No writes occur to Garden, BananaSpork, reLATTE, JAR;VIS, Reality 2.0 or CANNON.
 
