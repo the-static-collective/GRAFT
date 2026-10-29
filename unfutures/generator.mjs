@@ -286,7 +286,7 @@ export function replayFormation(plan,events,hashFn){
       states.stepConfirms[e.stepId]=e.actor;
     } else if(e.action==="REPORT_GOAL"){
       const goal=goals.get(e.goalId);
-      if(!goal||states.status!=="IN_PROGRESS"
+      if(!goal||!["COMMITTED","IN_PROGRESS"].includes(states.status)
         ||!goal.providers.includes(e.actor)
         ||goal.allocations.some(a=>a.producedBy&&!states.stepConfirms[a.producedBy])
         ||Object.hasOwn(states.goalReports[e.goalId]||{},e.actor)
@@ -294,6 +294,7 @@ export function replayFormation(plan,events,hashFn){
         throw Error("Unready or unauthorized goal report");
       states.goalReports[e.goalId]??={};
       states.goalReports[e.goalId][e.actor]=e.note;
+      states.status="IN_PROGRESS";
     } else if(e.action==="CONFIRM_GOAL"){
       const goal=goals.get(e.goalId);
       if(!goal||states.status!=="IN_PROGRESS"
@@ -356,10 +357,18 @@ export function toCapabilityBoard(compiled,snapshot=null){
 // Hypothetical adapter to the 002 reactor. This does NOT make output executable stock.
 export function shadowOffersForReactor(compiled){
   if(compiled.label!=="SYNTHETIC_ONLY")throw Error("No live reactor offers");
-  return compiled.proposal.proposedOutputs.map(o=>({
+  const plan=compiled.proposal;
+  // Export only terminal products. An intermediate consumed upstream is NEVER
+  // simultaneously offered to a second hypothetical cycle.
+  const usedInSteps=new Set(plan.steps.flatMap(s=>s.inputs
+    .filter(a=>a.producedBy).map(a=>a.lotId)));
+  return plan.proposedOutputs.filter(o=>!usedInSteps.has(o.id)).map(o=>({
     id:"shadow:"+o.id,town:o.town,resource:o.resource,unit:o.unit,
     quantity:o.quantity,owner:o.owner,localOnly:false,
     status:"UNVERIFIED_PROPOSED_OUTPUT",admission:"HOLD",
+    transferAuthority:false,liveInventory:false,
+    conflictsWithGoals:plan.goals.filter(g=>g.allocations
+      .some(a=>a.lotId===o.id)).map(g=>g.goalId),
     source:"UNFUTURES-003"
   }));
 }
