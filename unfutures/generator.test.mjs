@@ -42,7 +42,7 @@ test("recursive assembly grows a new capability from existing offers",()=>{
   assert.deepEqual(compiled.result.unmet,["goal-table"]);
   assert.equal(compiled.result.steps,5);
   assert.deepEqual(plan.steps.map(s=>s.recipeId),
-    ["01-pack-meals","05-make-heat-kit","03-create-route","04-nourish-kids","06-winter-support"]
+    ["01-pack-meals","03-create-route","04-nourish-kids","05-make-heat-kit","06-winter-support"]
   );
   assert.equal(plan.status,"HOLD");
   assert.equal(plan.executedSteps,0);
