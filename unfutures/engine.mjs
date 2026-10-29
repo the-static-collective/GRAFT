@@ -50,7 +50,11 @@ export function propose(fixture, { federated = true } = {}) {
     needIds.add(need.id);
   }
   const plans = [], unmet = [];
-  for (const need of fixture.needs) {
+  // First protect all locally complete bundles; only then rescue remaining needs
+  // with consent-dependent cross-town routes. No locality is displaced by speculation.
+  const planned = new Set();
+  for (const allowRemote of (federated ? [false, true] : [false])) for (const need of fixture.needs) {
+    if (planned.has(need.id)) continue;
     const reserved = new Map(), allocations = [], transports = [];
     const left = id => (reserved.has(id) ? reserved.get(id) : remaining.get(id));
     const spend = (id, qty) => reserved.set(id, left(id) - qty);
@@ -60,7 +64,7 @@ export function propose(fixture, { federated = true } = {}) {
       let missing = req.quantity;
       const candidates = fixture.offers
         .filter(o => o.resource === req.resource && o.unit === req.unit
-          && (o.town === need.town || (federated && !o.localOnly)))
+          && (o.town === need.town || (allowRemote && !o.localOnly)))
         .sort((a, b) => Number(a.town !== need.town) - Number(b.town !== need.town)
           || a.id.localeCompare(b.id));
       for (const offer of candidates) {
@@ -84,11 +88,12 @@ export function propose(fixture, { federated = true } = {}) {
       if (missing !== 0) { feasible = false; break; }
     }
     if (!feasible) {
-      unmet.push({ needId: need.id, town: need.town,
+      if (allowRemote || !federated) unmet.push({ needId: need.id, town: need.town,
         reason: "No complete capacity-and-route-respecting bundle" });
       continue; // No partial plan may consume stock.
     }
     for (const [id, value] of reserved) remaining.set(id, value);
+    planned.add(need.id);
     const requiredActors = [...new Set([
       need.requester, ...allocations.map(a => a.owner), ...transports.map(t => t.owner)
     ])].sort();
