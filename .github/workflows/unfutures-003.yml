@@ -1,0 +1,45 @@
+name: UNFUTURES-003 synthetic generative economy
+
+on:
+  push:
+    branches:
+      - graft/unfutures-003-generative-economy
+  pull_request:
+    paths:
+      - 'unfutures/**'
+      - '.github/workflows/unfutures-003.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  generate:
+    runs-on: ubuntu-latest
+    timeout-minutes: 8
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Regression tests for the existing two experiments
+        run: node --test unfutures/engine.test.mjs unfutures/reactor.test.mjs
+      - name: Generative economy tests
+        run: node --test unfutures/generator.test.mjs
+      - name: Run bounded recursive planner
+        run: node unfutures/generator-demo.mjs summary
+      - name: Exercise 002 shadow crossing
+        run: node unfutures/generator-demo.mjs shadow
+      - name: Build offline generative-world cards
+        run: |
+          mkdir -p out
+          node unfutures/generator-demo.mjs board > out/unfutures-003-proposed.json
+          node unfutures/generator-demo.mjs completed-board > out/unfutures-003-simulated.json
+          node unfutures/generator-demo.mjs summary > out/unfutures-003-summary.json
+          cp unfutures/generator-board.html out/index.html
+      - uses: actions/upload-artifact@v4
+        with:
+          name: UNFUTURES-003-offline-generative-economy
+          path: out/
+          if-no-files-found: error
+          retention-days: 14

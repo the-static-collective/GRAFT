@@ -1,0 +1,201 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="color-scheme" content="dark">
+<title>UNFUTURES-003 · The Generative Economy</title>
+<style>
+:root{font-family:system-ui,-apple-system,Segoe UI,sans-serif;color:#ecefe3;background:#0c1514}
+*{box-sizing:border-box}body{margin:0;background:
+ radial-gradient(ellipse 80% 45% at 0 -5%,#295142,transparent),
+ radial-gradient(ellipse 60% 50% at 100% 70%,#203d42,transparent),#0c1514}
+header{max-width:1160px;padding:44px 22px 25px;margin:auto}
+.kicker{color:#c6eca2;font-size:12px;letter-spacing:.18em;font-weight:750}
+h1{font-size:clamp(39px,6vw,82px);line-height:.98;letter-spacing:-.055em;margin:19px 0 20px}
+h1 span{color:#d4f099}
+.lead{max-width:700px;line-height:1.7;color:#bdcac0}
+small{font-size:12px;color:#b6c8ba}.tag{display:inline-block;border:1px solid #5a7765;border-radius:20px;
+ padding:6px 10px;margin:4px;font-size:11px;color:#daeeca;letter-spacing:.035em}
+main{max-width:1160px;padding:8px 22px 55px;margin:auto}
+.tiles{display:grid;grid-template-columns:repeat(4,1fr);gap:9px;margin-bottom:20px}
+.tile{border:1px solid #577364;border-radius:16px;background:#182c26;padding:16px}
+.value{display:block;font-size:36px;font-weight:800;color:#e0fa9e}
+.label{font-size:12px;color:#c6d2c7}
+.toolbar{display:flex;align-items:center;gap:12px;flex-wrap:wrap;margin-bottom:24px}
+button,label.file{border:1px solid #a9c78a;border-radius:12px;padding:10px 13px;
+ font-weight:700;background:#d9ec9b;color:#1a291d;cursor:pointer}
+label.file{display:inline-block;background:#213a2e;color:#edf6df}
+input{max-width:225px;font-size:11px;color:#eaf1db}
+button:focus-visible,label.file:focus-within{outline:3px solid white;outline-offset:3px}
+h2{font-size:23px;margin:0 0 14px}h3{font-size:17px;margin:8px 0}
+.layout{display:grid;grid-template-columns:2fr 1fr;gap:12px}
+.card{border:1px solid #56705e;background:#152922;border-radius:17px;padding:18px;min-width:0;margin-bottom:12px}
+.phase{border-left:3px solid #c4ed91;padding:8px 14px 11px;margin:12px 0 0 7px;
+ border-top:1px solid #425e4d;background:#1e342b;border-radius:0 12px 12px 0}
+.phase b{color:#e8f0bd}.phase p{margin:9px 0 4px;font-size:12px;color:#b9c8bd}
+.resource{display:inline-block;border-radius:7px;background:#2c4d39;color:#eef8df;
+ padding:5px 8px;margin:3px 3px 0 0;font:12px ui-monospace,monospace}
+.arrow{font-size:12px;color:#c5eaa3;font-weight:700;margin:10px 7px}
+.goals{display:grid;gap:10px}
+.goal{border:1px solid #678470;border-radius:13px;padding:12px;background:#20372c}
+.goal strong{display:block;margin-bottom:4px}
+.bar{height:7px;border-radius:7px;background:#324738;margin-top:9px;overflow:hidden}
+.fill{height:100%;background:#c8f39c;width:0%}
+.note{font-size:13px;line-height:1.6;padding:13px;border-radius:12px;
+ background:#433721;color:#ffedcc;border:1px solid #816b3f}
+.danger{color:#ffacac}.empty{font-size:13px;color:#b5bdb4}
+pre{white-space:pre-wrap;overflow-wrap:anywhere;font:11px ui-monospace,monospace}
+footer{padding:20px;border-top:1px solid #43604a;color:#a2b6aa;
+ font-size:12px;text-align:center;line-height:1.7}
+@media(max-width:800px){.layout{grid-template-columns:1fr}.tiles{grid-template-columns:repeat(2,1fr)}}
+</style>
+</head>
+<body>
+<header>
+<div class="kicker">THE STATIC COLLECTIVE · UNFUTURES 003 · SYNTHETIC WORLD</div>
+<h1>Not just matching.<br><span>Making possible.</span></h1>
+<p class="lead">What if a farmer, kitchen, volunteer, and van become a new capability — which then becomes a building block for another? Trace the recipe, the dependencies, and the consent boundary. No futures contracts; only possible futures we might help make.</p>
+<div><span class="tag">OFFLINE</span><span class="tag">NO TRADING</span><span class="tag">NO REAL PARTNERS</span><span class="tag">CREATED CAPABILITY ≠ DELIVERED SERVICE</span></div>
+</header>
+<main>
+<div id="stats" class="tiles"></div>
+<div class="toolbar">
+ <button id="reset" type="button">Restore illustrative world</button>
+ <label class="file">Import local synthetic board
+ <input id="json" type="file" accept=".json,application/json" aria-label="Select generated UNFUTURES-003 JSON">
+ </label><small id="source">Illustrative in-browser sample</small>
+</div>
+<p role="alert" id="error" class="danger"></p>
+<div class="layout">
+ <section class="card" aria-label="Capability lineage">
+  <h2>From ingredients to capacity</h2>
+  <p class="empty">Everything below is a proposed recipe, not proven production. Upstream synthetic confirmations do not authenticate reality.</p>
+  <div id="steps"></div>
+ </section>
+ <div>
+  <section class="card"><h2>Possibilities found</h2><div class="goals" id="goals"></div></section>
+  <section class="card"><h2>Consent gate</h2><div id="consent"></div></section>
+  <section class="note"><strong>Do not confuse</strong> simulated confirmation with actual production. Even the fully simulated board has zero verified field outcomes. No real people are enrolled, and no community database is connected.</section>
+ </div>
+</div>
+</main>
+<footer>NEED ≠ COMMITMENT · RECIPE ≠ CAPABILITY · CAPABILITY ≠ DELIVERY · REPORT ≠ CONFIRMATION · TEST ≠ CANON</footer>
+<script>
+"use strict";
+const $=id=>document.getElementById(id);
+function node(tag,text,className){
+ const e=document.createElement(tag);
+ if(text!==undefined)e.textContent=text;
+ if(className)e.className=className;
+ return e;
+}
+const sample={
+ schema:"reality2.unfutures-capability-board/v0",environment:"SYNTHETIC_ONLY",
+ noMoney:true,noTrading:true,noActualPermissions:true,
+ baseline:{count:0,score:0},result:{goalCount:2,steps:5,unmet:["goal-table"]},
+ steps:[
+  {id:"step:01-pack-meals",recipeId:"01-pack-meals",dependencies:[],
+   inputs:[{lotId:"raw:supply-produce",quantity:6},{lotId:"raw:supply-kitchen",quantity:1},{lotId:"raw:supply-volunteer",quantity:1}],
+   outputs:[{resource:"meal_boxes",quantity:12,unit:"box",proposed:true}],confirmedInSimulation:false},
+  {id:"step:05-make-heat-kit",recipeId:"05-make-heat-kit",dependencies:[],
+   inputs:[{lotId:"raw:supply-firewood",quantity:3},{lotId:"raw:supply-insulation",quantity:2},{lotId:"raw:supply-tools",quantity:1}],
+   outputs:[{resource:"heat_readiness_kit",quantity:1,unit:"kit",proposed:true}],confirmedInSimulation:false},
+  {id:"step:03-create-route",recipeId:"03-create-route",dependencies:["step:01-pack-meals"],
+   inputs:[{lotId:"derived:01-pack-meals:0",quantity:12},{lotId:"raw:supply-van",quantity:1},{lotId:"raw:supply-volunteer",quantity:1}],
+   outputs:[{resource:"meal_route_capacity",quantity:1,unit:"route",proposed:true}],confirmedInSimulation:false},
+  {id:"step:04-nourish-kids",recipeId:"04-nourish-kids",dependencies:["step:03-create-route"],
+   inputs:[{lotId:"derived:03-create-route:0",quantity:1},{lotId:"raw:supply-roster",quantity:1}],
+   outputs:[{resource:"nourish_kids_capacity",quantity:1,unit:"program",proposed:true}],confirmedInSimulation:false},
+  {id:"step:06-winter-support",recipeId:"06-winter-support",dependencies:["step:05-make-heat-kit"],
+   inputs:[{lotId:"derived:05-make-heat-kit:0",quantity:1},{lotId:"raw:supply-shelter",quantity:1},{lotId:"raw:supply-volunteer",quantity:1}],
+   outputs:[{resource:"winter_support_capacity",quantity:1,unit:"program",proposed:true}],confirmedInSimulation:false}
+ ],
+ goals:[
+  {id:"goal-nourish",resource:"nourish_kids_capacity",unit:"program",quantity:1,confirmedInSimulation:false},
+  {id:"goal-winter",resource:"winter_support_capacity",unit:"program",quantity:1,confirmedInSimulation:false}
+ ],
+ unresolved:["goal-table"],status:"HOLD",approvals:{received:0,required:20},
+ warning:"Every output is a proposed capability, not stock or accomplished field work."
+};
+let data=sample;
+function validate(x){
+ if(!x||x.schema!=="reality2.unfutures-capability-board/v0"||
+ x.environment!=="SYNTHETIC_ONLY"||x.noMoney!==true||x.noTrading!==true||
+ x.noActualPermissions!==true||!Array.isArray(x.steps)||x.steps.length>20||
+ !Array.isArray(x.goals)||x.goals.length>12||!Array.isArray(x.unresolved)||
+ !x.approvals||!Number.isSafeInteger(x.approvals.received)||
+ !Number.isSafeInteger(x.approvals.required))throw Error("Unsupported or non-synthetic JSON.");
+ for(const s of x.steps){
+  if(typeof s.id!=="string"||!Array.isArray(s.inputs)||!Array.isArray(s.outputs)
+   ||!Array.isArray(s.dependencies)||s.outputs.some(o=>
+   o.proposed!==true||typeof o.resource!=="string"||!Number.isSafeInteger(o.quantity))
+   ||s.inputs.some(i=>typeof i.lotId!=="string"||!Number.isSafeInteger(i.quantity)))
+   throw Error("Malformed recipe: "+String(s.id));
+ }
+ for(const g of x.goals)
+  if(typeof g.id!=="string"||typeof g.resource!=="string"||
+  !Number.isSafeInteger(g.quantity))throw Error("Malformed goal");
+}
+function render(){
+ const stats=$("stats");stats.replaceChildren();
+ const values=[
+  [data.baseline.count,"Goals without composition"],
+  [data.goals.length,"Possible goal compositions"],
+  [data.steps.length,"Proposed transformations"],
+  [data.unresolved.length,"Unresolved opportunities"]
+ ];
+ for(const [count,title] of values){
+  const t=node("div",undefined,"tile");
+  t.append(node("span",String(count),"value"),node("span",title,"label"));stats.append(t);
+ }
+ const steps=$("steps");steps.replaceChildren();
+ data.steps.forEach((s,i)=>{
+  const b=node("article",undefined,"phase");
+  b.append(node("small","STEP "+(i+1)+" · "+s.id),
+   node("h3",s.recipeId.replace(/^\d+-/,"").replace(/-/g," ")));
+  const upstream=s.dependencies.length?s.dependencies.join(" + "):"Base stock only";
+  b.append(node("p","Required: "+upstream));
+  for(const input of s.inputs)
+   b.append(node("span",input.quantity+" × "+input.lotId.replace(/^(raw:supply-|derived:)/,""),"resource"));
+  b.append(node("div","↓ potentially creates","arrow"));
+  for(const output of s.outputs)
+   b.append(node("span",output.quantity+" "+output.unit+" · "+output.resource,"resource"));
+  b.append(node("p",s.confirmedInSimulation?"Simulated step confirmation recorded":"Awaiting synthetic consent/confirmation"));
+  steps.append(b);
+ });
+ const goals=$("goals");goals.replaceChildren();
+ for(const g of data.goals){
+  const box=node("div",undefined,"goal");
+  box.append(node("strong",g.resource.replace(/_/g," ")),
+    node("small","Requested capability: "+g.quantity+" "+g.unit));
+  const bar=node("div",undefined,"bar");
+  const fill=node("div",undefined,"fill");fill.style.width=g.confirmedInSimulation?"100%":"0%";bar.append(fill);
+  box.append(bar,node("small",g.confirmedInSimulation?
+    "SIMULATED confirmation only":"Feasible proposal, not performed"));goals.append(box);
+ }
+ if(data.unresolved.length){
+  const box=node("div",undefined,"goal");box.append(node("strong","Still unresolved"),
+   node("small",data.unresolved.join(", ")));goals.append(box);
+ }
+ $("consent").replaceChildren(
+  node("h3",data.status),
+  node("p",data.approvals.received+" of "+data.approvals.required+" fictional roles have synthetic consent recorded."),
+  node("p","No buttons here can grant authority. Planning and approval belong to different organs.","empty")
+ );
+}
+$("reset").addEventListener("click",()=>{
+ data=sample;$("source").textContent="Illustrative in-browser sample";$("error").textContent="";render()});
+$("json").addEventListener("change",async ev=>{
+ const f=ev.target.files?.[0];if(!f)return;
+ try{
+  if(f.size>400000)throw Error("JSON exceeds offline viewer bound");
+  const x=JSON.parse(await f.text());validate(x);data=x;
+  $("source").textContent="Imported local synthetic snapshot · "+f.name;
+  $("error").textContent="";render();
+ }catch(e){$("error").textContent=String(e.message||e)}
+ ev.target.value="";
+});
+render();
+</script>
+</body>
+</html>
