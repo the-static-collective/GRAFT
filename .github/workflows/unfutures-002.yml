@@ -1,0 +1,42 @@
+name: UNFUTURES-002 synthetic reciprocity reactor
+
+on:
+  push:
+    branches:
+      - graft/unfutures-002-reciprocity-reactor
+  pull_request:
+    paths:
+      - 'unfutures/**'
+      - '.github/workflows/unfutures-002.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  reactor:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Re-test underlying UNFUTURES-001
+        run: node --test unfutures/engine.test.mjs
+      - name: Run reactor tests
+        run: node --test unfutures/reactor.test.mjs
+      - name: Execute deterministic fictional circuit
+        run: node unfutures/reactor-demo.mjs
+      - name: Make read-only Reality 2.0 quest board artifact
+        run: |
+          mkdir -p out
+          node unfutures/reactor-demo.mjs --board > out/reality2-quests-proposed.json
+          node unfutures/reactor-demo.mjs --completed-board > out/reality2-quests-simulated.json
+          cp unfutures/quest-board.html out/index.html
+      - uses: actions/upload-artifact@v4
+        with:
+          name: UNFUTURES-002-offline-quest-board
+          path: out/
+          if-no-files-found: error
+          retention-days: 14
