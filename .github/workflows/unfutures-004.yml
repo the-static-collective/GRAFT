@@ -1,0 +1,45 @@
+name: UNFUTURES-004 synthetic imagination lab
+
+on:
+  push:
+    branches:
+      - graft/unfutures-004-economic-imagination
+  pull_request:
+    paths:
+      - 'unfutures/**'
+      - '.github/workflows/unfutures-004.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  imagination:
+    runs-on: ubuntu-latest
+    timeout-minutes: 8
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Run 001-003 regression tests
+        run: node --test unfutures/engine.test.mjs unfutures/reactor.test.mjs unfutures/generator.test.mjs
+      - name: Test imagination and authority boundaries
+        run: node --test unfutures/imagination.test.mjs
+      - name: Run bounded imagination demo
+        run: node unfutures/imagination-demo.mjs summary
+      - name: Export read-only question and scenario artifacts
+        run: |
+          mkdir -p out
+          node unfutures/imagination-demo.mjs lab > out/imagination-lab.json
+          node unfutures/imagination-demo.mjs inquiry > out/questions.json
+          node unfutures/imagination-demo.mjs attention > out/manual-attention-candidate.json
+          node unfutures/imagination-demo.mjs review-simulation > out/synthetic-review.json
+          node unfutures/imagination-demo.mjs summary > out/summary.json
+          cp unfutures/imagination-board.html out/index.html
+      - uses: actions/upload-artifact@v4
+        with:
+          name: UNFUTURES-004-offline-imagination-lab
+          path: out/
+          if-no-files-found: error
+          retention-days: 14

@@ -1,0 +1,162 @@
+<!doctype html>
+<html lang="en">
+<head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="color-scheme" content="dark"><title>UNFUTURES-004 · Economic Imagination Lab</title>
+<style>
+:root{font-family:system-ui,sans-serif;background:#0d1718;color:#ecf0e5}*{box-sizing:border-box}
+body{margin:0;background:radial-gradient(ellipse at top right,#285344 0%,transparent 57%),#0d1718}
+header,main{max-width:1150px;margin:auto;padding:32px 24px}
+.kicker{color:#b9e593;letter-spacing:.16em;font-size:12px;font-weight:700}
+h1{font-size:clamp(34px,6vw,72px);line-height:1.04;letter-spacing:-.05em;margin:22px 0}
+h1 em{font-style:normal;color:#d8ef96}p{color:#c4d0c7;line-height:1.6}
+.badges{display:flex;flex-wrap:wrap;gap:8px;margin-top:16px}
+.badge{font-size:11px;padding:6px 9px;border:1px solid #67836c;border-radius:22px;color:#e5f2d6}
+.metrics{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}
+.metric{border:1px solid #547665;background:#1a2d29;border-radius:14px;padding:18px}
+.metric strong{font-size:36px;display:block;color:#e5faac}.metric span{color:#b9cdbf;font-size:13px}
+.panes{display:grid;grid-template-columns:330px 1fr;gap:14px;margin-top:20px}
+.panel{border:1px solid #53715e;background:#142825;border-radius:15px;padding:20px;min-width:0}
+.panel h2{font-size:22px;margin:0 0 12px}.tabs{display:grid;gap:10px}
+button{width:100%;background:#294238;border:1px solid #678b71;color:#eff5e8;
+padding:14px;border-radius:10px;cursor:pointer;font:600 14px system-ui;text-align:left}
+button[aria-pressed=true]{background:#daf4a4;color:#173024}
+button:focus-visible{outline:2px solid white;outline-offset:2px}
+.small{font-size:12px;color:#b3c3b8}button[aria-pressed=true] .small{color:#36513b}
+.compare{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin:14px 0}
+.cell{padding:15px 9px;background:#203a30;border-radius:10px;text-align:center}
+.cell strong{display:block;font-size:27px;color:#e2f6a6}.cell span{font-size:11px;color:#bed2c3}
+.cell:last-child{background:#374535}.good{color:#b7f5a8}
+.critical{color:#ffe0ae;background:#3b3222;border:1px solid #816e44;padding:13px;border-radius:10px;margin:16px 0;font-size:13px}
+ul{margin:10px 0;padding-left:20px;color:#c7d6c8;line-height:1.8}
+.step{border-left:3px solid #c8eca4;padding:6px 0 7px 13px;margin:8px 0;font-size:13px}
+.step b{color:#eef7dd}.status{padding:7px;background:#2f4739;border-radius:8px;color:#e2f8af;font-size:12px}
+.upload{display:flex;gap:15px;align-items:center;flex-wrap:wrap;padding:13px 0}
+label{font-size:13px}input{color:#d7ebd6;max-width:220px}#error{color:#ffbdbd}
+footer{padding:24px;color:#9eb5a6;text-align:center;font-size:12px;border-top:1px solid #46614e;line-height:1.8}
+@media(max-width:800px){.metrics{grid-template-columns:1fr 1fr}.panes{grid-template-columns:1fr}.compare{grid-template-columns:repeat(2,1fr)}}
+</style>
+</head>
+<body>
+<header><div class="kicker">STATIC COLLECTIVE / UNFUTURES 004 / SYNTHETIC-ONLY</div>
+<h1>What could<br><em>become possible?</em></h1>
+<p>Propose a new recipe. Compare the effects of changing the method, adding a missing resource, or both. Then ask what would falsify the idea. Nothing here wagers on the future—or grants permission to create it.</p>
+<div class="badges"><span class="badge">HYPOTHESIS ≠ FACT</span><span class="badge">CONSENT REQUIRED</span><span class="badge">NOT A REAL MARKET</span><span class="badge">NO EXTERNAL REQUESTS</span><span class="badge">NO AUTO-EXECUTION</span></div>
+</header>
+<main>
+<section class="metrics" id="metrics"></section>
+<div class="upload"><label for="upload">Load generated offline lab JSON</label><input id="upload" type="file" accept=".json,application/json"><span id="source" class="small">Built-in fictional specimen</span></div>
+<p id="error" role="alert"></p>
+<div class="panes">
+<section class="panel"><h2>Ideas under examination</h2><div id="tabs" class="tabs"></div>
+<p class="critical">An improvement shown only when additional hypothetical labor is assumed is <b>not</b> an improvement already available to the community.</p></section>
+<section class="panel" id="details" aria-live="polite"></section>
+</div>
+</main>
+<footer>ATTENTION ≠ AUTHORITY · RECIPE ≠ PRODUCTION · TEST PLAN ≠ IMPLEMENTATION · SOURCE ≠ ADMISSION</footer>
+<script>
+"use strict";
+const $=id=>document.getElementById(id);
+const sample={schema:"unfutures.imagination-004/v0",environment:"SYNTHETIC_ONLY",
+ baseline:{goalCount:2,weightedPriority:5,goals:["goal-nourish","goal-winter"],unresolved:["goal-table"],steps:5},
+ considered:2,suggestedForHumanReview:"h-pop-up-table",noExecution:true,noTrading:true,noMoney:true,
+ hypotheses:[
+  {id:"h-pop-up-table",question:"Could portable equipment and one additional voluntary shift create a pop-up Common Table?",
+   target:"goal-table",reviewStatus:"HOLD_EVIDENCE_AND_HUMAN_REVIEW",
+   change:{recipeOnlyGain:0,inputOnlyGain:0,combinedGain:1,needsNewInputs:true},
+   cases:{
+    baseline:{goalCount:2,weightedPriority:5,trace:[]},recipeOnly:{goalCount:2,weightedPriority:5,trace:[]},
+    inputOnly:{goalCount:2,weightedPriority:5,trace:[]},
+    combined:{goalCount:3,weightedPriority:6,trace:[{recipeId:"09-proposed-pop-up-table",dependencies:[],
+     outputs:[{resource:"common_table_capacity",unit:"event",quantity:1}]}]}
+   },assumptions:[{resource:"volunteer",unit:"shift",quantity:1}],
+   evidenceRequired:["real-volunteer-consent","permitted-safe-food-handling","site-access-and-power-plan","recipient-demand-validation"],
+   bottlenecks:{selectedPlanResidual:[{resource:"volunteer",unit:"shift",shortfall:1}]}
+  },
+  {id:"h-route-table",question:"Would an alternative route-and-shelter recipe help without extra resources?",
+   target:"goal-table",reviewStatus:"HOLD_EVIDENCE_AND_HUMAN_REVIEW",
+   change:{recipeOnlyGain:0,inputOnlyGain:0,combinedGain:0,needsNewInputs:false},
+   cases:{
+    baseline:{goalCount:2,weightedPriority:5,trace:[]},recipeOnly:{goalCount:2,weightedPriority:5,trace:[]},
+    inputOnly:{goalCount:2,weightedPriority:5,trace:[]},combined:{goalCount:2,weightedPriority:5,trace:[]}
+   },assumptions:[],evidenceRequired:["host-agreement","transport-availability","food-safety-protocol"],
+   bottlenecks:{selectedPlanResidual:[{resource:"meal_route_capacity",unit:"route",shortfall:1},
+    {resource:"shelter",unit:"room_day",shortfall:1}]}
+  }
+ ]};
+let data=sample,index=0;
+function elt(tag,value,klass){const n=document.createElement(tag);if(value!==undefined)n.textContent=value;if(klass)n.className=klass;return n}
+function valid(x){
+ if(!x||x.schema!=="unfutures.imagination-004/v0"||x.environment!=="SYNTHETIC_ONLY"
+ ||x.noExecution!==true||x.noTrading!==true||x.noMoney!==true
+ ||!Array.isArray(x.hypotheses)||x.hypotheses.length>6||!x.baseline)
+ throw Error("Only bounded synthetic UNFUTURES-004 lab exports are accepted");
+ for(const h of x.hypotheses) if(typeof h.id!=="string"||typeof h.question!=="string"
+ ||!h.cases||!h.change||!Array.isArray(h.evidenceRequired)||!Array.isArray(h.assumptions)
+ ||!h.bottlenecks||!Array.isArray(h.bottlenecks.selectedPlanResidual))
+ throw Error("Invalid hypothesis entry");
+}
+function draw(){
+ const metric=$("metrics");metric.replaceChildren();
+ for(const [value,label] of [
+  [data.baseline.goalCount,"Original possible goals"],
+  [data.hypotheses.length,"Hypotheses examined"],
+  [data.hypotheses.filter(h=>h.change.combinedGain>0).length,"Conditional improvements"]
+ ]){
+  const n=elt("div",undefined,"metric");n.append(elt("strong",String(value)),elt("span",label));metric.append(n);
+ }
+ const tabs=$("tabs");tabs.replaceChildren();
+ data.hypotheses.forEach((h,i)=>{
+  const button=elt("button",undefined);button.type="button";
+  button.setAttribute("aria-pressed",String(i===index));
+  button.append(elt("div",h.id),elt("span",h.change.combinedGain>0?
+   "Conditional gain · evidence missing":"No weighted gain · inspect bottleneck","small"));
+  button.addEventListener("click",()=>{index=i;draw()});tabs.append(button);
+ });
+ const dest=$("details");dest.replaceChildren();
+ const h=data.hypotheses[index];if(!h){dest.append(elt("h2","No hypotheses"));return}
+ dest.append(elt("div","SYNTHETIC THOUGHT EXPERIMENT","kicker"),elt("h2",h.question),
+  elt("p","Target: "+h.target),elt("span",h.reviewStatus,"status"),
+  elt("h3","Four counterfactual worlds"));
+ const comparison=elt("div",undefined,"compare");
+ for(const [key,label] of [
+  ["baseline","Neither change"],["recipeOnly","New method only"],
+  ["inputOnly","New input only"],["combined","Method + new input"]
+ ]){
+  const cell=elt("div",undefined,"cell");
+  cell.append(elt("strong",String(h.cases[key].goalCount)+"/3"),
+    elt("span",label));comparison.append(cell);
+ }
+ dest.append(comparison);
+ dest.append(elt("p","The combined case is NOT available now. It assumes the input exists, that the recipe works, and that no new real-world constraints invalidate it.","small"));
+ const bottleneck=elt("div");bottleneck.append(elt("h3","Bottlenecks to examine"));
+ const bl=elt("ul");for(const b of h.bottlenecks.selectedPlanResidual)
+   bl.append(elt("li",b.resource+" · shortfall "+b.shortfall+" "+b.unit));
+ if(!h.bottlenecks.selectedPlanResidual.length)bl.append(elt("li","No immediate typed stock shortfall; feasibility still unproven"));
+ bottleneck.append(bl);dest.append(bottleneck);
+ const evidence=elt("div");evidence.append(elt("h3","Evidence required before any actual pilot"));
+ const eul=elt("ul");h.evidenceRequired.forEach(x=>eul.append(elt("li",x.replace(/-/g," "))));
+ evidence.append(eul);dest.append(evidence);
+ const trace=h.cases.combined.trace;
+ const proposed=trace.filter(s=>s.recipeId.startsWith("09-proposed"));
+ if(proposed.length){
+  dest.append(elt("h3","Hypothesized new capability"));
+  for(const s of proposed){
+    const row=elt("div",undefined,"step");row.append(elt("b",s.recipeId));
+    row.append(elt("p","Could create: "+s.outputs.map(o=>o.quantity+" "+o.unit+" "+o.resource).join("; ")));
+    dest.append(row);
+  }
+ }
+ dest.append(elt("p","All decisions remain HOLD. A human review may approve another synthetic experiment; it cannot authorize deployment through this board.","critical"));
+}
+$("upload").addEventListener("change",async e=>{
+ const file=e.target.files?.[0];if(!file)return;
+ try{
+  if(file.size>500000)throw Error("File too large");
+  const parsed=JSON.parse(await file.text());valid(parsed);
+  data=parsed;index=0;$("source").textContent="Local file: "+file.name;$("error").textContent="";draw();
+ }catch(err){$("error").textContent=String(err.message||err)}
+ e.target.value="";
+});
+draw();
+</script>
+</body></html>
