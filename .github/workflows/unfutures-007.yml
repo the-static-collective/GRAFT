@@ -1,0 +1,58 @@
+name: UNFUTURES-007 fairness policy pressure (synthetic)
+
+on:
+  push:
+    branches:
+      - graft/unfutures-007-fairness-laboratory
+  pull_request:
+    paths:
+      - 'unfutures/**'
+      - '.github/workflows/unfutures-007.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  independent-policy-comparison:
+    runs-on: ubuntu-latest
+    timeout-minutes: 9
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+      - uses: actions/checkout@v4
+        with:
+          repository: the-static-collective/Dogram
+          ref: 551b5f9df18f17ec69b452ddcdff01718e0ff771
+          path: vendor_dogram
+          persist-credentials: false
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Verify exact independent Dogram source revision
+        run: |
+          test "$(git -C vendor_dogram rev-parse HEAD)" = "551b5f9df18f17ec69b452ddcdff01718e0ff771"
+      - name: Execute local policy tests (no credentials, no live data)
+        run: python3 -m unittest discover -s tests -v
+        working-directory: unfutures/007
+      - name: Run original Dogram independent allocation and anti-collapse research
+        run: |
+          python3 fairness_lab.py --fixture scenario.json --native-dogram ../../vendor_dogram --output report.json
+          python3 build_dashboard.py
+          python3 make_review_packet.py report.json held-jarvis-review.json
+        working-directory: unfutures/007
+      - name: Assert original Dogram calculations were actually used
+        run: |
+          python3 -c 'import json; r=json.load(open("unfutures/007/report.json")); assert r["originalDogramWitness"]["status"]=="PIN_VERIFIED_NATIVE_RESEARCH"; assert len(r["originalDogramWitness"]["receipts"])==8; assert r["informationLoss"]["distribution_pairs_masked_by_budget_total"]==9; assert r["informationLoss"]["details_total_only_pairs_masked"]==25; assert r["review"]["physicalUnitsMoved"]==0'
+      - uses: actions/upload-artifact@v4
+        with:
+          name: UNFUTURES-007-synthetic-fairness-lab
+          path: |
+            unfutures/007/index.html
+            unfutures/007/report.json
+            unfutures/007/scenario.json
+            unfutures/007/README.md
+            unfutures/007/held-jarvis-review.json
+          retention-days: 14
+          if-no-files-found: error
