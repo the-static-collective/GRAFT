@@ -10,7 +10,7 @@ This is a working **offline, synthetic-only experimental branch bundle**, prepar
 - **Dogram independent source pin:** `551b5f9df18f17ec69b452ddcdff01718e0ff771`.
 - **Local Python engine:** genuinely executed and tested against 16 finite budget×policy cases. Its policy enumerator is new GRAFT-side experimental math, **not a Dogram public operator**.
 - **Original Dogram:** optional original-source integration, with exact Git SHA validation, `receipt_integer_budget` crosschecks and original `analyze_collapse` verification. This checkout was **not available in the current local runtime**; the included report is explicitly marked `originalDogramWitness.status = NOT_RUN` and makes no false native-calculation claim. The supplied GitHub workflow will run it from an exact-pinned checkout.
-- **GitHub publication:** the experimental branch has now been created using the connected GitHub action; the draft PR will be opened after source upload and CI verification. It remains an experimental draft and is not merged or deployed.
+- **GitHub publication:** Published on GitHub as **draft PR #18**: https://github.com/the-static-collective/GRAFT/pull/18, stacked on UNFUTURES-006 (#17). GitHub Actions runs the original source-pinned Dogram and packages the verified offline lab. This remains an experimental draft, not merged or deployed.
 
 ## Run
 
@@ -32,7 +32,7 @@ python3 fairness_lab.py --fixture scenario.json --native-dogram vendor_dogram --
 python3 build_dashboard.py
 ```
 
-The provided CI workflow carries out these steps with exact-source verification and uploads the HTML and JSON result as an artifact. The workflow is included with the 007 experimental branch. Check GitHub Actions for its observed status.
+The provided CI workflow carries out these steps with exact-source verification and uploads the HTML and JSON result as an artifact. The 007 workflow passed for the branch and generated a downloadable original-Dogram-backed lab artifact: https://github.com/the-static-collective/GRAFT/actions/runs/41070194122.
 
 ## Four predeclared objectives
 
@@ -84,6 +84,6 @@ Across 4 budgets × 4 policy results = **16** scenarios, keeping just `(budget, 
 
 `scenario.json` — frozen fixture; `fairness_lab.py` — exact exhaustive evaluator and optional original Dogram integration; `tests/` — 17 automated negative controls; `report.json` — reproducible standalone local calculation, explicitly marked `NOT_RUN` for original Dogram; `index.html` — self-contained offline interactive viewer; `held-jarvis-review.json` — non-dispatchable experimental review packet; `dashboard.template.html`, `build_dashboard.py` and `make_review_packet.py` — inspectable visual build; `.github/workflows/unfutures-007.yml` — proposed pin-verified CI workflow.
 
-## Applying to an eventual GRAFT branch
+## Source-owned GitHub landing
 
-To preserve the existing six unmerged experiments, create a new branch **from** `graft/unfutures-006-dogram-allocation` in your own checkout. Copy all bundle files except `.github/` to a new directory `unfutures/007/`; copy `.github/workflows/unfutures-007.yml` into the repository's own `.github/workflows/` directory. Do **not** replace any 001–006 sources or push this bundle to `main`. Open a **draft** PR against the 006 branch and run the included CI workflow. The connected GitHub action has created the target branch; current PR status should be checked on GitHub.
+This directory is published as `unfutures/007/` on branch `graft/unfutures-007-fairness-laboratory`, and its native GitHub Actions workflow is `.github/workflows/unfutures-007.yml`. PR #18 targets `graft/unfutures-006-dogram-allocation` and remains a **draft**. CI artifacts contain a freshly regenerated `index.html`, `report.json`, and non-dispatchable JAR;VIS review packet from pinned native Dogram research. No earlier experimental branch was merged or edited.
