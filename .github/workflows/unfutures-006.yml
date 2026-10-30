@@ -1,0 +1,64 @@
+name: UNFUTURES-006 original-Dogram allocation fairness pressure
+
+on:
+  push:
+    branches:
+      - graft/unfutures-006-dogram-allocation
+  pull_request:
+    paths:
+      - 'unfutures/**'
+      - '.github/workflows/unfutures-006.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  allocation:
+    runs-on: ubuntu-latest
+    timeout-minutes: 9
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+      - name: Checkout ORIGINAL pinned Dogram research kernels
+        uses: actions/checkout@v4
+        with:
+          repository: the-static-collective/Dogram
+          ref: 551b5f9df18f17ec69b452ddcdff01718e0ff771
+          path: vendor_dogram
+          persist-credentials: false
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Verify original Dogram source pin
+        run: |
+          test "$(git -C vendor_dogram rev-parse HEAD)" = "551b5f9df18f17ec69b452ddcdff01718e0ff771"
+      - name: Regression across UNFUTURES 001-005
+        run: node --test unfutures/engine.test.mjs unfutures/reactor.test.mjs unfutures/generator.test.mjs unfutures/imagination.test.mjs unfutures/experiment.test.mjs
+      - name: Test 006 synthetic allocation intake and consent isolation
+        run: node --test unfutures/allocation.test.mjs
+      - name: Produce synthetic-only input
+        run: |
+          mkdir -p out
+          node unfutures/allocation-demo.mjs specimens > out/allocation-experiment.json
+          node unfutures/allocation-demo.mjs summary > out/allocation-summary.json
+      - name: Invoke original pinned Dogram exact research
+        env:
+          PYTHONPATH: vendor_dogram
+          UNFUTURES_DOGRAM_PIN: 551b5f9df18f17ec69b452ddcdff01718e0ff771
+        run: |
+          python3 unfutures/verify_dogram_allocation.py out/allocation-experiment.json out/dogram-original-allocation-witness.json
+      - name: Convert checked Dogram witness to held human review candidate
+        run: |
+          node unfutures/allocation-review.mjs out/dogram-original-allocation-witness.json > out/held-review-only.json
+          cp unfutures/allocation-board.html out/index.html
+      - uses: actions/upload-artifact@v4
+        with:
+          name: UNFUTURES-006-original-Dogram-scarcity-lab
+          path: out/
+          if-no-files-found: error
+          retention-days: 14
