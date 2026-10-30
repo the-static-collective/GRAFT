@@ -1,0 +1,32 @@
+{
+  "schema": "unfutures.fairness-fixture-007/v0",
+  "environment": "SYNTHETIC_ONLY",
+  "source": {
+    "origin": "the-static-collective/GRAFT",
+    "base_branch": "graft/unfutures-006-dogram-allocation",
+    "source_dogram_pin": "551b5f9df18f17ec69b452ddcdff01718e0ff771",
+    "source_exp": "UNFUTURES-006"
+  },
+  "resource": {
+    "name": "fictional_general_supply_kit",
+    "unit": "kit",
+    "actual_inventory": false
+  },
+  "groups": [
+    {"id": "nourish", "description": "fictional Nourish Kids service bucket", "weight": 5, "max_capacity": 4, "provisional_commitment": 4},
+    {"id": "winter", "description": "fictional Winter Support service bucket", "weight": 4, "max_capacity": 3, "provisional_commitment": 3},
+    {"id": "table", "description": "fictional Community Table service bucket", "weight": 1, "max_capacity": 2, "provisional_commitment": 0}
+  ],
+  "budgets": [7, 8, 9, 10],
+  "policies": ["coverage_first", "max_min_first", "provisional_commitments_first", "proportional_fit_first"],
+  "assumptions": {
+    "weights_editorial_not_measured_needs": true,
+    "caps_editorial_not_certified": true,
+    "commitments_simulated_not_real": true,
+    "maximum_utilization_preference": true,
+    "participants_enrolled": 0,
+    "physical_distribution_units": 0,
+    "authority": "NONE",
+    "state": "HOLD"
+  }
+}
