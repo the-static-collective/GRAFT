@@ -59,7 +59,10 @@ def verify_trial(entry: dict, result: dict) -> dict:
         residue = Fraction(result["allocation"][label]) - ideal
         ensure(ration(result["residuals"][label]) == residue,
                "Individual residue mismatch")
-        ensure(abs(residue) < 1, "Unexpected >1 unit rounding residual")
+        # Largest-remainder has a <1-unit residual bound. Declared-order does
+        # NOT: the 8-kit case gives its first bin a full +1 excess. Preserve it.
+        if method == "largest_fractional_remainder":
+            ensure(abs(residue) < 1, "Largest-remainder residual exceeded one unit")
     zeros = [label for label in ORDER if result["allocation"][label] == 0]
     return {
         "id": entry["id"],
@@ -68,6 +71,10 @@ def verify_trial(entry: dict, result: dict) -> dict:
         "originalResearchReceipt": result,
         "nativeReceiptSha256": hashlib.sha256(canon(result)).hexdigest(),
         "zeroAssignments": zeros,
+        "atLeastOneUnitResiduals": [
+            label for label in ORDER
+            if abs(ration(result["residuals"][label])) >= 1
+        ],
         "roundingResidualMagnitude": str(sum(
             abs(ration(value)) for value in result["residuals"].values()
         )),
@@ -114,6 +121,8 @@ def main() -> int:
            {"nourish": 3, "winter": 3, "table": 1}, "Largest remainder control changed")
     ensure(by[(7, METHODS[1])]["originalResearchReceipt"]["allocation"] ==
            {"nourish": 4, "winter": 3, "table": 0}, "Declared-order control changed")
+    ensure(by[(8, METHODS[1])]["atLeastOneUnitResiduals"] == ["nourish"],
+           "Declared-order full-unit rounding deviation disappeared")
     for budget in (7, 8, 9):
         ensure(by[(budget, METHODS[1])]["zeroAssignments"] == ["table"],
                "Expected zero-allocation test disappeared")
