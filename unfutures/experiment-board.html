@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="color-scheme" content="dark"><title>UNFUTURES-005 · DOGRAM × EXCHANGE</title>
+<style>
+:root{font-family:system-ui,sans-serif;background:#101918;color:#e9f3e9}
+*{box-sizing:border-box}body{margin:0;background:radial-gradient(ellipse at 80% -18%,#2c5b40,transparent 65%),#101918}
+header,main{max-width:1200px;margin:auto;padding:38px 24px}header{padding-bottom:10px}
+h1{font-size:clamp(36px,7vw,81px);line-height:1;letter-spacing:-.06em;margin:12px 0 19px}
+h1 em{font-style:normal;color:#e1f4aa}
+p{line-height:1.6;color:#c0d1c3}
+.kicker{font-size:11px;font-weight:bold;color:#b7e8af;letter-spacing:.17em}
+.badge{display:inline-block;border:1px solid #6b8e71;font-size:11px;border-radius:30px;padding:6px 10px;margin:4px 4px 4px 0}
+.panel{background:#1a3028;border:1px solid #5a7c61;border-radius:18px;padding:23px;margin:15px 0}
+.grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px}
+.metric{background:#274338;border:1px solid #5c8262;border-radius:14px;padding:15px}
+.metric b{display:block;font-size:40px;color:#e8f4a8}.metric span{font-size:12px;color:#c5daca}
+.math{font:clamp(21px,3.5vw,42px) ui-monospace,monospace;color:#e1f4aa;letter-spacing:-.03em;overflow-wrap:anywhere}
+.columns{display:grid;grid-template-columns:1.1fr 1fr;gap:15px}
+h2{font-size:26px;letter-spacing:-.04em;margin:0 0 12px}
+h3{font-size:17px}small,.small{font-size:12px;color:#c0cfbe}
+.tag{display:inline-block;background:#344c3b;color:#efffc4;font:12px ui-monospace,monospace;padding:6px 9px;border-radius:7px;margin:5px 4px 4px 0}
+.line{border-left:3px solid #bde499;padding:10px 14px;margin:10px 0;background:#254031}
+.warn{padding:14px;border-radius:12px;border:1px solid #917f55;background:#473826;color:#fee3b5}
+.controls{display:flex;gap:10px;flex-wrap:wrap;align-items:center}
+input[type=file]{color:#e9f2e9;max-width:270px}
+.result{font:12px ui-monospace,monospace;white-space:pre-wrap;overflow-wrap:anywhere;color:#d8efc4}
+button{cursor:pointer;border:1px solid #a5d080;background:#cee9a0;border-radius:10px;padding:9px 13px;font-weight:650}
+footer{font-size:12px;color:#acc1ae;text-align:center;padding:32px;line-height:1.7}
+@media(max-width:790px){.grid,.columns{grid-template-columns:repeat(2,minmax(0,1fr))}.columns{grid-template-columns:1fr}}
+@media(max-width:440px){.grid{grid-template-columns:1fr 1fr}}
+</style></head><body>
+<header>
+<div class="kicker">THE STATIC COLLECTIVE / UNFUTURES-005 / DOGRAM NATIVE MATH</div>
+<h1>DO THE MATH.<br><em>KEEP THE RECEIPT.</em></h1>
+<p>Four worlds. Two hypotheses. One genuinely mathematical question: <strong>does the new recipe and missing resource have a combined effect that neither provides separately?</strong></p>
+<div><span class="badge">SYNTHETIC ONLY</span><span class="badge">EXACT ARITHMETIC</span><span class="badge">REAL DOGRAM PYTHON IN CI</span><span class="badge">NO TRADING</span><span class="badge">NO REAL DISPATCH</span></div>
+</header>
+<main>
+<section class="panel"><h2>The original four-world experiment</h2>
+<div class="grid" id="arms">
+<div class="metric"><b>2</b><span>00 · Neither change</span></div>
+<div class="metric"><b>2</b><span>10 · Recipe only</span></div>
+<div class="metric"><b>2</b><span>01 · Extra volunteer only</span></div>
+<div class="metric"><b>3</b><span>11 · Both together (assumed)</span></div>
+</div><p class="small">Counts are feasible hypothetical goal plans, not households, people, meals or work performed.</p>
+</section>
+<div class="columns">
+<section class="panel">
+<h2>Exact interaction</h2>
+<div class="math">Δ = Y₁₁ − Y₁₀ − Y₀₁ + Y₀₀</div>
+<div class="math" style="margin-top:20px" id="equation">= 3 − 2 − 2 + 2 = +1</div>
+<p>That is the <strong>2×2 mixed difference</strong>, calculated by Dogram’s native <code>rectangle@1</code> operator in CI. The negative-control alternative yields <strong>0</strong>.</p>
+<div class="line">Interpretation: the two changes interact in this declared model. <strong>Not</strong> a measured causal effect on real people.</div>
+<h3>Three other Dogram calculations</h3>
+<div class="line"><b>delta@1</b><p>Ordered trace: the first changed coordinate is goal count.</p></div>
+<div class="line"><b>ablate@1</b><p>Removing a declared volunteer gate removes a particular path in the symbolic graph.</p></div>
+<div class="line"><b>reach@1</b><p>Adding a missing declared graph edge restores a path; graph connectivity is not human consent.</p></div>
+</section>
+<section class="panel">
+<h2>Check the original math receipt</h2>
+<p>CI runs the original Dogram Python operators at one exact Git SHA. Import the <code>dogram-native-receipts.json</code> artifact to inspect its actual calculation output in this offline viewer.</p>
+<div class="controls"><label for="receipt">Local Dogram receipt:</label><input type="file" id="receipt" accept=".json,application/json">
+<button id="reset" type="button">Clear receipt</button></div>
+<p role="alert" id="error"></p>
+<div class="result" id="receipt-output">Awaiting native receipt. The numbers above are labeled fixture expectations, not a browser-calculated Dogram result.</div>
+<h3>Required evidence before any real pilot</h3>
+<div class="tag">Voluntary adult participation</div><div class="tag">Food-safety review</div><div class="tag">Site access</div><div class="tag">Independent reviewer</div><div class="tag">Reversible work</div>
+<p class="warn">The toy graph serializes a declared dependency; it does not express all AND constraints, physical feasibility or causality. A green math receipt never certifies a safe operation or authorizes a real task.</p>
+</section>
+</div>
+<section class="panel">
+<h2>Experiment is not authority</h2>
+<p>The JAR;VIS handoff is a held <strong>operator-review candidate</strong>: it contains a question and safety checklist, not an enrolled partner, assigned volunteer or approved task. No real organization receives a message from this page.</p>
+</section>
+</main>
+<footer>DOGRAM: CALCULATION ≠ MEANING · QUESTION ≠ CONSENT · RECEIPT ≠ PHYSICAL FACT · TESTED ≠ CANON</footer>
+<script>
+"use strict";
+const $=s=>document.getElementById(s);
+$("receipt").addEventListener("change",async e=>{
+ const file=e.target.files?.[0];if(!file)return;
+ try{
+  if(file.size>350000)throw Error("Receipt too large for offline viewer");
+  const d=JSON.parse(await file.text());
+  if(d.schema!=="unfutures.dogram-native-witness-005/v0"
+     ||d.scope!=="SYNTHETIC_ONLY"||!Array.isArray(d.receipts)
+     ||d.receipts.length!==6||d.realWorkAuthorized!==false
+     ||d.realFieldEvidenceProduced!==false)
+   throw Error("Not an appropriate bounded synthetic Dogram-native receipt file");
+  $("error").textContent="";
+  const rect=d.receipts.find(x=>x.id==="unfutures-005-main-rectangle");
+  const neg=d.receipts.find(x=>x.id==="unfutures-005-control-rectangle");
+  if(!rect||!neg||rect.nativeReceipt?.status!=="OK"||neg.nativeReceipt?.status!=="OK")
+    throw Error("Native calculation missing");
+  $("receipt-output").textContent=JSON.stringify({
+    calculatorSource:d.dogramOriginalSourcePin,
+    nativeChecks:d.nativeCalculations,
+    exactInteraction:rect.nativeReceipt.result.mixed_delta,
+    negativeControl:neg.nativeReceipt.result.mixed_delta,
+    hostileRefusal:d.hostileControl,
+    meaning:"Synthetic math only; no field outcome was measured"
+  },null,2);
+ }catch(err){$("error").textContent=String(err.message||err)}
+ e.target.value="";
+});
+$("reset").addEventListener("click",()=>{$("error").textContent="";$("receipt-output").textContent="Awaiting native receipt."});
+</script></body></html>
