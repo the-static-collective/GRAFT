@@ -1,0 +1,144 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="color-scheme" content="dark">
+<title>UNFUTURES-006 · Dogram Scarcity Lab</title>
+<style>
+:root{font-family:system-ui,sans-serif;color:#e9efe7;background:#101916}*{box-sizing:border-box}
+body{margin:0;background:radial-gradient(ellipse at 90% 0,#2c5140,transparent 60%),#101916}
+header,main{max-width:1120px;margin:auto;padding:28px 22px}
+h1{font-size:clamp(35px,6.5vw,74px);letter-spacing:-.055em;line-height:1.04;margin:17px 0}
+h1 em{font-style:normal;color:#def3a4}
+h2{font-size:25px;letter-spacing:-.03em}p{line-height:1.55;color:#cad6c8}
+.kicker{font-size:12px;letter-spacing:.16em;color:#bce6ab;font-weight:800}
+.tag{display:inline-block;margin:4px 5px 4px 0;padding:5px 9px;border:1px solid #648a6b;border-radius:99px;font-size:11px}
+.cards{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px}
+.card{background:#1b3026;border:1px solid #54775c;border-radius:14px;padding:19px;min-width:0}
+.number{font-size:39px;color:#e3f5ab;font-weight:800}
+small{color:#b7cbbd}.small{font-size:12px}
+.grid{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.chartRow{display:grid;grid-template-columns:95px 1fr 42px;align-items:center;gap:10px;margin:10px 0;font-size:12px}
+.barTrack{height:17px;background:#314738;border-radius:9px;overflow:hidden}
+.bar{height:17px;background:#cee49a;width:0%;transition:width .1s}
+button{border:1px solid #9fbd81;border-radius:10px;padding:10px 12px;background:#344d39;color:#f2f8de;font-weight:700;cursor:pointer}
+button[aria-pressed=true]{background:#d9f09c;color:#16221a}
+button:focus-visible,input:focus-visible{outline:3px solid #fff;outline-offset:3px}
+.controls{display:flex;gap:9px;flex-wrap:wrap}
+.tableWrap{overflow-x:auto}table{width:100%;border-collapse:collapse;font-size:13px}
+th,td{text-align:left;padding:11px 8px;border-bottom:1px solid #46634e}
+th{color:#d6e8c3}td:last-child{font-family:ui-monospace,monospace}
+.attention{background:#473b25;border:1px solid #9c804d;border-radius:12px;color:#ffe1af;padding:14px;font-size:13px;line-height:1.6}
+input{color:#eef9df;max-width:245px}.error{color:#ffb5aa}
+pre{white-space:pre-wrap;overflow-wrap:anywhere;font:12px ui-monospace,monospace}
+footer{padding:20px;text-align:center;color:#a9c3ad;border-top:1px solid #3d5844;font-size:12px}
+@media(max-width:790px){.cards,.grid{grid-template-columns:1fr}.chartRow{grid-template-columns:80px 1fr 40px}}
+</style></head>
+<body>
+<header>
+<div class="kicker">STATIC COLLECTIVE / UNFUTURES-006 / ORIGINAL DOGRAM</div>
+<h1>Same resources.<br><em>Different distributions.</em></h1>
+<p>Dogram computes exact proportional shares and the signed rounding residues when indivisible units have to be assigned. Two mathematically legitimate rounding rules can give different results. This is a fictional scenario—not a decision about real people or programs.</p>
+<div><span class="tag">EXACT RATIONAL MATH</span><span class="tag">NO CRYPTO</span><span class="tag">NO LIVE DISTRIBUTION</span><span class="tag">PUBLIC MATH ≠ FAIRNESS VERDICT</span></div>
+</header>
+<main>
+<section class="cards">
+<div class="card"><div class="number">7</div><p>Hypothetical indivisible supply kits in the baseline scenario</p></div>
+<div class="card"><div class="number">2</div><p>Explicitly declared rounding policies under comparison</p></div>
+<div class="card"><div class="number">0</div><p>Real kits, families, or organizations enrolled or served</p></div>
+</section>
+<section class="card">
+<h2>Explore the eight original-Dogram calculations</h2>
+<p class="small">The initial fixture is shown below as expected output. Import the CI-generated original Dogram research receipt to inspect checked results, exact fractions and per-program rounding residues.</p>
+<div class="controls" id="budgets" aria-label="Select kit budget"></div>
+<div class="controls" id="methods" style="margin-top:12px" aria-label="Select rounding rule"></div>
+<div class="grid">
+<div><h3>Discrete realization</h3><div id="bars"></div></div>
+<div><h3>Exact ideal shares and rounding residues</h3><div id="ideal" class="tableWrap"></div></div>
+</div>
+<p id="source" class="small"></p>
+</section>
+<div class="grid">
+<section class="card">
+<h2>The hidden difference</h2>
+<p>At a budget of seven kits, the largest-remainder rule yields <strong>3, 3, 1</strong>; declared-order remainder yields <strong>4, 3, 0</strong>.</p>
+<p>Both conserve exactly seven units. But the second policy gives a fictional program zero. The policy is part of the receipt, not an invisible implementation detail.</p>
+<div class="attention">A zero allocation does not automatically establish injustice, nor does a positive allocation establish adequacy. Affected people must be involved in selecting any real policy, evidence, minimum obligations, and exception process.</div>
+</section>
+<section class="card">
+<h2>What the totals hide</h2>
+<p>The native anti-collapse research instrument tests how many distinct allocation profiles disappear when we retain only each policy's total distributed quantity.</p>
+<div class="number" id="lost">3</div><p id="loss-text">Expected distinct policy pairs lost when collapsing to total-only view. Verify with original Dogram receipt.</p>
+<label for="file">Load <strong>dogram-original-allocation-witness.json</strong></label>
+<input type="file" id="file" accept=".json,application/json">
+<p class="error" role="alert" id="error"></p>
+<p class="small" id="pin">Original Dogram exact pinned research kernels, not a JavaScript reimplementation.</p>
+</section>
+</div>
+<section class="card">
+<h2>Why this returns to JAR;VIS as HOLD</h2>
+<p>The output is an operator-review question, not a distribution order. Before any physical allocation, a real steward needs verified inventory, genuine program consent, an openly selected policy, review of who might receive zero, and an appeal/exception process. The actual Dogram results do not select a fair policy.</p>
+</section>
+</main>
+<footer>DOGRAM: EXACT RESIDUAL ≠ FAIRNESS CERTIFICATE · COMMON TOTAL ≠ COMMON DISTRIBUTION · PLANNED ≠ DELIVERED · RECEIPT ≠ AUTHORITY</footer>
+<script>
+"use strict";
+const $=s=>document.getElementById(s);
+const order=["nourish","winter","table"];
+const names={nourish:"Nourish",winter:"Winter",table:"Community Table"};
+const methods=["largest_fractional_remainder","declared_order_remainder"];
+const budgets=[7,8,9,10];
+const fixture={
+ "7:largest_fractional_remainder":{allocation:{nourish:3,winter:3,table:1},
+  exact:{nourish:"7/2",winter:"14/5",table:"7/10"},
+  residuals:{nourish:"-1/2",winter:"1/5",table:"3/10"}},
+ "7:declared_order_remainder":{allocation:{nourish:4,winter:3,table:0},
+  exact:{nourish:"7/2",winter:"14/5",table:"7/10"},
+  residuals:{nourish:"1/2",winter:"1/5",table:"-7/10"}}
+};
+let activeBudget=7,activeMethod=methods[0],witness=null;
+function make(tag,txt,cl){const n=document.createElement(tag);if(txt!==undefined)n.textContent=txt;if(cl)n.className=cl;return n}
+function render(){
+ const b=$("budgets"),m=$("methods");b.replaceChildren();m.replaceChildren();
+ for(const budget of budgets){const btn=make("button",budget+" kits");btn.type="button";
+ btn.setAttribute("aria-pressed",String(budget===activeBudget));
+ btn.onclick=()=>{activeBudget=budget;render()};b.append(btn)}
+ for(const method of methods){const btn=make("button",method.replace(/_/g," "));btn.type="button";
+ btn.setAttribute("aria-pressed",String(method===activeMethod));
+ btn.onclick=()=>{activeMethod=method;render()};m.append(btn)}
+ let v=fixture[activeBudget+":"+activeMethod];
+ if(witness){v=witness.reports.find(x=>x.budget===activeBudget&&x.method===activeMethod)?.originalResearchReceipt}
+ const bars=$("bars"),ideal=$("ideal");bars.replaceChildren();ideal.replaceChildren();
+ if(!v){bars.append(make("p","Import the original Dogram research receipt to inspect this budget.","small"));return}
+ for(const group of order){const r=make("div",undefined,"chartRow");r.append(make("span",names[group]));
+ const track=make("div",undefined,"barTrack"),bar=make("div",undefined,"bar");
+ bar.style.width=(v.allocation[group]/activeBudget*100)+"%";track.append(bar);r.append(track);
+ r.append(make("b",String(v.allocation[group])));bars.append(r)}
+ const table=make("table"),head=make("tr");
+ for(const label of ["Program","Exact share","Signed residue"])head.append(make("th",label));
+ table.append(head);
+ for(const group of order){const tr=make("tr");
+ for(const val of [names[group],v.exact[group],v.residuals[group]])tr.append(make("td",val));
+ table.append(tr)}ideal.append(table);
+ $("source").textContent=witness?
+   "ORIGINAL DOGRAM research result · exact source pin "+witness.dogramSourcePin:
+   "Illustrative frozen expectation for the seven-kit fixture. Not a native receipt.";
+}
+$("file").addEventListener("change",async e=>{
+ const file=e.target.files?.[0];if(!file)return;
+ try{
+  if(file.size>300000)throw Error("Witness too large");
+  const d=JSON.parse(await file.text());
+  if(d.schema!=="unfutures.dogram-allocation-witness-006/v0"
+   ||d.environment!=="SYNTHETIC_ONLY"||d.actualDistributedUnits!==0
+   ||d.status!=="ALL_EXACT_MATH_CHECKS_PASSED"||!Array.isArray(d.reports)
+   ||d.reports.length!==8||d.informationLoss?.lawfulQuotient!==true)
+   throw Error("Invalid bounded synthetic witness");
+  if(d.reports.some(x=>!budgets.includes(x.budget)||!methods.includes(x.method)
+    ||!x.originalResearchReceipt||x.originalResearchReceipt.authority!=="none"))
+   throw Error("Invalid original research receipt structure");
+  witness=d;$("error").textContent="";$("lost").textContent=String(d.informationLoss.lostDistinctions);
+  $("loss-text").textContent="Original Dogram's native anti-collapse calculation: distinct policy allocations hidden by budget totals.";
+  render();
+ }catch(err){$("error").textContent=String(err.message||err)}
+ e.target.value="";
+});
+render();
+</script></body></html>
