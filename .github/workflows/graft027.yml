@@ -1,0 +1,31 @@
+name: GRAFT-027 Capability Gardener and Read-Only Third-Party Pilot
+on:
+  push:
+    branches: [graft/027-capability-gardener]
+  pull_request:
+    paths:
+      - 'src/capability-gardener-027.mjs'
+      - 'src/live-pilot-027.mjs'
+      - 'test/*-027.test.mjs'
+      - '.github/workflows/graft027.yml'
+permissions:
+  contents: read
+jobs:
+  mutate-and-test:
+    runs-on: ubuntu-latest
+    timeout-minutes: 8
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Dynamic capability synthesis and adversarial fixture suite
+        run: node --test test/capability-gardener-027.test.mjs test/live-pilot-027.test.mjs test/discovered-adapter-026.test.mjs
+      - name: Approved, one-request public Open-Meteo non-commercial API pilot
+        run: |
+          node --input-type=module -e "import {probePublicExample} from './src/live-pilot-027.mjs';import {writeFileSync} from 'node:fs';const r=await probePublicExample({approvedPublicPilot:true});if(r.status!=='READ_ONLY_THIRD_PARTY_RESPONSE_OBSERVED'||r.requests!==1||r.private_identity_used||r.code_installed)process.exit(1);writeFileSync('graft027-public-openmeteo-observation.json',JSON.stringify(r,null,2));console.log(JSON.stringify({status:r.status,host:r.endpoint_host,example:r.example_location,observedFields:r.response_fields,sourceBodyHash:r.actual_response_digest_sha256,sourceOwnerProven:false}));"
+      - uses: actions/upload-artifact@v4
+        with:
+          name: graft027-live-public-pilot-observation
+          path: graft027-public-openmeteo-observation.json
+          retention-days: 14
