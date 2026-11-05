@@ -1,0 +1,27 @@
+name: GRAFT-030 — Visual grammar from image-difference evidence
+on:
+  push:
+    branches:
+      - graft/030-visual-transition-grammar
+  pull_request:
+    paths:
+      - 'src/visual-grammar-030.mjs'
+      - 'test/visual-grammar-030.test.mjs'
+      - '.github/workflows/graft030.yml'
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  new-visual-grammar:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Actual new source-owned visual grammar tests
+        run: node --test test/visual-grammar-030.test.mjs
+      - name: Original source-owner GRAFT-029 and 028 regression tests
+        run: node --test test/missing-operator-forge-029.test.mjs test/experience-memory-028.test.mjs
