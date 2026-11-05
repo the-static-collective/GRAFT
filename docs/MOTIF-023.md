@@ -1,6 +1,6 @@
 # GRAFT-023 — Composable execution from observed source gaps
 
-Source-owner candidate compiler `src/motif023-compiler.mjs` imports **original planZ-023** code at exact Git blob `d0480b0e1089bcc8d731e0b7fd23141fe5adbbc0` and original planZ-021 finite Dijkstra at `22d75c26039e5783b59cf71be02982428603128c`, verifying both before compilation. The input is an ALEX-023 **actually fetched** verified-public GitHub source packet and a planZ-023 classical plan **replayed and checked** against that packet.
+Source-owner candidate compiler `src/motif023-compiler.mjs` imports **original planZ-023** code at exact Git blob `5e4073cd245714eaca63036d60190780feb22171` and original planZ-021 finite Dijkstra at `22d75c26039e5783b59cf71be02982428603128c`, verifying both before compilation. The input is an ALEX-023 **actually fetched** verified-public GitHub source packet and a planZ-023 classical plan **replayed and checked** against that packet.
 
 The composer generates **new executable ES module source** using the *verified plan's actual mode and chosen classical actions*. It only emits fixed audited program fragments plus checked finite plan metadata; user text, external HTML and source excerpts are **never injected as executable code**.
 
