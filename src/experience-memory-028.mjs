@@ -65,6 +65,7 @@ export function verifyExperience(record){
     record.source_spec_blob!==record.source_packet.public_provider_proposals[0]?.git_blob||
     digest(record.evaluation)!==record.evaluation_sha256||
     record.evaluation.authority!=='none'||record.evaluation.production_install!==false||
+    record.outcome!==record.evaluation.status||
     !['HELD_BEST_FIXTURE_CANDIDATE','HOLD_ALL_VARIANTS_FAIL'].includes(record.evaluation.status))
   throw Error('HOLD_028_UNSUPPORTED_EVALUATION');
  return true;
