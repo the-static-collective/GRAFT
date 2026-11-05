@@ -1,0 +1,31 @@
+name: GRAFT MOTIF-021 Executable Capability
+on:
+  push:
+    branches:
+      - graft/motif021-compiled-capability
+  pull_request:
+    paths:
+      - 'src/motif021-composer.mjs'
+      - 'vendor/planZ/**'
+      - 'inputs/MOTIF-021/**'
+      - 'generated/motif021-source-review.mjs'
+      - 'test/motif021.test.mjs'
+      - 'scripts/run-motif021.mjs'
+      - '.github/workflows/motif021-capability.yml'
+jobs:
+  compose-and-execute:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+      - name: Verify native planZ import, source cuts and generated module byte identity
+        run: node --test test/motif021.test.mjs
+      - name: Actually execute both generated bounded review capabilities
+        run: node scripts/run-motif021.mjs > motif021-graft-executed-capabilities.json
+      - uses: actions/upload-artifact@v4
+        with:
+          name: graft-motif021-executable-source-review
+          path: motif021-graft-executed-capabilities.json
+          retention-days: 14
