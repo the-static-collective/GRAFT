@@ -4,7 +4,7 @@
 import {createHash} from 'node:crypto';
 import {readFileSync} from 'node:fs';
 import {verifyPlan} from '../vendor/planZ/motif023-replan.mjs';
-const SHA='d0480b0e1089bcc8d731e0b7fd23141fe5adbbc0';
+const SHA='5e4073cd245714eaca63036d60190780feb22171';
 const SHA_CLASSICAL='22d75c26039e5783b59cf71be02982428603128c';
 const MODES=['LINEAGE','COMPOSITION','REFERENCE'];
 const hash=x=>createHash('sha256').update(x).digest('hex');
