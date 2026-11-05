@@ -1,0 +1,21 @@
+name: GRAFT-026 Discovered Provider to Local Executable
+on:
+  push:
+    branches: [graft/026-discovered-adapter]
+  pull_request:
+    paths:
+      - 'src/discovered-adapter-026.mjs'
+      - 'vendor/alex/**'
+      - 'test/discovered-adapter-026.test.mjs'
+      - '.github/workflows/graft026.yml'
+permissions:
+  contents: read
+jobs:
+  verify-compilation:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - run: node --test test/discovered-adapter-026.test.mjs
