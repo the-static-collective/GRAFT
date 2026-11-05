@@ -126,10 +126,11 @@ export function replanAfterObservation(packet,plan,feedback){
   !Array.isArray(feedback.gaps)||feedback.gaps.length>10)
   throw Error('HOLD_UNVERIFIED_COMPOSED_FEEDBACK');
  const observedGaps=feedback.gaps;
- const nextKind=observedGaps.includes('UNCERTIFIED_SOURCE_FAMILY')?
-  'TEST_INDEPENDENT_SOURCE_FAMILY':
-  observedGaps.includes('SOURCE_SCOPE_PARTIAL')?
-   'EXPAND_BOUNDED_PUBLIC_SOURCE_COVERAGE':'REVIEW_INDEPENDENT_REPLICA';
+ const nextKind=observedGaps.includes('SOURCE_FETCH_GAPS')||
+  observedGaps.includes('SINGLE_REPO_SAMPLE')?
+  'EXPAND_BOUNDED_PUBLIC_SOURCE_COVERAGE':
+  observedGaps.includes('UNCERTIFIED_SOURCE_FAMILY')?
+   'TEST_INDEPENDENT_SOURCE_FAMILY':'REVIEW_INDEPENDENT_REPLICA';
  const actions=[
   action('INSPECT_REPLAYED_CAPABILITY_OUTPUT',1,['FEEDBACK_PRESENT'],['FEEDBACK_READ']),
   action('DOCUMENT_UNRESOLVED_SOURCE_GAPS',1,['FEEDBACK_READ'],['GAPS_NOTED']),
