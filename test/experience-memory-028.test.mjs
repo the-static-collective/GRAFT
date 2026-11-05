@@ -97,7 +97,8 @@ test('old experience stays honest when hypothetical data changes',async()=>{
  assert.throws(()=>verifyExperience(altered),/RECORD_CHANGED/);
  const recalc={...altered};delete recalc.receipt_sha256;
  altered.receipt_sha256=sha(recalc);
- assert.throws(()=>verifyExperience(altered),/UNSUPPORTED_EVALUATION/);
+ assert.equal(verifyExperience(altered),true); // An attacker can rehash a local JSON record.
+ await assert.rejects(replayExperience(altered),/REPLAY_DIVERGED/);
 });
 test('attacker cannot install code by editing a replay receipt or previous outcome',async()=>{
  const r=await captureExperience({source_packet:source(),cases:weather(),approvedSyntheticCapture:true});
