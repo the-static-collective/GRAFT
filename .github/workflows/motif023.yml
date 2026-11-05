@@ -1,0 +1,22 @@
+name: GRAFT-023 Observed-Capability Compilation
+on:
+  push:
+    branches:
+      - graft/023-observation-composed-capability
+  pull_request:
+    paths:
+      - 'src/motif023-compiler.mjs'
+      - 'vendor/planZ/motif023-replan.mjs'
+      - 'test/motif023.test.mjs'
+      - '.github/workflows/motif023.yml'
+permissions:
+  contents: read
+jobs:
+  compile-and-execute:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+      - run: node --test test/motif023.test.mjs test/motif022.test.mjs
