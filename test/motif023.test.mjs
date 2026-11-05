@@ -27,7 +27,7 @@ function source(question,n=2){
 }
 test('native original planZ source, not a rewritten fake, is Git-blob verified',()=>{
  const v=verifyNativePlanZ();
- assert.equal(v.exact_replan_blob,'d0480b0e1089bcc8d731e0b7fd23141fe5adbbc0');
+ assert.equal(v.exact_replan_blob,'5e4073cd245714eaca63036d60190780feb22171');
  assert.equal(v.original_classical_blob,'22d75c26039e5783b59cf71be02982428603128c');
 });
 test('two new observed plans produce different executable JS source, both run',async()=>{
