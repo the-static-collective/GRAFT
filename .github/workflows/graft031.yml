@@ -1,0 +1,55 @@
+name: 'GRAFT-031 — Learn Held Environmental State Update Beyond Previous Visual Grammar'
+on:
+  push:
+    branches:
+      - experiment/graft-031-out-of-support-world-model
+  pull_request:
+    paths:
+      - 'src/world-model-031.mjs'
+      - 'test/world-model-031.test.mjs'
+      - '.github/workflows/graft031.yml'
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  finite-model-expansion:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Original source-owned GRAFT-030 visual regression
+        run: node --test test/visual-grammar-030.test.mjs
+      - name: Novel finite model generator selection, negative controls and blind-like fixtures
+        run: node --test test/world-model-031.test.mjs
+      - name: Prove a new environment-model operator was actually generated
+        run: |
+          mkdir -p evidence
+          node --input-type=module - <<'JS'
+          import {fixture,fixtureSets,makeTicket,cultivate,digest} from './src/world-model-031.mjs';
+          import {writeFileSync} from 'node:fs';
+          const a=fixture(),ticket=makeTicket(a.before,a.after);
+          const result=await cultivate(ticket,fixtureSets());
+          if(result.status!=='HELD_NEW_EXTERNAL_EVENT_MODEL' ||
+             result.chosen?.mode!=='open_observed_pair' ||
+             result.candidate_count!==3 ||
+             result.considered.filter(x=>x.accepted).length!==1 ||
+             result.auto_install!==false)
+            throw Error('No unique safe source-generated operator found');
+          writeFileSync('evidence/question.json',JSON.stringify(ticket,null,2));
+          writeFileSync('evidence/held-generation.json',JSON.stringify(result,null,2));
+          writeFileSync('evidence/new-environment-model.mjs',result.chosen.source);
+          console.log(JSON.stringify({chosen:result.chosen.mode,
+            generated_source_sha256:result.chosen.source_sha256,
+            all_old_models_insufficient:true,
+            physical_gate_commands:0,auto_admission:false},null,2));
+          JS
+      - uses: actions/upload-artifact@v4
+        with:
+          name: GRAFT-031-NEW-WORLD-MODEL-HELD
+          path: evidence/
+          retention-days: 30
+          if-no-files-found: error
