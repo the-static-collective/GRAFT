@@ -62,6 +62,10 @@ test('two actual GRAFT searches synthesize same complete four-gate NAND-only met
    ]);
  assert.equal(classical.selectedCircuit.gates.length,4);
  assert.equal(spec().publicExamples.length,2);
+ assert.equal(r.localExistingLibraryControl.original017WholeDocumentProgramsActuallyRead,72);
+ assert.equal(r.localExistingLibraryControl.original018TextOperatorsActuallyRead,5);
+ assert.equal(r.localExistingLibraryControl.originalNandOnlyCircuitsFound,0);
+ assert.equal(r.localExistingLibraryControl.intentionallyNarrowLocalCatalogNotGlobalLibrarySearch,true);
 });
 test('independent source-owned verifier replays every reported candidate count, not just final answers',async()=>{
  const r=await research();
