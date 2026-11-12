@@ -1,0 +1,64 @@
+name: GRAFT 018 / missing primitive x source-pinned native MOTIF
+on:
+  push:
+    paths:
+      - 'experiments/capability-018/**'
+      - '.github/workflows/graft-capability-018.yml'
+  pull_request:
+    paths:
+      - 'experiments/capability-018/**'
+      - '.github/workflows/graft-capability-018.yml'
+permissions:
+  contents: read
+jobs:
+  synthesize-and-independently-falsify:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Checkout source-pinned original Jubilee 018 problem and independent Unicode verifier
+        uses: actions/checkout@v4
+        with:
+          repository: the-static-collective/Jubilee-treasury
+          ref: dbf352e67829dc27ce5b97bd35b50dd61403f946
+          path: jubilee-source
+          persist-credentials: false
+      - name: Checkout source-pinned original native MOTIF-003
+        uses: actions/checkout@v4
+        with:
+          repository: the-static-collective/MOTIF
+          ref: 66d27cfbd077b2c91d0d86d66e320206d88d8f95
+          path: motif-source
+          persist-credentials: false
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Original native MOTIF-003 ranks which missing-primitive hypothesis opens greatest structural affordances
+        env:
+          MOTIF_SOURCE_ROOT: motif-source
+        run: python3 experiments/capability-018/native_motif_priority.py > "$RUNNER_TEMP/motif-018-priority.json"
+      - name: Run GRAFT synthesis, classical control, independent Jubilee verification and Unicode holdouts
+        env:
+          JUBILEE_SOURCE_ROOT: jubilee-source
+          MOTIF_PRIORITY_FILE: ${{ runner.temp }}/motif-018-priority.json
+        run: node --test experiments/capability-018/test/*.test.mjs
+      - run: node --check experiments/capability-018/primitive.mjs
+      - run: node --check experiments/capability-018/synthesize.mjs
+      - run: node --check experiments/capability-018/cross.mjs
+      - name: Actually produce frozen primitive experiment JSON from source-owned Jubilee public contract
+        env:
+          JUBILEE_SOURCE_ROOT: jubilee-source
+        run: |
+          node jubilee-source/labs/penny-puddle-018/export.mjs > "$RUNNER_TEMP/jubilee-018-public.json"
+          node experiments/capability-018/cross.mjs --request "$RUNNER_TEMP/jubilee-018-public.json" --priority "$RUNNER_TEMP/motif-018-priority.json" --out "$RUNNER_TEMP/graft-018-results"
+      - name: Jubilee independently tests frozen programs against Unicode holdouts and recomposes CONCORD
+        run: |
+          node jubilee-source/labs/penny-puddle-018/verify-output.mjs --request "$RUNNER_TEMP/jubilee-018-public.json" --kit "$RUNNER_TEMP/graft-018-results"
+      - name: Preserve inert JSON evidence and original native MOTIF selection
+        uses: actions/upload-artifact@v4
+        with:
+          name: graft-jubilee-motif-018-primitive-evidence
+          path: |
+            ${{ runner.temp }}/graft-018-results/missing-primitive-report.json
+            ${{ runner.temp }}/motif-018-priority.json
+          if-no-files-found: error
+          retention-days: 14
