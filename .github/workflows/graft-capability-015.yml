@@ -1,0 +1,40 @@
+name: GRAFT CAPABILITY-015 / source-pinned Jubilee local build
+on:
+  push:
+    paths:
+      - 'experiments/capability-015/**'
+      - '.github/workflows/graft-capability-015.yml'
+  pull_request:
+    paths:
+      - 'experiments/capability-015/**'
+      - '.github/workflows/graft-capability-015.yml'
+permissions:
+  contents: read
+jobs:
+  build-and-verify:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Read exact Jubilee donor research source without mutation
+        uses: actions/checkout@v4
+        with:
+          repository: the-static-collective/Jubilee-treasury
+          ref: 51989f5fa1f608558b8019e7a109161d1d29f8bc
+          path: jubilee-source
+          persist-credentials: false
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Assert original cross-repository modules and safe build
+        env:
+          JUBILEE_SOURCE_ROOT: jubilee-source
+        run: node --test experiments/capability-015/test/*.test.mjs
+      - run: node --check experiments/capability-015/compiler.mjs
+      - run: node --check experiments/capability-015/cross.mjs
+      - name: Create an actual, new local artifact directory in CI
+        run: |
+          node jubilee-source/labs/penny-puddle-015/export-request.mjs > "$RUNNER_TEMP/jubilee-015-request.json"
+          node experiments/capability-015/cross.mjs --request "$RUNNER_TEMP/jubilee-015-request.json" --out "$RUNNER_TEMP/graft-015-output"
+      - name: Let Jubilee independently inspect local GRAFT bytes and its new conditional route
+        run: |
+          node jubilee-source/labs/penny-puddle-015/verify-output.mjs --request "$RUNNER_TEMP/jubilee-015-request.json" --kit "$RUNNER_TEMP/graft-015-output"
