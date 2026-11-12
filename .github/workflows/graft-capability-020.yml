@@ -1,0 +1,67 @@
+name: GRAFT 020 / structural memory repair through native MOTIF and independent Jubilee
+on:
+  push:
+    paths:
+      - 'experiments/capability-020/**'
+      - '.github/workflows/graft-capability-020.yml'
+  pull_request:
+    paths:
+      - 'experiments/capability-020/**'
+      - '.github/workflows/graft-capability-020.yml'
+permissions:
+  contents: read
+jobs:
+  structural-memory:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Check out exact Jubilee 020 contract, developer oracle and independent parser
+        uses: actions/checkout@v4
+        with:
+          repository: the-static-collective/Jubilee-treasury
+          ref: 50838b8ea7ddcf857df86a7963b6fa61b5f626c6
+          path: jubilee-source
+          persist-credentials: false
+      - name: Check out original native MOTIF-003 source at exact historical ref
+        uses: actions/checkout@v4
+        with:
+          repository: the-static-collective/MOTIF
+          ref: 66d27cfbd077b2c91d0d86d66e320206d88d8f95
+          path: motif-source
+          persist-credentials: false
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Actually run native MOTIF-003 to select fallible structural-memory hypotheses
+        env:
+          MOTIF_SOURCE_ROOT: motif-source
+        run: python3 experiments/capability-020/native_priority.py > "$RUNNER_TEMP/native-020-memory.json"
+      - name: Actual 48-program synthesis, classical CEGIS, independently heldout evaluation and 5461-input property battery
+        env:
+          JUBILEE_SOURCE_ROOT: jubilee-source
+          MOTIF_PRIORITY_FILE: ${{ runner.temp }}/native-020-memory.json
+        run: node --test experiments/capability-020/test/*.test.mjs
+      - name: Syntax and explicit original native Python verification
+        run: |
+          node --check experiments/capability-020/program.mjs
+          node --check experiments/capability-020/synthesize.mjs
+          node --check experiments/capability-020/cross.mjs
+          python3 -m py_compile experiments/capability-020/native_priority.py
+      - name: Generate source-owned public challenge and genuinely freeze new typed architecture
+        env:
+          JUBILEE_SOURCE_ROOT: jubilee-source
+        run: |
+          node jubilee-source/labs/penny-puddle-020/export.mjs > "$RUNNER_TEMP/jubilee-020-public.json"
+          node experiments/capability-020/cross.mjs --request "$RUNNER_TEMP/jubilee-020-public.json" --priority "$RUNNER_TEMP/native-020-memory.json" --out "$RUNNER_TEMP/graft-020-frozen"
+      - name: After freezing, independently verify in Jubilee; no invented economic acceptance
+        run: |
+          node jubilee-source/labs/penny-puddle-020/verify-output.mjs --request "$RUNNER_TEMP/jubilee-020-public.json" --kit "$RUNNER_TEMP/graft-020-frozen"
+      - name: Upload inert source-pinned architecture and failed-hypothesis evidence
+        uses: actions/upload-artifact@v4
+        with:
+          name: graft-jubilee-motif-020-structure-evidence
+          path: |
+            ${{ runner.temp }}/graft-020-frozen/structure-report.json
+            ${{ runner.temp }}/native-020-memory.json
+          if-no-files-found: error
+          retention-days: 14
