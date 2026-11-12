@@ -1,0 +1,51 @@
+{
+  "schema": "graft.held-donor-proposal/v1",
+  "id": "MOTIF-RECIPROCAL-004",
+  "observedOn": "2026-11-12",
+  "owner": "the-static-collective/MOTIF",
+  "source": {
+    "exactCommit": "efb9fe46ebad1b0fc1da91bd7834b7c9fac00707",
+    "branchAtInspection": "experiment/reciprocal-004-ecosystem-crosswire-20261112",
+    "paths": [
+      "experiments/reciprocal-002/two_doors.js",
+      "experiments/reciprocal-003/reason_loop.js",
+      "experiments/reciprocal-004/ecosystem-crosswire.mjs",
+      "experiments/reciprocal-004/capability-passport.v1.json"
+    ],
+    "visibility": "public",
+    "containsHumanData": false
+  },
+  "admission": {
+    "state": "HELD_DONOR_REVIEW_ONLY",
+    "decision": "NO_IMPORT",
+    "codeCopiedIntoGraft": false,
+    "originalHistoryCopied": false,
+    "automaticMerge": false,
+    "transitiveAuthority": false,
+    "downstreamMachineCallable": false,
+    "receiverOwnerMustReview": true
+  },
+  "allowedResearch": [
+    "read_exact_public_source",
+    "execute_original_synthetic_tests_in_ci",
+    "inspect_portable_fixture_only_free_graph",
+    "produce_local_held_review_record"
+  ],
+  "prohibited": [
+    "import_raw_human_responses",
+    "auto_questioning",
+    "unsolicited_contact",
+    "secrets",
+    "production_deploy",
+    "source_truth_promotion",
+    "auto_cartridge_install",
+    "CANNON_admission"
+  ],
+  "acceptanceEvidence": {
+    "upstreamPr": "https://github.com/the-static-collective/MOTIF/pull/325",
+    "upstreamWorkflow": "https://github.com/the-static-collective/MOTIF/actions/runs/43298666499",
+    "freeGraphOriginalPin": "ec0ad8743c5faac3f3675760bbafcbcb1df846c1",
+    "knownBoundary": "source_world_synthetic_fixtures_only"
+  },
+  "nextGate": "An independent reviewer must check original source, verify the imported fixture-only candidate, and explicitly approve any later GRAFT branch transplant."
+}

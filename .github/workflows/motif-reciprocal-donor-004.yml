@@ -1,0 +1,67 @@
+name: GRAFT — native MOTIF reciprocal donor in HOLD
+on:
+  push:
+    branches:
+      - graft/motif-reciprocal-004-held-candidate
+  pull_request:
+    paths:
+      - 'candidate-holds/motif-reciprocal-004.json'
+      - 'test/motif-reciprocal-donor.test.mjs'
+      - '.github/workflows/motif-reciprocal-donor-004.yml'
+      - 'docs/MOTIF-RECIPROCAL-004.md'
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  native-source-review:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+      - name: Acquire exact original MOTIF public owner source, not all Git history
+        uses: actions/checkout@v4
+        with:
+          repository: the-static-collective/MOTIF
+          ref: efb9fe46ebad1b0fc1da91bd7834b7c9fac00707
+          path: _external/motif
+          persist-credentials: false
+      - name: Execute original bounded 002/003/004 logic, then GRAFT donor tests
+        run: |
+          git -C _external/motif rev-parse HEAD
+          node _external/motif/experiments/reciprocal-002/test_engine.cjs
+          node _external/motif/experiments/reciprocal-003/test_research.cjs
+          node --test _external/motif/experiments/reciprocal-004/test-crosswire.mjs
+          node --test test/motif-reciprocal-donor.test.mjs
+      - name: Generate one original fixture packet for portable Free Graph review
+        run: |
+          node _external/motif/experiments/reciprocal-004/ecosystem-crosswire.mjs --out /tmp/graft-motif-held
+      - name: Acquire exact original Free Graph contract, no repo write
+        uses: actions/checkout@v4
+        with:
+          repository: the-static-collective/free-graph
+          ref: ec0ad8743c5faac3f3675760bbafcbcb1df846c1
+          path: _external/free-graph
+          persist-credentials: false
+      - name: Validate original portable graph and HOLD receipts
+        run: |
+          python3 _external/free-graph/scripts/fg.py validate /tmp/graft-motif-held/motif-reciprocal-free-graph.json
+          python3 - <<'PY'
+          import json
+          from pathlib import Path
+          manifest=json.loads(Path('candidate-holds/motif-reciprocal-004.json').read_text())
+          x=json.loads(Path('/tmp/graft-motif-held/motif-reciprocal-crosswire.json').read_text())
+          assert manifest['admission']['decision']=='NO_IMPORT'
+          assert manifest['admission']['codeCopiedIntoGraft'] is False
+          assert x['crossing']['authority']=='none'
+          assert x['crossing']['receiverMayAct'] is False
+          assert x['trial']['strongMatchedClassical']=='exact_tie'
+          print('GRAFT_PUBLIC_SOURCE_HELD_NO_IMPORT')
+          PY
+      - uses: actions/upload-artifact@v4
+        with:
+          name: graft-held-motif-native-donor-public-receipts
+          path: /tmp/graft-motif-held/*.json
+          retention-days: 30
