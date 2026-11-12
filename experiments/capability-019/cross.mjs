@@ -7,6 +7,10 @@ import {readFile,mkdir,writeFile} from 'node:fs/promises';
 import {resolve,join} from 'node:path';
 import {pathToFileURL,fileURLToPath} from 'node:url';
 import {runBoth} from './synthesize.mjs';
+import {allPrograms as existing017DocumentPrograms}
+ from '../capability-017/primitives.mjs';
+import {modes as existing018TextOperators}
+ from '../capability-018/primitive.mjs';
 
 function verifiedNativePrior(proof){
  if(!proof||proof.schema!=='motif.native-nand-affordance-019/v1'||
@@ -38,6 +42,16 @@ export async function conductGateResearch(spec,priority,sourceRoot){
   resolve(root,'labs/penny-puddle-019/development.mjs')).href);
  jubilee.validChallenge(spec);
  const result=runBoth(spec,firstPairs,dev.firstFailedDevelopmentCase);
+ const priorDocuments=existing017DocumentPrograms();
+ const priorText=existing018TextOperators;
+ const priorCircuits=priorDocuments.filter(x=>x.schema==='graft.nand-circuit/v1');
+ result.localExistingLibraryControl={
+  original017WholeDocumentProgramsActuallyRead:priorDocuments.length,
+  original018TextOperatorsActuallyRead:priorText.length,
+  originalNandOnlyCircuitsFound:priorCircuits.length,
+  currentDomainIsBooleanNotDocumentFormatting:true,
+  intentionallyNarrowLocalCatalogNotGlobalLibrarySearch:true
+ };
  result.nativeEvidence={
   originalMotifSourceBlobVerified:true,
   selectedFirstGate:priority.nativeHighestAffordanceGate,
