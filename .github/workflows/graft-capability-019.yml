@@ -1,0 +1,64 @@
+name: GRAFT CAPABILITY-019 / synthesize XOR-like NAND macro from one primitive
+on:
+  push:
+    paths:
+      - 'experiments/capability-019/**'
+      - '.github/workflows/graft-capability-019.yml'
+  pull_request:
+    paths:
+      - 'experiments/capability-019/**'
+      - '.github/workflows/graft-capability-019.yml'
+permissions:
+  contents: read
+jobs:
+  construct-and-transfer:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Source-pin original independent Jubilee 019 problem and verifier
+        uses: actions/checkout@v4
+        with:
+          repository: the-static-collective/Jubilee-treasury
+          ref: 0860e1febe4e7740e3612a3c3caf193c0dd14210
+          path: jubilee-source
+          persist-credentials: false
+      - name: Source-pin original native MOTIF-003 affordance implementation
+        uses: actions/checkout@v4
+        with:
+          repository: the-static-collective/MOTIF
+          ref: 66d27cfbd077b2c91d0d86d66e320206d88d8f95
+          path: motif-source
+          persist-credentials: false
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Original MOTIF-003 analyzes actual two-step NAND truth-function affordances
+        env:
+          MOTIF_SOURCE_ROOT: motif-source
+        run: python3 experiments/capability-019/native_motif_priority.py > "$RUNNER_TEMP/motif-019-first-gate-order.json"
+      - name: GRAFT actual NAND synthesis and independent Jubilee 201-circuit lower bound + transfer
+        env:
+          JUBILEE_SOURCE_ROOT: jubilee-source
+          MOTIF_PRIORITY_FILE: ${{ runner.temp }}/motif-019-first-gate-order.json
+        run: node --test experiments/capability-019/test/*.test.mjs
+      - run: node --check experiments/capability-019/nand.mjs
+      - run: node --check experiments/capability-019/synthesize.mjs
+      - run: node --check experiments/capability-019/cross.mjs
+      - name: Build frozen, fully executable and replayable NAND circuit research report
+        env:
+          JUBILEE_SOURCE_ROOT: jubilee-source
+        run: |
+          node jubilee-source/labs/penny-puddle-019/export.mjs > "$RUNNER_TEMP/jubilee-019-public.json"
+          node experiments/capability-019/cross.mjs --request "$RUNNER_TEMP/jubilee-019-public.json" --priority "$RUNNER_TEMP/motif-019-first-gate-order.json" --out "$RUNNER_TEMP/graft-019-produced"
+      - name: Source-owned independent Jubilee verifies CEGIS, minimality and FINAL 3-input transfer
+        run: |
+          node jubilee-source/labs/penny-puddle-019/verify-output.mjs --request "$RUNNER_TEMP/jubilee-019-public.json" --kit "$RUNNER_TEMP/graft-019-produced"
+      - name: Preserve inert circuit and original native-MOTIF research evidence
+        uses: actions/upload-artifact@v4
+        with:
+          name: graft-motif-jubilee-019-nand-derived-macro
+          path: |
+            ${{ runner.temp }}/graft-019-produced/gate-research-report.json
+            ${{ runner.temp }}/motif-019-first-gate-order.json
+          if-no-files-found: error
+          retention-days: 14
