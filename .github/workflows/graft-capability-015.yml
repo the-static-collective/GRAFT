@@ -38,3 +38,10 @@ jobs:
       - name: Let Jubilee independently inspect local GRAFT bytes and its new conditional route
         run: |
           node jubilee-source/labs/penny-puddle-015/verify-output.mjs --request "$RUNNER_TEMP/jubilee-015-request.json" --kit "$RUNNER_TEMP/graft-015-output"
+      - name: Preserve the invented offline display and proof as downloadable CI artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: jubilee-graft-015-offline-story-card
+          path: ${{ runner.temp }}/graft-015-output/
+          if-no-files-found: error
+          retention-days: 14
