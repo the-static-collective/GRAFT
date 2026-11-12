@@ -108,7 +108,7 @@ test('independent receiving verifier allows one new conditional operator only af
 test('post-freeze exhaustive small Unicode alphabet battery: 1,554 composed inputs, lossless and maximal',async()=>{
  const r=await research();
  const programs=r.runs.map(x=>x.selectedProgram);
- const alphabet=['a','A','e\\u0301','👩‍💻','🇺🇸',' '];
+ const alphabet=['a','A','é','👩‍💻','🇺🇸',' '];
  const reference=text=>{
   const units=[...new Intl.Segmenter('en',{granularity:'grapheme'}).segment(text)]
     .map(x=>x.segment);
