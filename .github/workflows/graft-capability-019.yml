@@ -1,0 +1,67 @@
+name: GRAFT CAPABILITY-019 / construct and independently falsify missing run-reducer
+on:
+  push:
+    paths:
+      - 'experiments/capability-019/**'
+      - '.github/workflows/graft-capability-019.yml'
+  pull_request:
+    paths:
+      - 'experiments/capability-019/**'
+      - '.github/workflows/graft-capability-019.yml'
+permissions:
+  contents: read
+jobs:
+  synthesize-and-falsify:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Checkout exact source-owned Jubilee 019 spec and independent Unicode tests
+        uses: actions/checkout@v4
+        with:
+          repository: the-static-collective/Jubilee-treasury
+          ref: 9b886abaa8bdce5879031da24406b42c4bcd43e4
+          path: jubilee-source
+          persist-credentials: false
+      - name: Checkout original native MOTIF-003 research code at exact commit
+        uses: actions/checkout@v4
+        with:
+          repository: the-static-collective/MOTIF
+          ref: 66d27cfbd077b2c91d0d86d66e320206d88d8f95
+          path: motif-source
+          persist-credentials: false
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Source-verified original MOTIF-003 chooses an imperfect primitive hypothesis
+        env:
+          MOTIF_SOURCE_ROOT: motif-source
+        run: python3 experiments/capability-019/native_priority.py > "$RUNNER_TEMP/native-motif-019-priority.json"
+      - name: Execute actual GRAFT + original native MOTIF ordered + classical baseline + independent Jubilee tests
+        env:
+          JUBILEE_SOURCE_ROOT: jubilee-source
+          MOTIF_PRIORITY_FILE: ${{ runner.temp }}/native-motif-019-priority.json
+        run: node --test experiments/capability-019/test/*.test.mjs
+      - name: Check source modules for valid executable syntax
+        run: |
+          node --check experiments/capability-019/program.mjs
+          node --check experiments/capability-019/synthesize.mjs
+          node --check experiments/capability-019/cross.mjs
+          python3 -m py_compile experiments/capability-019/native_priority.py
+      - name: Export actual pinned Jubilee public spec and write frozen GRAFT program JSON
+        env:
+          JUBILEE_SOURCE_ROOT: jubilee-source
+        run: |
+          node jubilee-source/labs/penny-puddle-019/export.mjs > "$RUNNER_TEMP/jubilee-019-public.json"
+          node experiments/capability-019/cross.mjs --request "$RUNNER_TEMP/jubilee-019-public.json" --priority "$RUNNER_TEMP/native-motif-019-priority.json" --out "$RUNNER_TEMP/graft-019-frozen"
+      - name: Only after freezing, Jubilee independently checks all eight final-only cases
+        run: |
+          node jubilee-source/labs/penny-puddle-019/verify-output.mjs --request "$RUNNER_TEMP/jubilee-019-public.json" --kit "$RUNNER_TEMP/graft-019-frozen"
+      - name: Preserve only inert JSON proof of failed and successful candidates
+        uses: actions/upload-artifact@v4
+        with:
+          name: motif-graft-jubilee-019-constructive-evidence
+          path: |
+            ${{ runner.temp }}/graft-019-frozen/constructed-primitive-report.json
+            ${{ runner.temp }}/native-motif-019-priority.json
+          if-no-files-found: error
+          retention-days: 14
