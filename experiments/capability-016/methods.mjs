@@ -69,6 +69,28 @@ export function runCandidate(spec,methodId){
    productionAdmitted:false
   }};
 }
+/**
+ * Two controlled renderer ports for independent MOTIF-010 active diagnosis.
+ * Four cases are all actually rendered; an independent evaluator reveals
+ * only the selected one after native Scientist requests that intervention.
+ * Test-only intentionally unsafe HTML is stored as DATA inside JSON.
+ */
+export function controlledDiagnostics(spec){
+ const scenario=proposalForCase(spec,'hostile-markup');
+ const out=[];
+ for(const escaped of [false,true])for(const printable of [false,true]){
+  const s=scenario.syntheticStory;
+  const maybe=x=>escaped?escaping(x):x;
+  const html='<!doctype html><html lang="en"><head><meta charset="utf-8">'+
+   (printable?'<style>@media print{body{color:black}}</style>':'')+
+   '</head><body><h1>'+maybe(s.title)+'</h1>'+
+   '<p>'+maybe(s.subtitle)+'</p>'+
+   s.captions.map(x=>'<p>'+maybe(x)+'</p>').join('')+
+   '</body></html>';
+  out.push({escaped,printable,html,sha256:sha(html),synthetic:true});
+ }
+ return out;
+}
 export function runAllCandidates(spec){
  if(!spec||!Array.isArray(spec.methods)||spec.methods.length!==3)
    throw new Error('Explicit source-controlled candidate list required');
@@ -78,6 +100,7 @@ export function runAllCandidates(spec){
   contractFingerprintSha256:sha(JSON.stringify(spec)),
   sourceMethodScope:'hand-authored-local-methods-not-new-mathematics',
   candidates:spec.methods.map(id=>runCandidate(spec,id)),
+  diagnosticRenders:controlledDiagnostics(spec),
   realHumanContactCount:0,
   actualFundsMovedCents:0,
   externalActionAuthorization:false,
