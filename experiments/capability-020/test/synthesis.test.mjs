@@ -97,6 +97,29 @@ test('post-freeze 5,461-string exhaustive bracket battery matches a DIRECT class
  check('',0);
  assert.equal(visited,1+4+16+64+256+1024+4096);
 });
+test('post-freeze long-range nesting tests reach the exact forty-token input bound',async()=>{
+ const r=await research(),winners=r.runs.map(x=>x.selectedProgram);
+ const cases=[
+  '('.repeat(20)+')'.repeat(20),
+  '['.repeat(20)+']'.repeat(20),
+  '(['.repeat(10)+'])'.repeat(10),
+  '(['.repeat(9)+'([)]'+'])'.repeat(9),
+  ')'+ '('.repeat(19)+')'.repeat(20),
+  '()[]'.repeat(10)
+ ];
+ assert.equal(cases.every(x=>x.length===40),true);
+ for(const s of cases){
+  const expected=independent.classicalStackReference(s);
+  for(const program of winners){
+   assert.deepEqual(execute(program,s),expected,s);
+   assert.deepEqual(independent.interpret(program,s),expected,s);
+  }
+ }
+ assert.equal(independent.classicalStackReference(cases[0]).valid,true);
+ assert.equal(independent.classicalStackReference(cases[3]).valid,false);
+ assert.equal(independent.classicalStackReference(cases[4]).valid,false);
+});
+
 test('the recipient verifies technique but correctly DOES NOT invent a new creditor agreement or economic usefulness',async()=>{
  const report=await research(),result=receiver.verifyArchitecture(spec(),report);
  assert.equal(result.status,'TESTED-NEW-TO-LIBRARY-MEMORY-ARCHITECTURE-PROPOSE-ONLY');
