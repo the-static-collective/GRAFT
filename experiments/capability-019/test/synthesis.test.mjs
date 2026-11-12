@@ -104,6 +104,39 @@ test('independent receiving verifier allows one new conditional operator only af
  assert.equal(v.productionAdmitted,false);
  assert.equal(v.historicallyNovelAlgorithm,false);
 });
+
+test('post-freeze exhaustive small Unicode alphabet battery: 1,554 composed inputs, lossless and maximal',async()=>{
+ const r=await research();
+ const programs=r.runs.map(x=>x.selectedProgram);
+ const alphabet=['a','A','e\\u0301','👩‍💻','🇺🇸',' '];
+ const reference=text=>{
+  const units=[...new Intl.Segmenter('en',{granularity:'grapheme'}).segment(text)]
+    .map(x=>x.segment);
+  const result=[];
+  for(const unit of units){
+   if(result.length&&result.at(-1)[0]===unit)result.at(-1)[1]++;
+   else result.push([unit,1]);
+  }
+  return result;
+ };
+ let examined=0;
+ function verifyAll(prefix,depth){
+  if(depth>0){
+   const expected=reference(prefix);
+   for(const p of programs){
+    assert.deepEqual(runCandidate(p,prefix),expected,prefix);
+    assert.deepEqual(indie.compileAndRun(p,prefix),expected,prefix);
+    assert.equal(indie.checkRLEProgram(p,
+     {input:prefix,expected}).passed,true,prefix);
+   }
+   examined++;
+  }
+  if(depth<4)for(const unit of alphabet)verifyAll(prefix+unit,depth+1);
+ }
+ verifyAll('',0);
+ assert.equal(examined,6+36+216+1296);
+});
+
 test('tampered output bytes, forged source provenance, and real-world financial claims all fail closed',async()=>{
  const bad=await research();bad.runs[0].publicOutputHashes[0]='f'.repeat(64);
  assert.equal(verdict.verifyConstruction(spec(),bad).status,'HOLD-invalid-primitive-proof');
