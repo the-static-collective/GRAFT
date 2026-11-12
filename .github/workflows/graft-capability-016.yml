@@ -1,0 +1,58 @@
+name: GRAFT CAPABILITY-016 / competing implementations + native MOTIF scientist
+on:
+  push:
+    paths:
+      - 'experiments/capability-016/**'
+      - '.github/workflows/graft-capability-016.yml'
+  pull_request:
+    paths:
+      - 'experiments/capability-016/**'
+      - '.github/workflows/graft-capability-016.yml'
+permissions:
+  contents: read
+jobs:
+  compare-and-falsify:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Read source-pinned original Jubilee experiment and independent verifier
+        uses: actions/checkout@v4
+        with:
+          repository: the-static-collective/Jubilee-treasury
+          ref: 743aea20ab54d959506b8ad51eb42a2724889a57
+          path: jubilee-source
+          persist-credentials: false
+      - name: Read source-pinned original MOTIF Scientist
+        uses: actions/checkout@v4
+        with:
+          repository: the-static-collective/MOTIF
+          ref: 66d27cfbd077b2c91d0d86d66e320206d88d8f95
+          path: motif-source
+          persist-credentials: false
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Run three real methods and adversarial recipient-side verdicts
+        env:
+          JUBILEE_SOURCE_ROOT: jubilee-source
+        run: node --test experiments/capability-016/test/*.test.mjs
+      - run: node --check experiments/capability-016/methods.mjs
+      - run: node --check experiments/capability-016/cross.mjs
+      - name: Generate actual bounded local experiment report
+        run: |
+          node jubilee-source/labs/penny-puddle-016/export.mjs > "$RUNNER_TEMP/jubilee-016-spec.json"
+          node experiments/capability-016/cross.mjs --request "$RUNNER_TEMP/jubilee-016-spec.json" --out "$RUNNER_TEMP/graft-016-research"
+      - name: Jubilee independently re-evaluates output bytes and recomposes 014 options
+        run: |
+          node jubilee-source/labs/penny-puddle-016/verify.mjs --request "$RUNNER_TEMP/jubilee-016-spec.json" --kit "$RUNNER_TEMP/graft-016-research"
+      - name: Actual MOTIF-010 Scientist selects discriminating controls from rendered output evidence
+        env:
+          MOTIF_SOURCE_ROOT: motif-source
+        run: python3 experiments/capability-016/native_motif_probe.py "$RUNNER_TEMP/graft-016-research/method-evidence.json"
+      - name: Upload ONLY JSON test evidence (includes failed raw HTML as inert JSON text)
+        uses: actions/upload-artifact@v4
+        with:
+          name: jubilee-graft-motif-016-method-evidence
+          path: ${{ runner.temp }}/graft-016-research/method-evidence.json
+          if-no-files-found: error
+          retention-days: 14
