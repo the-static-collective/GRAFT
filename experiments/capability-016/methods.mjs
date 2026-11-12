@@ -28,10 +28,39 @@ function escapedCompact(request){
   '<footer>Invented exhibit. No legal rights or money.</footer>'+
   '</body></html>';
 }
+/**
+ * Fixes a real limitation discovered in original GRAFT-015: its overbroad
+ * guard rejects URL-looking text and event-handler-looking words even after
+ * they have been safely HTML-escaped. Retain 015 as a regression control,
+ * but implement the more precise successor in this separate research branch.
+ *
+ * No raw source data or remote media. Every caption is a TEXT NODE.
+ */
+function renderAccessiblePrint(request){
+ const s=request.syntheticStory;
+ const cards=s.captions.map((caption,i)=>
+  '<section class="card"><span class="number">CARD '+(i+1)+'</span><p>'+
+  escaping(caption)+'</p></section>').join('');
+ const html='<!doctype html><html lang="en"><head><meta charset="utf-8">'+
+  '<meta name="viewport" content="width=device-width, initial-scale=1">'+
+  '<title>'+escaping(s.title)+'</title>'+
+  '<style>body{font:18px/1.55 Georgia,serif;max-width:740px;margin:auto;'+
+  'padding:22px;background:#fbf4e8;color:#1f342c}'+
+  '.card{padding:14px;border:1px solid #bcc9b8;margin:12px 0}'+
+  '.number{font:bold .75rem system-ui}'+
+  '@media print{body{background:white;color:black}.card{break-inside:avoid}}'+
+  '</style></head><body><main><h1>'+escaping(s.title)+'</h1><p>'+
+  escaping(s.subtitle)+'</p>'+cards+'</main>'+
+  '<footer>Fictional only. No title, service, creditor waiver or money.</footer>'+
+  '</body></html>';
+ if(html.length>request.bounds.maxHtmlBytes)
+  throw new Error('Printable fixture exceeded the bounded HTML budget');
+ return html;
+}
 const renderers={
  'unsafe-interpolation':unsafeInterpolation,
  'escaped-compact':escapedCompact,
- 'accessible-print':renderOfflineStoryCard
+ 'accessible-print':renderAccessiblePrint
 };
 export function sourceMethods(){
  return Object.keys(renderers);
@@ -101,6 +130,10 @@ export function runAllCandidates(spec){
   sourceMethodScope:'hand-authored-local-methods-not-new-mathematics',
   candidates:spec.methods.map(id=>runCandidate(spec,id)),
   diagnosticRenders:controlledDiagnostics(spec),
+  legacy015AdversarialFalsePositive:(()=>{
+   try{renderOfflineStoryCard(proposalForCase(spec,'hostile-markup'));return false;}
+   catch(e){return String(e.message).includes('offline HTML envelope');}
+  })(),
   realHumanContactCount:0,
   actualFundsMovedCents:0,
   externalActionAuthorization:false,
