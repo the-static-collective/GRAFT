@@ -32,6 +32,10 @@ This is an explicitly authored structural heuristic. A classical semantics-aware
 
 Original source: `the-static-collective/MOTIF` pinned SHA `66d27cfbd077b2c91d0d86d66e320206d88d8f95`; original `experiments/003/affordance.py` Git blob SHA `db25da0d50a9c8e2cd87aa576a22f969405737cf`.
 
+## A limited actual existing-library control
+
+GRAFT also **imports and examines the original 017 and 018 source-owned catalogs**, rather than merely assuming the operator is missing: 72 existing document-program ASTs and five text-counting operators. None is a NAND-only Boolean circuit program. This is a narrowly scoped existing-project lookup, **not** an exhaustive search of all libraries or prior art; textbook XOR circuits exist elsewhere.
+
 ## Independently test **reusability**, not memorization
 
 Once the GRAFT generator freezes its 4-gate two-input NAND circuit, Jubilee's own interpreter checks its entire truth table.
