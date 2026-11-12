@@ -13,6 +13,7 @@ human profile, external intervention, actual browser execution or payments.
 from __future__ import annotations
 
 import hashlib
+import importlib.util
 import json
 import os
 from pathlib import Path
@@ -37,8 +38,17 @@ def verified_native():
     for module in ("experiments/008", "experiments/009", "experiments/010"):
         sys.path.insert(0, str(root / module))
     import scientist  # noqa: PLC0415
-    from oracle import Observation, PublicControls  # noqa: PLC0415
-    return scientist, Observation, PublicControls
+    # The original scientist adds 008 to sys.path for 009's learner module;
+    # importing generic 'oracle' here would accidentally resolve 008/oracle.
+    # Load the exact same pinned 010 observation schema by ABSOLUTE source path.
+    original = root / "experiments/010/oracle.py"
+    spec = importlib.util.spec_from_file_location("motif010_native_oracle", original)
+    if spec is None or spec.loader is None:
+        raise RuntimeError("Original MOTIF-010 observation schema unavailable")
+    module = importlib.util.module_from_spec(spec)
+    sys.modules[spec.name] = module
+    spec.loader.exec_module(module)
+    return scientist, module.Observation, module.PublicControls
 
 
 def test_markup(case: dict) -> bool:
