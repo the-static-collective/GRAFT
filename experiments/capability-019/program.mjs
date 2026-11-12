@@ -15,7 +15,7 @@ export const grammar=[
 ];
 export function enumeratePrograms(priority=['utf16','codepoint','grapheme']){
  if(JSON.stringify([...priority].sort())!==
-   JSON.stringify(['utf16','codepoint','grapheme']))
+   JSON.stringify(['codepoint','grapheme','utf16']))
   throw new Error('Only bounded source-authorized segmentation orders allowed');
  let partial=[[]];
  for(let i=0;i<grammar.length;i++){
