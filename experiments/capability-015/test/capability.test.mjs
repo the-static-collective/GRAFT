@@ -84,7 +84,7 @@ test('HTML injection is escaped, not interpreted, while no scripts or network ar
  assert.match(html,/&lt;script&gt;/);
  assert.match(html,/&lt;img src=x onerror=&quot;alert\(1\)&quot;&gt;/);
  assert.match(html,/&amp; other folk/);
- assert.doesNotMatch(html,/<script\b|<img\b|onerror=|https?:\/\//i);
+ assert.doesNotMatch(html,/<script\b|<img\b|https?:\/\//i);
 });
 test('reject fabricated authorization and oversized or irrelevant inputs, before any local output',()=>{
  const r=request();r.realActionsAuthorized=true;
