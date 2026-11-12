@@ -62,14 +62,14 @@ def options(world, _verbs):
             update = (world - {("phase", phase)}) | {
                 ("phase", "explore"), ("mode", method)
             }
-            yield ("choose-" + method, (method,), frozenset(update)
+            yield ("choose-" + method, (method,), frozenset(update))
     elif phase == "explore":
         mode = next(v for k, v in world if k == "mode")
         for door in CAPABILITY_DOORS[mode]:
             update = (world - {("phase", phase)}) | {
                 ("phase", "done"), ("reachable-tool", door)
             }
-            yield ("inspect-" + door, (door,), frozenset(update)
+            yield ("inspect-" + door, (door,), frozenset(update))
 
 
 def utility(_world, _initial):
