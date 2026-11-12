@@ -1,0 +1,64 @@
+name: GRAFT CAPABILITY-017 / unwritten typed method synthesis + native MOTIF
+on:
+  push:
+    paths:
+      - 'experiments/capability-017/**'
+      - '.github/workflows/graft-capability-017.yml'
+  pull_request:
+    paths:
+      - 'experiments/capability-017/**'
+      - '.github/workflows/graft-capability-017.yml'
+permissions:
+  contents: read
+jobs:
+  generate-and-falsify:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Checkout source-pinned independent Jubilee 017 contract and heldout evaluator
+        uses: actions/checkout@v4
+        with:
+          repository: the-static-collective/Jubilee-treasury
+          ref: 53a03e6734dd9a4d08692b79e6bdb9e8f5e9e729
+          path: jubilee-source
+          persist-credentials: false
+      - name: Checkout original source-pinned native MOTIF-003
+        uses: actions/checkout@v4
+        with:
+          repository: the-static-collective/MOTIF
+          ref: 66d27cfbd077b2c91d0d86d66e320206d88d8f95
+          path: motif-source
+          persist-credentials: false
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Ask original MOTIF-003 to rank which primitive opens more typed actions
+        env:
+          MOTIF_SOURCE_ROOT: motif-source
+        run: python3 experiments/capability-017/native_motif_priority.py > "$RUNNER_TEMP/graft-017-native-priority.json"
+      - name: Test real GRAFT method composer, independent Jubilee evaluator, and strong exhaustive baseline
+        env:
+          JUBILEE_SOURCE_ROOT: jubilee-source
+          MOTIF_PRIORITY_FILE: ${{ runner.temp }}/graft-017-native-priority.json
+        run: node --test experiments/capability-017/test/*.test.mjs
+      - run: node --check experiments/capability-017/primitives.mjs
+      - run: node --check experiments/capability-017/synthesize.mjs
+      - run: node --check experiments/capability-017/cross.mjs
+      - name: Export exact original public specification and run GRAFT synthesis
+        env:
+          JUBILEE_SOURCE_ROOT: jubilee-source
+        run: |
+          node jubilee-source/labs/penny-puddle-017/export.mjs > "$RUNNER_TEMP/jubilee-017-public.json"
+          node experiments/capability-017/cross.mjs --request "$RUNNER_TEMP/jubilee-017-public.json" --priority "$RUNNER_TEMP/graft-017-native-priority.json" --out "$RUNNER_TEMP/graft-017-generated"
+      - name: Freeze report; Jubilee alone evaluates final-heldout cases and recomposes CONCORD
+        run: |
+          node jubilee-source/labs/penny-puddle-017/verify.mjs --request "$RUNNER_TEMP/jubilee-017-public.json" --kit "$RUNNER_TEMP/graft-017-generated"
+      - name: Preserve primitive program evidence and native test ordering
+        uses: actions/upload-artifact@v4
+        with:
+          name: graft-motif-jubilee-017-unwritten-method-evidence
+          path: |
+            ${{ runner.temp }}/graft-017-generated/generated-method-report.json
+            ${{ runner.temp }}/graft-017-native-priority.json
+          if-no-files-found: error
+          retention-days: 14
