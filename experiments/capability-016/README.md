@@ -10,7 +10,7 @@ The methods are source-owned, hand-written ordinary software techniques:
 |---|---|---|
 | unsafe-interpolation | interpolates invented captions as raw HTML; red-team *data only* | FAIL, demonstrable injection |
 | escaped-compact | escapes captions, minimal printable document | PASS |
-| accessible-print | reuses actual original `../capability-015/compiler.mjs` | PASS, more presentational structure |
+| accessible-print | a corrected, escaped, semantic successor to the original 015 compiler | PASS, more presentational structure |
 
 Each runs on three identical generated fixtures:
 1. Ordinary invented story, identical to Jubilee's 015 local request.
