@@ -99,7 +99,7 @@ test('counterexamples are concrete, not inferred preferences; forged money and w
   'HOLD-INDEPENDENT-VERIFICATION-FAILED');
  const badNative=structuredClone(native);
  badNative.originalAnalyzeFirstMovesExecuted=false;
- await assert.rejects(()=>conductGateResearch(spec(),badNative,jubilee),/source-pinned original MOTIF/);
+ await assert.rejects(()=>conductGateResearch(spec(),badNative,jubilee),/Source-pinned original MOTIF/);
  const swapped=structuredClone(r);
  swapped.runs.reverse();
  assert.equal(originalVerifier.verifyGateLaboratory(spec(),swapped).status,
