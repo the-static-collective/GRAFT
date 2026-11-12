@@ -24,6 +24,7 @@ test('three different real functions run on exactly the same three synthetic cas
  assert.equal(out.realHumanContactCount,0);
  assert.equal(out.externalActionAuthorization,false);
  assert.equal(out.productionAdmitted,false);
+ assert.equal(out.legacy015AdversarialFalsePositive,true);
  assert.equal(out.contractFingerprintSha256,j.requestFingerprint(s));
 });
 test('independent recipient rejects the unsafe implementation and ranks safe accessible method highest',()=>{
